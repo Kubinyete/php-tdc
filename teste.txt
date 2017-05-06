@@ -1,0 +1,60 @@
+Nomes: Ku, Lu, Y,Cla
+
+-
+Objetivo do Projeto: foi desenvolver um sistema de controle de Aliança do jogo Marvel Torneio de Campeões utilizando os conhecimentos adquiridos no curso. Os levantamentos de requisitos foram feitos através de entrevista com o solicitante e a modelagem foi realizada utilizando a Linguagem de Modelagem Unificada. Através da análise das informações obtidas foi possível desenvolver um software que atendeu os requisitos do solicitante. 
+
+-
+1.Introdução.
+	Foi proposto aos alunos do curso técnico em informática como Projeto de Desenvolvimento, um software que visasse controlar as informações de uma Aliança (time) do jogo Marvel Torneio de Campeões.
+Este trabalho foi dividido em quatro seções: a primeira visa apresentar uma visão geral do trabalho, a segunda apresenta uma breve descrição sobre a Linguagem de Modelagem Unificada (UML), a terceira apresenta os detalhes do projeto e a aplicação da UML no decorre do projeto e a quarta onde é apresentada as considerações finais do projeto.
+
+2.Linguagem de Modelagem Unificada (UML)
+	A UML é um conjunto de regras, diagramas e estruturas padronizado que de modo visual auxiliam na análise e no desenvolvimento do projeto de construção de um software.
+ 
+
+3. Contexto de Aplicação
+O jogo Marvel Torneio de Campeões é um jogo para smatphones em que o jogador realiza batalhas utilizando personagens Marvel. O jogo tem um modo Aliança (time de jogadores) em que jogador pode entrar, formar um grupo e realizar batalhas contra personagens controladas pelo computador (Missões) ou contra outros jogadores de outras Alianças (Guerras). De acordo com o resultado da batalha são obtidos pontos, vitórias ou derrotas.
+Para ter um controle de informações do jogo, o solicitante pediu a criação de um sistema de controle de jogadores e seus resultados.
+
+3.1. Levantamento de Requisito
+	Para verificar como funciona o Jogo foi feito sua instalação do mesmo e após o questionamento ao solicitante, fez-se um levantamento das funcionalidades que deveria apresentar.
+
+3.2. Modelagem de Análise e Projeto
+	Nesta etapa foi elaborada um diagrama de caso de uso da UML, representa as interações do sistema de forma visual. É considerado o diagrama mais geral e informal da UML, sendo utilizado na fase de levantamento de requisitos e análise do sistema, embora venha ser consultado durante todo o processo de modelagem e possa servir de base para outros diagramas.
+	A elaboração do diagrama de caso de uso iniciou-se procedeu da seguinte forma:
+1.	Definição dos atores do sistema (qualquer agente que interage com o sistema). Neste projeto foi identificado somente um ator: o usuário que pode cadastrar e consultar todas as informações.
+
+
+
+
+2.	Criação da lista com todos os eventos do sistema e caso de uso com fluxos normais e alternativos.
+ 
+
+
+
+
+
+
+
+
+
+3.	Construção do diagrama de classes, que define a estrutura das classes utilizadas pelo sistema, identificando e determinando os atributos e métodos de cada classe além de estabelecer como elas se relacionam e trocam informações entre si.
+ 
+	
+
+
+
+
+
+
+3.3.	Sistema de Controle de Torneio de Campeões
+O sistema resultante deste projeto foi um software simples para controle de Aliança e cadastro de jogadores.
+
+*requisitos funcionais:
+-RF01: o sistema deve permitir o usuário à cadastrar jogadores contendo código, nome, etc.
+-RF02: o sistema deve permitir o usuário à cadastrar grupos contendo código e nome.
+-RF03: o sistema deve permitir o usuário à cadastrar missões...
+-RF04: o sistema deve permitir o usuário à cadastrar batalhas...
+
+*descrição de caso de uso:xxx
+-
