@@ -1,7 +1,7 @@
 # php-tdc
 ###### Projeto final do módulo de programação - Senac Turma 39
 
-# Técnologias / Dependências utilizadas
+# Tecnologias / Dependências utilizadas
 
 * **Back-end**
 	* PHP >= 7.x
