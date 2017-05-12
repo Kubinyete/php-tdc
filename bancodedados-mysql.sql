@@ -12,20 +12,22 @@ USE phptdc;
 CREATE TABLE Aliancas (
 	-- Não vamos manipular apenas uma aliança, portanto precisamos de uma tabela de alianças
 	ali_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	ali_nome VARCHAR(64) NOT NULL
+	ali_nome VARCHAR(64) CHARSET UTF8 NOT NULL,
+	ali_data_criacao DATETIME NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE Grupos (
 	-- Cada grupo deve pertencer a uma aliança
 	-- Máximo de grupos: 3
-	ali_id FOREIGN KEY REFERENCES Aliancas(ali_id),
+	FOREIGN KEY ali_id INT REFERENCES Aliancas(ali_id),
 	grp_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	grp_nome VARCHAR(64) NULL
+	grp_nome VARCHAR(64) CHARSET UTF8 NULL
 );
 
 CREATE TABLE Jogadores (
+	FOREIGN KEY ali_id INT REFERENCES Aliancas(ali_id),
 	jgd_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	jgd_nome VARCHAR(64) NULL,
+	jgd_nome VARCHAR(64) CHARSET UTF8 NULL,
 	jgd_nickname VARCHAR(64) NOT NULL,
 	jgd_nivel INT NOT NULL DEFAULT 0,
 	jgd_telefone VARCHAR(16) NULL,
@@ -36,19 +38,21 @@ CREATE TABLE Jogadores (
 	-- 1 - Jogador moderador
 	-- 2 - Jogador líder
 	jgd_status TINYINT(1) NOT NULL DEFAULT 1,
-	jgd_observacoes VARCHAR(256) NULL
+	jgd_observacoes VARCHAR(256) CHARSET UTF8 NULL,
+	jgd_data_criacao DATETIME NOT NULL DEFAULT NOW()
 ); 
 
 -- Tabela que controla quais jogadores estão em quais grupos
 -- Relação MUITOS -> MUITOS
 CREATE TABLE JogadoresEmGrupos (
-	grp_id FOREIGN KEY REFERENCES Grupos(grp_id),
-	jgd_id FOREIGN KEY REFERENCES Jogadores(jgd_id)
+	FOREIGN KEY grp_id INT REFERENCES Grupos(grp_id),
+	FOREIGN KEY jgd_id INT REFERENCES Jogadores(jgd_id),
+	jeu_data_adicionado DATETIME NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE Mapas (
 	map_id INT PRIMARY KEY AUTO_INCREMENT,
-	map_nome VARCHAR(64) NOT NULL
+	map_nome VARCHAR(64) CHARSET UTF8 NOT NULL
 );
 
 -- TODO:
@@ -56,12 +60,33 @@ CREATE TABLE Mapas (
 -- Pois os mesmos são estáticos e nunca mudarão
 
 CREATE TABLE Missoes (
+	FOREIGN KEY ali_id INT REFERENCES Aliancas(ali_id),
 	mis_id INT NOT NULL,
-	map_id FOREIGN KEY REFERENCES Mapas(map_id),
-	-- mis_pontualcao_total -> poderá ser obtida através da soma de pontos de cada jogador em uma missão
+	FOREIGN KEY map_id INT REFERENCES Mapas(map_id),
+	-- mis_pontuacao_total -> poderá ser obtida através da soma de pontos de cada jogador em uma missão.
 	mis_vitoria TINYINT(1) NOT NULL DEFAULT 0,
 	mis_percentual_explorado TINYINT(1) NOT NULL DEFAULT 0,
+	mis_data_criacao DATETIME NOT NULL DEFAULT NOW()
 );
 
--- TODO:
--- O restante...
+CREATE TABLE JoadoresEmMissoes (
+	FOREIGN KEY jgd_id INT REFERENCES Jogadores(jgd_id),
+	FOREIGN KEY mis_id INT REFERENCES Missoes(mis_id),
+	FOREIGN KEY grp_id INT REFERENCES Grupos(grp_id),
+	jem_pontuacao INT NOT NULL DEFAULT 0
+);
+
+CREATE TABLE Guerras (
+	grr_id INT PRIMARY KEY AUTO_INCREMENT,
+	-- map_id -> Só temos um mapa para guerras, não necessário
+	-- grr_pontuacao_total -> poderá ser obtido através da soma de pontos de cada jogador em uma guerra.
+	grr_vitoria TINYINT(1) NOT NULL DEFAULT 0,
+	grr_data_criacao DATETIME NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE JogadoresEmGuerras (
+	FOREIGN KEY jgd_id INT REFERENCES Jogadores(jgd_id),
+	FOREIGN KEY grr_id INT REFERENCES Guerras(grr_id),
+	FOREIGN KEY grp_id INT REFERENCES Grupos(grp_id),
+	jeg_pontuacao INT NOT NULL DEFAULT 0
+);
