@@ -87,12 +87,12 @@ O ambiente de testes e desenvolvimento para esta aplicação pode ser obtido atr
 	```php
 		class DemonstraMetodos {
 			// Válido
-			public function obterUsuario($nome, $id=0) {
+			public function obterUsuario(string $nome, int $id=0) {
 
 			}
 
 			// Válido
-			public static function rodarFuncao($funcao) {
+			public static function rodarFuncao(callable $funcao) {
 				$funcao();
 			}
 
@@ -102,7 +102,7 @@ O ambiente de testes e desenvolvimento para esta aplicação pode ser obtido atr
 			}
 
 			// Inválido
-			public function metodonumeroum($algo) {
+			public function metodonumeroum(int $algo) {
 
 			}
 		}
@@ -176,7 +176,7 @@ O ambiente de testes e desenvolvimento para esta aplicação pode ser obtido atr
 		abstract class Uteis {
 			// Retorna a versão desta aplicação
 			// Especificada no arquivo de configurações .json
-			public static function obterVersao() {
+			public static function obterVersao() : string {
 				$config = new LeitorConfiguracao();
 
 				return $config->obterPropriedade("Aplicativo.VERSAO");
