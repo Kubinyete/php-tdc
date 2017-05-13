@@ -14,7 +14,7 @@ class Grupo extends Objeto {
 	private $nome;
 	private $alianca;
 
-	public function __construct(int $id, string $dataCriacao, ?Alianca $alianca, string $nome) {
+	public function __construct(int $id, string $dataCriacao, ?Alianca $alianca, ?string $nome) {
 		parent::__construct($id, $dataCriacao);
 
 		$this->setAlianca($alianca);
@@ -25,7 +25,7 @@ class Grupo extends Objeto {
 	 * Getters
 	 */
 
-	public function getNome() : string {
+	public function getNome() : ?string {
 		return $this->nome;
 	}
 	
@@ -37,7 +37,7 @@ class Grupo extends Objeto {
 	 * Setters
 	 */
 
-	public function setNome(string $valor) {
+	public function setNome(?string $valor) {
 		$this->nome = $valor;
 	}
 	
