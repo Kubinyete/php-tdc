@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Registra a função de auto-carregar classes
  */
 
 spl_autoload_register(
-	function ($caminhoClasse) {
+	function (string $caminhoClasse) {
 		$caminhoClasse = explode('\\', $caminhoClasse);
 
 		// Transforma o nome do primeiro diretório para lowercase

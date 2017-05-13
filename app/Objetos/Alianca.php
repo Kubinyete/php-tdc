@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Classe responsável por representar uma Aliança em nossa aplicação.
  */
@@ -12,15 +12,15 @@ class Alianca extends Objeto {
 	// $dataCriacao
 	private $nome;
 
-	public function __construct($id, $dataCriacao, $nome) {
+	public function __construct(int $id, string $dataCriacao, string $nome) {
 		parent::__construct($id, $dataCriacao);
 
 		$this->setNome($nome);
 	}
 
-	public function getNome() { return $this->nome; }
+	public function getNome() : string { return $this->nome; }
 	
-	public function setNome($valor) { $this->nome = $valor; }
+	public function setNome(string $valor) { $this->nome = $valor; }
 }
 
 ?>

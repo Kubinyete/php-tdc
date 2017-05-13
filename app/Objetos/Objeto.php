@@ -1,24 +1,28 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Classe responsável por representar um Objeto mestre, base de todos os outros objetos em nossa aplicação.
  */
 
 namespace App\Objetos;
 
-class Objeto {
-	private $id;
-	private $dataCriacao;
+abstract class Objeto {
+	protected $id;
+	protected $dataCriacao;
 
-	public function __construct($id, $dataCriacao) {
+	public function __construct(int $id, string $dataCriacao) {
 		$this->setId($id);
 		$this->setDataCriacao($dataCriacao);
 	}
 
-	public function getId() { return $this->id; }
-	public function getDataCriacao { return $this->dataCriacao; }
+	public function getId() : int { return $this->id; }
+	public function getDataCriacao() : string { return $this->dataCriacao; }
 
-	public function setId($valor) { $this->id = $valor; }
-	public function setDataCriacao($valor) { $this->dataCriacao = $valor; }
+	public function setId(int $valor) { $this->id = $valor; }
+	public function setDataCriacao(string $valor) { $this->dataCriacao = $valor; }
+
+	public function toString() {
+		var_dump($this);
+	}
 }
 
 ?>
