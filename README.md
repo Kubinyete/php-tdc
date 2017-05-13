@@ -164,7 +164,7 @@ O ambiente de testes e desenvolvimento para esta aplicação pode ser obtido atr
 
 	* E por ultimo, procure sempre comentar o que certa função faz ou como você está processando essa parte do código
 	```php
-		<?php
+		<?php declare(strict_types=1);
 		/**
 		 * Define uma classe contendo funções úteis para utilização em todo o projeto.
 		 */
