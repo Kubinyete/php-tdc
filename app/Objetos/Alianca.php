@@ -18,9 +18,21 @@ class Alianca extends Objeto {
 		$this->setNome($nome);
 	}
 
-	public function getNome() : string { return $this->nome; }
+	/**
+	 * Getters
+	 */
+
+	public function getNome() : string {
+		return $this->nome;
+	}
 	
-	public function setNome(string $valor) { $this->nome = $valor; }
+	/**
+	 * Setters
+	 */
+
+	public function setNome(string $valor) {
+		$this->nome = $valor;
+	}
 }
 
 ?>

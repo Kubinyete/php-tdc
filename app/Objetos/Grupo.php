@@ -14,18 +14,36 @@ class Grupo extends Objeto {
 	private $nome;
 	private $alianca;
 
-	public function __construct(int $id, string $dataCriacao, Alianca $alianca, string $nome) {
+	public function __construct(int $id, string $dataCriacao, ?Alianca $alianca, string $nome) {
 		parent::__construct($id, $dataCriacao);
 
 		$this->setAlianca($alianca);
 		$this->setNome($nome);
 	}
 
-	public function getNome() : string { return $this->nome; }
-	public function getAlianca() : Alianca { return $this->alianca; }
+	/**
+	 * Getters
+	 */
 
-	public function setNome(string $valor) { $this->nome = $valor; }
-	public function setAlianca(Alianca $valor) { $this->alianca = $valor; }
+	public function getNome() : string {
+		return $this->nome;
+	}
+	
+	public function getAlianca() : ?Alianca {
+		return $this->alianca;
+	}
+
+	/**
+	 * Setters
+	 */
+
+	public function setNome(string $valor) {
+		$this->nome = $valor;
+	}
+	
+	public function setAlianca(?Alianca $valor) {
+		$this->alianca = $valor;
+	}
 }
 
 ?>

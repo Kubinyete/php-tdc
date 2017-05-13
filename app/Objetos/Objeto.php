@@ -14,11 +14,29 @@ abstract class Objeto {
 		$this->setDataCriacao($dataCriacao);
 	}
 
-	public function getId() : int { return $this->id; }
-	public function getDataCriacao() : string { return $this->dataCriacao; }
+	/**
+	 * Getters
+	 */
 
-	public function setId(int $valor) { $this->id = $valor; }
-	public function setDataCriacao(string $valor) { $this->dataCriacao = $valor; }
+	public function getId() : int {
+		return $this->id;
+	}
+
+	public function getDataCriacao() : string {
+		return $this->dataCriacao;
+	}
+
+	/**
+	 * Setters
+	 */
+
+	public function setId(int $valor) {
+		$this->id = $valor;
+	}
+	
+	public function setDataCriacao(string $valor){
+		$this->dataCriacao = $valor;
+	}
 
 	public function toString() {
 		var_dump($this);
