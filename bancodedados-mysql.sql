@@ -9,9 +9,17 @@ USE phptdc;
  * Criando tabelas
  */
 
+CREATE TABLE Usuarios (
+	usr_id INT PRIMARY KEY AUTO_INCREMENT,
+	usr_login VARCHAR(16) NOT NULL,
+	-- senha -> sha256 64 carácteres
+	usr_senha CHAR(64) NOT NULL
+);
+
 CREATE TABLE Aliancas (
+	FOREIGN KEY usr_id INT REFERENCES Usuarios(usr_id),
 	-- Não vamos manipular apenas uma aliança, portanto precisamos de uma tabela de alianças
-	ali_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	ali_id INT PRIMARY KEY AUTO_INCREMENT,
 	ali_nome VARCHAR(64) CHARSET UTF8 NOT NULL,
 	ali_data_criacao DATETIME NOT NULL DEFAULT NOW()
 );
@@ -20,13 +28,13 @@ CREATE TABLE Grupos (
 	-- Cada grupo deve pertencer a uma aliança
 	-- Máximo de grupos: 3
 	FOREIGN KEY ali_id INT REFERENCES Aliancas(ali_id),
-	grp_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	grp_id INT PRIMARY KEY AUTO_INCREMENT,
 	grp_nome VARCHAR(64) CHARSET UTF8 NULL
 );
 
 CREATE TABLE Jogadores (
 	FOREIGN KEY ali_id INT REFERENCES Aliancas(ali_id),
-	jgd_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	jgd_id INT PRIMARY KEY AUTO_INCREMENT,
 	jgd_nome VARCHAR(64) CHARSET UTF8 NULL,
 	jgd_nickname VARCHAR(64) NOT NULL,
 	jgd_nivel INT NOT NULL DEFAULT 0,
@@ -69,7 +77,7 @@ CREATE TABLE Missoes (
 	mis_data_criacao DATETIME NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE JoadoresEmMissoes (
+CREATE TABLE JogadoresEmMissoes (
 	FOREIGN KEY jgd_id INT REFERENCES Jogadores(jgd_id),
 	FOREIGN KEY mis_id INT REFERENCES Missoes(mis_id),
 	FOREIGN KEY grp_id INT REFERENCES Grupos(grp_id),
