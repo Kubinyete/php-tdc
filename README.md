@@ -4,7 +4,7 @@
 # Tecnologias / Dependências utilizadas
 
 * **Back-end**
-	* PHP >= 7.x
+	* PHP >= 7.1
 	* MySQL - MariaDB 10.1.21 ou equivalente.
 * **Front-end**
 	* jQuery 3.2.1
