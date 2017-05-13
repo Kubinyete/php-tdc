@@ -110,7 +110,7 @@ O ambiente de testes e desenvolvimento para esta aplicação pode ser obtido atr
 
 	* Sempre inicialize os scripts da seguinte maneira
 	```php
-		<?php
+		<?php declare(strict_types=1);
 			/**
 			 * Digite aqui o que esse script está fazendo,
 			 * ou o que ele irá processar, etc.
