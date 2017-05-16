@@ -41,10 +41,16 @@ final class Missao extends Objeto {
 	public function getVitoria() : bool {
 		return $this->vitoria;
 	}
+
+	public function getPercentualExplorado() : float {
+		return $this->percentualExplorado;
+	}
 	
 	/**
 	 * Setters
 	 */
+	
+	public function 
 }
 
 ?>
