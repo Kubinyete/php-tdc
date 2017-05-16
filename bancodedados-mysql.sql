@@ -13,7 +13,8 @@ CREATE TABLE Usuarios (
 	usr_id INT PRIMARY KEY AUTO_INCREMENT,
 	usr_login VARCHAR(16) NOT NULL,
 	-- senha -> sha256 64 carácteres
-	usr_senha CHAR(64) NOT NULL
+	usr_senha CHAR(64) NOT NULL,
+	usr_data_criacao DATETIME NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE Aliancas (
