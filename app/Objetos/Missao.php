@@ -38,7 +38,9 @@ final class Missao extends Objeto {
 		return $this->mapa;
 	}
 
-	
+	public function getVitoria() : bool {
+		return $this->vitoria;
+	}
 	
 	/**
 	 * Setters
