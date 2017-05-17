@@ -87,6 +87,7 @@ CREATE TABLE JogadoresEmMissoes (
 
 CREATE TABLE Guerras (
 	grr_id INT PRIMARY KEY AUTO_INCREMENT,
+	grr_nome_adversario VARCHAR(64) CHARSET UTF8 NOT NULL, 
 	-- map_id -> Só temos um mapa para guerras, não necessário
 	-- grr_pontuacao_total -> poderá ser obtido através da soma de pontos de cada jogador em uma guerra.
 	grr_vitoria TINYINT(1) NOT NULL DEFAULT 0,

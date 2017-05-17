@@ -11,8 +11,8 @@ use App\Objetos\Alianca;
 class Grupo extends Objeto {
 	// $id
 	// $dataCriacao
-	private $nome;
-	private $alianca;
+	protected $nome;
+	protected $alianca;
 
 	public function __construct(int $id, string $dataCriacao, ?Alianca $alianca, ?string $nome) {
 		parent::__construct($id, $dataCriacao);

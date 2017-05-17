@@ -9,13 +9,13 @@ use App\Objetos\Objeto;
 use App\Objetos\Mapa;
 use App\Objetos\Alianca;
 
-final class Missao extends Objeto {
+class Missao extends Objeto {
 	// $id
 	// $dataCriacao
-	private $alianca;
-	private $mapa;
-	private $vitoria;
-	private $percentualExplorado;
+	protected $alianca;
+	protected $mapa;
+	protected $vitoria;
+	protected $percentualExplorado;
 
 	public function __construct(int $id, string $dataCriacao, ?Alianca $alianca, ?Mapa $mapa, bool $vitoria, float $percentualExplorado) {
 		parent::__construct($id, $dataCriacao);
@@ -50,7 +50,21 @@ final class Missao extends Objeto {
 	 * Setters
 	 */
 	
-	public function 
+	public function setAlianca(?Alianca $valor) {
+		$this->alianca = $valor;
+	}
+
+	public function setMapa(?Mapa $valor) {
+		$this->mapa = $valor;
+	}
+
+	public function setVitoria(bool $valor) {
+		$this->vitoria = $valor;
+	}
+
+	public function setPercentualExplorado(float $valor) {
+		$this->percentualExplorado = ($valor > 1.0) ? 1.0 : ($valor < 0.0) ? 0.0 : $valor;
+	}
 }
 
 ?>

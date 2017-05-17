@@ -10,7 +10,7 @@ use App\Objetos\Objeto;
 class Mapa extends Objeto {
 	// $id
 	// $dataCriacao
-	private $nome;
+	protected $nome;
 
 	public function __construct(int $id, string $dataCriacao, string $nome) {
 		parent::__construct($id, $dataCriacao);

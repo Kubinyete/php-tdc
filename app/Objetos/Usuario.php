@@ -10,15 +10,15 @@ use App\Objetos\Objeto;
 class Usuario extends Objeto {
 	// $id
 	// $dataCriacao
-	private $login;
-	private $senha;
-	private $hash_senha;
+	protected $login;
+	protected $senha;
+	protected $hash_senha;
 
-	public function __construct(int $id, string $dataCriacao, string $login, string $senha) {
+	public function __construct(int $id, string $dataCriacao, string $login, string $senha, bool $criarHash = false) {
 		parent::__construct($id, $dataCriacao);
 
 		$this->setLogin($login);
-		$this->setSenha($senha);
+		$this->setSenha($senha, $criarHash);
 	}
 
 	/**
@@ -47,10 +47,8 @@ class Usuario extends Objeto {
 
 	public function setSenha(string $valor, bool $criarHash = false) {
 		$this->senha = $valor;
-		/**
-		 * TODO:
-		 * Obter o algoritmo de hash através de um arquivo de configurações.
-		 */
+		// TODO: Obter o algoritmo de hash através de um arquivo de configurações,
+		// facilitando a troca do algoritmo de hash futuramente sem precisar modificar o código fonte
 		($criarHash) ? $this->hash_senha = hash('sha256', $valor);
 	}
 }
