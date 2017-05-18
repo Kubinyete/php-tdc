@@ -5,34 +5,41 @@
 
 namespace App\Database;
 
+use App\Database\SqlComando;
+
 interface iSqlSintaxe {
-	protected static function filtrarString(string $texto);
+	// Deve retornar uma string filtrada, sem escape strings
+	protected static function filtrarString(string $texto) : string;
 
-	public function select(string $attr = '*');
+	// Deve traduzir um tipo (Ex: true, false, null, string)
+	// para (Ex: '1', '0', 'NULL', 'Lorem Ipsum')
+	protected static function traduzirTipo($tipo) : string;
 
-	public function from(string $tabela);
+	public function select(string $attr = '*') : SqlComando;
 
-	public function where(string $attr, string $expr, ?string $alvo);
+	public function from(string $tabela) : SqlComando;
 
-	public function semicolon();
+	public function where(string $attr, string $expr, ?string $alvo) : SqlComando;
 
-	public function insert(string $tabela, array $atributosEValores);
+	public function semicolon() : SqlComando;
 
-	public function update(string $tabela, array $atributosEValores);
+	public function insert(string $tabela, array $atributosEValores) : SqlComando;
 
-	public function delete(string $tabela);
+	public function update(string $tabela, array $atributosEValores) : SqlComando;
 
-	public function order(string $atributo, string $ordem);
+	public function delete(string $tabela) : SqlComando;
 
-	public function as(string $apelido);
+	public function order(string $atributo, string $ordem) : SqlComando;
 
-	public function or();
+	public function as(string $apelido) : SqlComando;
 
-	public function and();
+	public function or() : SqlComando;
 
-	public function expr(string $attr, string $expr, ?string $alvo);
+	public function and() : SqlComando;
 
-	public function limit(int $numero);
+	public function expr(string $attr, string $expr, ?string $alvo) : SqlComando;
+
+	public function limit(int $numero) : SqlComando;
 }
 
 ?>
