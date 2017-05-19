@@ -9,11 +9,11 @@ use App\Database\SqlComando;
 
 interface iSqlSintaxe {
 	// Deve retornar uma string filtrada, sem escape strings
-	protected static function filtrarString(string $texto) : string;
+	private static function filtrarString(string $texto) : string;
 
 	// Deve traduzir um tipo (Ex: true, false, null, string)
 	// para (Ex: '1', '0', 'NULL', 'Lorem Ipsum')
-	protected static function traduzirTipo($tipo) : string;
+	private static function traduzirTipo($tipo) : string;
 
 
 	public function select(string $attr = '*') : SqlComando;

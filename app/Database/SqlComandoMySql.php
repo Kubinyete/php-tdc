@@ -12,10 +12,10 @@ use App\Database\SqlComando;
 
 abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 	// $textoComando
-	protected const SQL_STR_DELIMITADOR = "'";
-	protected const SQL_TIP0_TRUE = '1';
-	protected const SQL_TIP0_FALSE = '0';
-	protected const SQL_TIP0_NULL = 'NULL';
+	private const SQL_STR_DELIMITADOR = "'";
+	private const SQL_TIP0_TRUE = '1';
+	private const SQL_TIP0_FALSE = '0';
+	private const SQL_TIP0_NULL = 'NULL';
 
 	/**
 	 * Implementação da interface
@@ -28,7 +28,7 @@ abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 	 * @param  string $texto
 	 * @return string
 	 */
-	protected static function filtrarString(string $texto) : string {
+	private static function filtrarString(string $texto) : string {
 		return str_replace(self::SQL_STR_DELIMITADOR, self::SQL_STR_DELIMITADOR.self::SQL_STR_DELIMITADOR, $texto);
 	}
 
@@ -39,7 +39,7 @@ abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 	 * @param  boolean $filtrarCasoString
 	 * @return string
 	 */
-	protected static function traduzirTipo($tipo, $filtrarCasoString = true) : string {
+	private static function traduzirTipo($tipo, $filtrarCasoString = true) : string {
 		switch ($tipo) {
 			case true:
 				return self::SQL_TIP0_TRUE;
