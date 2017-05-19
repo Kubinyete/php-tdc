@@ -5,10 +5,12 @@
 
 namespace App\Database;
 
+use App\Database\SqlComando;
+
 abstract class SqlComandoBase {
 	protected $textoComando;
 
-	public function __construct(?string $sqlComando) {
+	public function __construct(?string $sqlComando = null) {
 		$this->setTextoComando($sqlComando);
 	}
 
@@ -25,7 +27,7 @@ abstract class SqlComandoBase {
 	 */
 	
 	public function setTextoComando(?string $valor) {
-		$this->textoComando = ($valor !== null) ? $valor : ''; 
+		$this->textoComando = $valor ?? '';
 	}
 
 	/**
@@ -33,11 +35,19 @@ abstract class SqlComandoBase {
 	 */
 
 	/**
+	 * Concatena a string sql atual com o valor passado
+	 * @param  string $valor
+	 */
+	public function acrescentarTextoComando(string $valor) {
+		$this->textoComando .= $valor;
+	}
+
+	/**
 	 * Chama uma função passando como argumento o próprio objeto
 	 * @param  callable $funcao
 	 * @return SqlComando
 	 */
-	public function then(callable $funcao) {
+	public function then(callable $funcao) : SqlComando {
 		$funcao($this);
 
 		return $this;

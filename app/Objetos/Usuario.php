@@ -13,12 +13,14 @@ class Usuario extends Objeto {
 	protected $login;
 	protected $senha;
 	protected $hash_senha;
+	protected $nickname;
 
-	public function __construct(int $id, string $dataCriacao, string $login, string $senha, bool $criarHash = false) {
+	public function __construct(int $id, string $dataCriacao, string $login, string $senha, string $nickname, bool $criarHash = false) {
 		parent::__construct($id, $dataCriacao);
 
 		$this->setLogin($login);
 		$this->setSenha($senha, $criarHash);
+		$this->setNickname($nickname);
 	}
 
 	/**
@@ -37,6 +39,10 @@ class Usuario extends Objeto {
 		return $this->hash_senha;
 	}
 
+	public function getNickname() : string {
+		return $this->nickname;
+	}
+
 	/**
 	 * Setters
 	 */
@@ -50,6 +56,10 @@ class Usuario extends Objeto {
 		// TODO: Obter o algoritmo de hash através de um arquivo de configurações,
 		// facilitando a troca do algoritmo de hash futuramente sem precisar modificar o código fonte
 		($criarHash) ? $this->hash_senha = hash('sha256', $valor);
+	}
+
+	public function setNickname(string $valor) {
+		$this->nickname = $valor;
 	}
 }
 

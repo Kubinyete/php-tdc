@@ -13,6 +13,9 @@ use App\Database\SqlComando;
 abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 	// $textoComando
 	protected const SQL_STR_DELIMITADOR = "'";
+	protected const SQL_TIP0_TRUE = '1';
+	protected const SQL_TIP0_FALSE = '0';
+	protected const SQL_TIP0_NULL = 'NULL';
 
 	/**
 	 * Implementação da interface
@@ -39,11 +42,11 @@ abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 	protected static function traduzirTipo($tipo, $filtrarCasoString = true) : string {
 		switch ($tipo) {
 			case true:
-				return '1';
+				return self::SQL_TIP0_TRUE;
 			case false:
-				return '0';
+				return self::SQL_TIP0_FALSE;
 			case null:
-				return 'NULL';
+				return self::SQL_TIP0_NULL;
 			default:
 				if ($filtrarCasoString)
 					return self::SQL_STR_DELIMITADOR.self::filtrarString(strval($texto)).self::SQL_STR_DELIMITADOR;
@@ -58,7 +61,7 @@ abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 	 * @return SqlComando
 	 */
 	public function select(string $attr = '*') : SqlComando {
-		$this->textoComando .= 'SELECT '.$attr.' ';
+		$this->acrescentarTextoComando('SELECT '.$attr.' ');
 
 		return $this; 
 	}
@@ -69,7 +72,7 @@ abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 	 * @return SqlComando
 	 */
 	public function from(string $tabela) : SqlComando {
-		$this->textoComando .= 'FROM '.$tabela.' ';
+		$this->acrescentarTextoComando('FROM '.$tabela.' ');
 
 		return $this;
 	}
@@ -83,9 +86,9 @@ abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 	 * @return SqlComando
 	 */
 	public function where(string $attr, string $expr, ?string $alvo, bool $filtrarAlvo = true) : SqlComando {
-		$this->textoComando .= 'WHERE '.$attr.$expr.(($alvo !== null) ? (($filtrarAlvo) ? self::filtrarString($alvo) : $alvo) : 'NULL').' ';
+		$this->acrescentarTextoComando('WHERE ');
 
-		return $this; 
+		return $this->expr($attr, $expr, $alvo, $filtrarAlvo);
 	}
 
 	/**
@@ -93,7 +96,7 @@ abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 	 * @return SqlComando
 	 */
 	public function semicolon() : SqlComando {
-		$this->textoComando .= '; ';
+		$this->acrescentarTextoComando('; ');
 
 		return $this; 
 	}
@@ -103,6 +106,7 @@ abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 	 * @param  string $tabela
 	 * @param  array  $atributosEValores
 	 * @return SqlComando
+	 * @return false
 	 */
 	public function insert(string $tabela, array $atributosEValores) : SqlComando {
 		// Recebe a contagem de atributosEValores
@@ -111,7 +115,7 @@ abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 		$e = count($atributosEValores);
 
 		if ($e <= 0)
-			return false;
+			return $this;
 
 		$cmd = 'INSERT INTO '.$tabela;
 		$atributos = '(';
@@ -128,7 +132,115 @@ abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 		}
 
 		// = INSERT INTO Tabela(attr, attr2) VALUES(1, 2) 
-		$this->textoComando .= $cmd.$atributos.$valores;
+		$this->acrescentarTextoComando($cmd.$atributos.$valores);
+
+		return $this;
+	}
+
+	/**
+	 * Equivalente ao comando UPDATE Tabela SET attr=value
+	 * @param  string $tabela
+	 * @param  array  $atributosEValores
+	 * @return SqlComando
+	 */
+	public function update(string $tabela, array $atributosEValores) : SqlComando {
+		$e = count($atributosEValores);
+
+		if ($e <= 0)
+			return $this;
+
+		$cmd = 'UPDATE '.$tabela;
+		$valores = 'SET ';
+
+		$i = 0;
+		foreach ($atributosEValores as $atributo => $valor) {
+			$ultimo = ($i >= $e - 1);
+
+			$valores .= $atributo.'='.self::traduzirTipo($valor).(($ultimo) ? ' ' : ', ');
+
+			$i++;
+		}
+
+		$this->acrescentarTextoComando($cmd.$valores);
+
+		return $this;
+	}
+
+	/**
+	 * Equivalente ao comando DELETE FROM Tabela 
+	 * @param  string $tabela
+	 * @return SqlComando
+	 */
+	public function delete(string $tabela) : SqlComando {
+		$this->acrescentarTextoComando('DELETE FROM '.$tabela.' ');
+
+		return $this;
+	}
+
+	/**
+	 * Equivalente ao comando ORDER BY attr ASC/DESC
+	 * @param  string       $attr
+	 * @param  bool|boolean $crescente
+	 * @return SqlComando
+	 */
+	public function order(string $attr, bool $crescente = true) : SqlComando {
+		$this->acrescentarTextoComando('ORDER BY '.$attr.' '.(($crescente) ? 'ASC' : 'DESC').' ');
+
+		return $this;
+	}
+
+	/**
+	 * Equivalente ao comando AS
+	 * @return SqlComando
+	 */
+	public function as() : SqlComando {
+		$this->acrescentarTextoComando('AS ');
+
+		return $this;
+	}
+
+	/**
+	 * Equivalente ao comando AND
+	 * @return SqlComando
+	 */
+	public function and() : SqlComando {
+		$this->acrescentarTextoComando('AND ');
+
+		return $this;
+	}
+
+	/**
+	 * Equivalente ao comando OR
+	 * @return SqlComando
+	 */
+	public function or() : SqlComando {
+		$this->acrescentarTextoComando('OR ');
+
+		return $this;
+	}
+
+	/**
+	 * Equivalente a uma expressão de comparação
+	 * Ex: Attr=NULL
+	 * @param  string       $attr
+	 * @param  string       $expr
+	 * @param  string       $alvo
+	 * @param  bool|boolean $filtrarAlvo
+	 * @return SqlComando
+	 */
+	public function expr(string $attr, string $expr, ?string $alvo, bool $filtrarAlvo = true) : SqlComando {
+		$this->acrescentarTextoComando($attr.$expr.self::traduzirTipo($alvo, $filtrarAlvo).' ');
+
+		return $this;
+	}
+
+	/**
+	 * Equivalente ao comando LIMIT n
+	 * @param  int    $limite
+	 * @return SqlComando
+	 */
+	public function limit(int $limite) : SqlComando {
+		$this->acrescentarTextoComando('LIMIT '.$limite.' ');
 
 		return $this;
 	}

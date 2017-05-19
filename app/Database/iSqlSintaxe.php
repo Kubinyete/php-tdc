@@ -15,6 +15,7 @@ interface iSqlSintaxe {
 	// para (Ex: '1', '0', 'NULL', 'Lorem Ipsum')
 	protected static function traduzirTipo($tipo) : string;
 
+
 	public function select(string $attr = '*') : SqlComando;
 
 	public function from(string $tabela) : SqlComando;
@@ -29,7 +30,7 @@ interface iSqlSintaxe {
 
 	public function delete(string $tabela) : SqlComando;
 
-	public function order(string $atributo, string $ordem) : SqlComando;
+	public function order(string $atributo, bool $crescente = true) : SqlComando;
 
 	public function as(string $apelido) : SqlComando;
 
