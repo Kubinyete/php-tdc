@@ -16,7 +16,12 @@ spl_autoload_register(
 
 		$caminhoClasse = implode(DIRECTORY_SEPARATOR, $caminhoClasse);
 
-		require_once dirname(__DIR__).DIRECTORY_SEPARATOR.$caminhoClasse.'.php';
+		$caminhoClasse = DIR_BASE.$caminhoClasse.'.php';
+
+		if (file_exists($caminhoClasse))
+			require_once $caminhoClasse;
+		else
+			exit('Não foi possível importar a classe <strong>"'.$caminhoClasse.'"</strong>.');
 	}
 );
 

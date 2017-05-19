@@ -5,20 +5,11 @@
  * e servir a requisição
  */
 
-require __DIR__.DIRECTORY_SEPARATOR.'bootstrap'.DIRECTORY_SEPARATOR.'autoload.php';
+// Define uma constante global contendo nossa base da aplicação
+define('DIR_BASE', __DIR__.DIRECTORY_SEPARATOR);
 
-use App\Objetos\Objeto;
-use App\Objetos\Alianca;
-use App\Objetos\Grupo;
-use App\Objetos\Guerra;
-use App\Objetos\Jogador;
-use App\Objetos\Mapa;
-use App\Objetos\Missao;
-use App\Objetos\Usuario;
-use App\Database\iSqlSintaxe;
-use App\Database\SqlComandoBase;
-use App\Database\SqlComandoMySql;
-use App\Database\SqlComando;
+// Carrega nosso importador de classes
+require DIR_BASE.'bootstrap'.DIRECTORY_SEPARATOR.'autoload.php';
 
 /**
  * TODO: Fazer uma classe como espécie de fábrica para criação de objetos genéricos
@@ -26,8 +17,7 @@ use App\Database\SqlComando;
  * para que seja possível detectar algum erro no código
  */
 
-echo '<h1>Olá mundo!</h1>';
-echo '<hr>';
-echo '<p>Se esta página não estiver com erros, parabéns, sua versão do <strong>PHP</strong> (<em>Maior ou igual a <strong>7.1</strong></em>) é compatível com essa aplicação!</p>';
-
 ?>
+<h1>Olá mundo!</h1>
+<hr>
+<p>Se esta página não estiver com erros, parabéns, sua versão do <strong>PHP</strong> (<em>Maior ou igual a <strong>7.1</strong></em>) é compatível com essa aplicação!</p>
