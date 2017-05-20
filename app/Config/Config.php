@@ -18,7 +18,7 @@ abstract class Config {
 	 */
 	public static function carregar(string $arquivo) {
 		if (file_exists($arquivo))
-			$this->configuracoes = json_decode(file_get_contents($arquivo));
+			self::$configuracoes = json_decode(file_get_contents($arquivo), true);
 		else
 			exit('Não foi possível carregar o arquivo de configurações <strong>"'.$arquivo.'"</strong>.');
 	}
@@ -38,7 +38,10 @@ abstract class Config {
 			if ($retorno === null) {
 				$retorno = &self::$configuracoes[$chave];
 			} else {
-				$retorno = &$retorno[$chave];
+				$retorno = &$retorno[$chave] ?? null;
+				
+				if ($retorno === null)
+					break;
 			}
 		}
 
