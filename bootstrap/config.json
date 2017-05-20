@@ -8,5 +8,9 @@
 		"StringConexao": "mysql:host=;dbname=;charset=utf8",
 		"Usuario": "",
 		"Senha": ""
+	},
+
+	"Usuarios": {
+		"algoritmoHash": "sha256"
 	}
 }
