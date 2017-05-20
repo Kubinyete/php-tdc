@@ -5,15 +5,18 @@
  * e servir a requisição
  */
 
-// Define uma constante global contendo nossa base da aplicação
+// Define uma constante global contendo o caminho base da aplicação
 define('DIR_BASE', __DIR__.DIRECTORY_SEPARATOR);
 
-// Carrega nosso importador de classes
+// Carregue nosso importador de classes
 require DIR_BASE.'bootstrap'.DIRECTORY_SEPARATOR.'autoload.php';
+
+// Carregue nosso arquivo de configurações na memória
+App\Config\Config::carregar(DIR_BASE.'bootstrap'.DIRECTORY_SEPARATOR.'config.json');
 
 /**
  * TODO: Fazer uma classe como espécie de fábrica para criação de objetos genéricos
- * TODO: Fazer método que cria todos os objetos da aplicação e chama seus respectivos ::toString()
+ * TODO: Fazer método que cria todos os objetos da aplicação e chama seus respectivos ::__toString()
  * para que seja possível detectar algum erro no código
  */
 
