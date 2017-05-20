@@ -70,11 +70,11 @@ abstract class DalBase {
 		$retornoObjetos = [];
 
 		if ($query !== null) {
-			$queryObjetos = $query->fetchAll(PDO::FETCH_ASSOC);
+			$query = $query->fetchAll(PDO::FETCH_ASSOC);
 
 			// $atualObjeto é um array de chave => valor
 			// tabela_campo => valor_retornado
-			foreach ($queryObjetos as $atualObjeto) {
+			foreach ($query as $atualObjeto) {
 				array_push($retornoObjetos, $manipuladorAtribuicao($atualObjeto));
 			}
 		}
