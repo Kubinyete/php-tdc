@@ -53,13 +53,16 @@ abstract class SqlComandoBase {
 		return $this;
 	}
 
-	public function toString() {
-		echo '<h1>'.
+	public function __toString() : string {
+		return '<h1>'.
 			'SqlComando::toString()'.
 		'</h1>'.
 		'<p>'.
 			$this->textoComando.
-		'</p>';
+		'</p>'.
+		'<pre>'.
+			print_r($this, true).
+		'</pre>';
 	}
 }
 

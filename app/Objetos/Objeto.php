@@ -38,8 +38,8 @@ abstract class Objeto {
 		$this->dataCriacao = $valor;
 	}
 
-	public function toString() {
-		var_dump($this);
+	public function __toString() : string {
+		return print_r($this, true);
 	}
 }
 
