@@ -12,14 +12,19 @@ class Usuario extends Objeto {
 	// $dataCriacao
 	protected $login;
 	protected $senha;
-	protected $hash_senha;
+
+	protected $hashSenha;
+	protected $hashAlgoritmo;
+	
 	protected $nickname;
 
-	public function __construct(int $id, string $dataCriacao, string $login, string $senha, string $nickname, bool $criarHash = true, string $algoritmoHash = null) {
+	public function __construct(int $id, string $dataCriacao, string $login, string $senha, string $nickname, ?string $algoritmoHash = null) {
 		parent::__construct($id, $dataCriacao);
 
+		$this->hashAlgoritmo = $hashAlgoritmo;
+
 		$this->setLogin($login);
-		$this->setSenha($senha, $criarHash, $algoritmoHash);
+		$this->setSenha($senha);
 		$this->setNickname($nickname);
 	}
 
@@ -35,8 +40,8 @@ class Usuario extends Objeto {
 		return $this->senha;
 	}
 
-	public function getHashSenha() : ?string {
-		return $this->hash_senha;
+	public function getHashSenha() : string {
+		return $this->hashSenha;
 	}
 
 	public function getNickname() : string {
@@ -51,11 +56,15 @@ class Usuario extends Objeto {
 		$this->login = $valor;
 	}
 
-	public function setSenha(string $valor, bool $criarHash = true, ?string $algoritmoHash = null) {
+
+	public function setSenha(string $valor) {
 		$this->senha = $valor;
-		
-		if ($criarHash)
-			$this->hash_senha = hash($algoritmoHash ?? 'sha256', $valor);
+
+		// Se temos um algoritmo de hash informado, vamos assumir que queremos transforamar a senha
+		// cru em uma hash que pode ser obtida atrabés do getHashSenha(), se não for informado um
+		// algoritmo, vamos então assumir que a senha obtida ja está em forma de hash, então apenas
+		// copie seu valor para ser obtido atrabés do getHashSenha()
+		$this->hashSenha = ($this->hashAlgoritmo !== null) ? hash($this->hashAlgoritmo, $valor) : $valor;
 	}
 
 	public function setNickname(string $valor) {
