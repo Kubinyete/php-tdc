@@ -40,6 +40,8 @@ interface iSqlSintaxe {
 
 	public function expr(string $attr, string $expr, ?string $alvo) : SqlComando;
 
+	public function like(string $likeExpr) : SqlComando;
+
 	public function limit(int $numero) : SqlComando;
 }
 

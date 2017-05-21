@@ -35,11 +35,11 @@ abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 	/**
 	 * Traduz o tipo informado para suas respectivas formas em SQL,
 	 * se o mesmo ja for uma string, filtre ela.
-	 * @param  mixed  $tipo
+	 * @param  mixed   $tipo
 	 * @param  boolean $filtrarCasoString
 	 * @return string
 	 */
-	private static function traduzirTipo($tipo, $filtrarCasoString = true) : string {
+	private static function traduzirTipo($tipo, bool $filtrarCasoString = true) : string {
 		switch ($tipo) {
 			case true:
 				return self::SQL_TIP0_TRUE;
@@ -81,11 +81,11 @@ abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 	 * Equivalente ao comando WHERE atributo operador alvo
 	 * @param  string $attr 
 	 * @param  string $expr 
-	 * @param  string $alvo
+	 * @param  mixed  $alvo
 	 * @param  bool   $filtrarAlvo 
 	 * @return SqlComando
 	 */
-	public function where(string $attr, string $expr, ?string $alvo, bool $filtrarAlvo = true) : SqlComando {
+	public function where(string $attr, string $expr, $alvo, bool $filtrarAlvo = true) : SqlComando {
 		$this->acrescentarTextoComando('WHERE ');
 
 		return $this->expr($attr, $expr, $alvo, $filtrarAlvo);
@@ -224,12 +224,23 @@ abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
 	 * Ex: Attr=NULL
 	 * @param  string       $attr
 	 * @param  string       $expr
-	 * @param  string       $alvo
+	 * @param  mixed        $alvo
 	 * @param  bool|boolean $filtrarAlvo
 	 * @return SqlComando
 	 */
-	public function expr(string $attr, string $expr, ?string $alvo, bool $filtrarAlvo = true) : SqlComando {
+	public function expr(string $attr, string $expr, $alvo, bool $filtrarAlvo = true) : SqlComando {
 		$this->acrescentarTextoComando($attr.$expr.self::traduzirTipo($alvo, $filtrarAlvo).' ');
+
+		return $this;
+	}
+
+	/**
+	 * Equivalente ao comando SQL LIKE '$likeExpr' 
+	 * @param  string $likeExpr
+	 * @return SqlComando
+	 */
+	public function like(string $likeExpr) : SqlComando {
+		$this->acrescentarTextoComando('LIKE '.self::SQL_STR_DELIMITADOR.self::filtrarString($likeExpr).self::SQL_STR_DELIMITADOR.' ');
 
 		return $this;
 	}
