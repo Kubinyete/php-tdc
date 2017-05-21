@@ -37,6 +37,40 @@ abstract class DalBase {
 	 */
 	
 	/**
+	 * Desliga o salvamento automático das modificações no banco
+	 * @return bool
+	 */
+	protected function iniciarTransacao() : bool {
+		return $this->getConexao()->iniciarTransacao();
+	}
+
+	/**
+	 * Volta todas as modificações na transação atual e ativa novamente o salvamento automático das
+	 * modificações
+	 * @return bool
+	 */
+	protected function descartarTransacao() : bool {
+		return $this->getConexao()->descartarTransacao();
+	}
+
+	/**
+	 * Salva as modificações em uma transação e ativa novamente o salvamento automático das
+	 * modificações
+	 * @return bool
+	 */
+	protected function salvarTransacao() : bool {
+		return $this->getConexao()->salvarTransacao();
+	}
+
+	/**
+	 * Retorna se a conexão está rodando uma transação
+	 * @return bool
+	 */
+	protected function emTransacao() : bool {
+		return $this->getConexao()->emTransacao();
+	}
+	
+	/**
 	 * Encapsulamento da função Conexao::executar
 	 * Automaticamente pega o texto de um objeto SqlComando e passa como argumento para 
 	 * Conexao::executar
