@@ -18,7 +18,7 @@ class Usuario extends Objeto {
 	
 	protected $nickname;
 
-	public function __construct(int $id, string $dataCriacao, string $login, string $senha, string $nickname, ?string $algoritmoHash = null) {
+	public function __construct(int $id, string $dataCriacao, string $login, string $senha, string $nickname, ?string $hashAlgoritmo = null) {
 		parent::__construct($id, $dataCriacao);
 
 		$this->hashAlgoritmo = $hashAlgoritmo;

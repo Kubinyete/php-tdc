@@ -19,7 +19,7 @@ abstract class FabricaUsuario extends FabricaBase implements iFabrica {
 	 * @param  string|null  $nickname
 	 * @return Usuario
 	 */
-	public static function criar(string $login, string $senha, string $nickname) : Usuario {
+	public static function criar(string $login = '', string $senha = '', string $nickname = '') : Usuario {
 		return new Usuario(
 			parent::getNovoId(),
 			parent::getDatetimeAtual(),
