@@ -9,45 +9,68 @@ namespace App\Database;
 use PDO;
 use PDOException;
 use PDOStatement;
-use App\Config;
+use App\Config\AppConfig;
 
-class Conexao {
+final class Conexao {
 	private $conexao;
+
+	private $stringConexao;
+	private $usuario;
+	private $senha;
 
 	/**
 	 * Inicializa uma conexão com o banco de dados
 	 * Se não for especificado pelomenos uma stringConexao nos argumentos
 	 * os dados de conexão padrões do arquivo de configurações será utilizado
 	 * @param string|null $stringConexao
-	 * @param string      $usuario
-	 * @param string      $senha
+	 * @param string|null $usuario
+	 * @param string|null $senha
 	 */
-	public function __construct(?string $stringConexao = null, string $usuario = '', string $senha = '') {
+	public function __construct(?string $stringConexao = null, ?string $usuario = null, ?string $senha = null) {
+		/**
+		 * Obtenha as carácteristicas padrões de uma conexão definida no arquivo de configurações
+		 */
+		
+		$this->stringConexao = $stringConexao ?? AppConfig::obter('Database.StringConexao');
+		$this->usuario = $usuario ?? AppConfig::obter('Database.Usuario');
+		$this->senha = $senha ?? AppConfig::obter('Database.Senha');
+	}
+
+	/**
+	 * Prevenção: se todas as referências deste objeto Conexao forem apagadas, vamos apagar nosso
+	 * objeto de conexão, que tambêm irá cortar a conexão com o banco de dados
+	 */
+	public function __destruct() {
+		$this->desconectar();
+	}
+
+	/**
+	 * Pequena adição, se tentarmos invocar o objeto como se fosse uma função, estabeleca a conexão
+	 */
+	public function __invoke() {
+		$this->conectar();
+	}
+
+	/**
+	 * Estabelece a conexão com o banco de dados
+	 */
+	public function conectar() {
 		try {
-			if ($stringConexao !== null) {
-				$this->conexao = new PDO($stringConexao, $usuario, $senha);
-			} else {
-				/**
-				 * Obtenha as carácteristicas padrões de uma conexão definida no arquivo de configurações
-				 */
-				
-				$this->conexao = new PDO(
-					Config::get('Database.StringConexao'),
-					Config::get('Database.Usuario'),
-					Config::get('Database.Senha')
-				);
-			}
-		} catch (PDOException $e) {
-			exit(
-				'Não foi possível estabelecer uma conexão com o banco de dados.'.
-				'<br>'.
-				'<strong>PDOException:</strong> <em>"'.$e->getMessage().'"</em>.'
-			);
+			if ($this->conexao !== null)
+				throw new Exception('Não é possível iniciar uma nova conexão enquanto a atual estiver ativa.');
+			else
+				$this->conexao = new PDO($this->stringConexao, $this->usuario, $this->senha);
+		} catch (Exception $e) {
+			self::abortar($e);
 		}
 	}
 
-	public function __destruct() {
-		$this->conexao = null;
+	/**
+	 * Fecha a conexão atual, se estiver ativa
+	 */
+	public function desconectar() {
+		if ($this->conexao !== null)
+			$this->conexao = null;
 	}
 
 	/**
@@ -105,6 +128,20 @@ class Conexao {
 	 */
 	public function exec(string $sql) : int {
 		return $this->conexao->exec($sql);
+	}
+
+	/**
+	 * Aborta a inicialização da conexão com o banco de dados devido à algum erro
+	 * @param  Exception $e
+	 */
+	private static function abortar(Exception $e) {
+		$this->desconectar();
+
+		exit(
+			'Não foi possível estabelecer uma conexão com o banco de dados.'.
+			'<br>'.
+			'<strong>'.(($e instanceof PDOException) ? 'PDOException' : 'Exception').':</strong> <em>"'.$e->getMessage().'"</em>.'
+		);
 	}
 }
 

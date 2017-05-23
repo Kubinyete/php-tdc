@@ -7,10 +7,10 @@
 namespace App\Database;
 
 use App\Database\SqlComandoBase;
-use App\Database\iSqlSintaxe;
+use App\Interfaces\SqlSintaxeInterface;
 use App\Database\SqlComando;
 
-abstract class SqlComandoMySql extends SqlComandoBase implements iSqlSintaxe {
+abstract class SqlComandoMySql extends SqlComandoBase implements SqlSintaxeInterface {
 	// $textoComando
 	private const SQL_STR_DELIMITADOR = "'";
 	private const SQL_TIP0_TRUE = '1';

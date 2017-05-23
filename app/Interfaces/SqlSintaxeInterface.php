@@ -3,19 +3,11 @@
  * Interface responsável por ditar as funções necessárias em um SqlComando
  */
 
-namespace App\Database;
+namespace App\Interfaces;
 
 use App\Database\SqlComando;
 
-interface iSqlSintaxe {
-	// Deve retornar uma string filtrada, sem escape strings
-	private static function filtrarString(string $texto) : string;
-
-	// Deve traduzir um tipo (Ex: true, false, null, string)
-	// para (Ex: '1', '0', 'NULL', 'Lorem Ipsum')
-	private static function traduzirTipo($tipo) : string;
-
-
+interface SqlSintaxeInterface {
 	public function select(string $attr = '*') : SqlComando;
 
 	public function from(string $tabela) : SqlComando;

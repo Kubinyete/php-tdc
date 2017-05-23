@@ -7,9 +7,9 @@ namespace App\Database;
 
 use App\Database\SqlComando;
 use App\Objetos\Usuario;
-use App\Fabricas\FabricaUsuario;
+use App\Interfaces\CrudInterface;
 
-final class DalUsuario extends DalBase implements iDalCrud {
+final class DalUsuario extends DalBase implements CrudInterface {
 	// $conexao / get / set
 	// executar()
 	// exec()
@@ -18,7 +18,7 @@ final class DalUsuario extends DalBase implements iDalCrud {
 	// salvarTransacao()
 	// emTransacao()
 	// getObjetos()
-	private const TABELA = 'Usuarios';
+	private const SQL_TABELA = 'Usuarios';
 
 	/**
 	 * Cria um usuário no banco de dados de acordo com o objeto Usuario informado
@@ -29,15 +29,16 @@ final class DalUsuario extends DalBase implements iDalCrud {
 		$sucesso = false;
 
 		$sql = new SqlComando();
-		$sql->insert(self::TABELA,
+		$sql->insert(self::SQL_TABELA,
 			[
 				'usr_login' => $usuario->getLogin(),
 				'usr_senha' => $usuario->getHashSenha(),
 				'usr_nickname' => $usuario->getNickname(),
 				'usr_data_criacao' => $usuario->getDataCriacao()
 			]
-		)->semicolon()->select('usr_id')->from(self::TABELA)->order('usr_id', false)->limit(1);
+		)->semicolon()->select('usr_id')->from(self::SQL_TABELA)->order('usr_id', false)->limit(1);
 
+		$this->conectar();
 		$this->iniciarTransacao();
 		
 		$query = $this->executar($sql);
@@ -54,6 +55,8 @@ final class DalUsuario extends DalBase implements iDalCrud {
 			$this->descartarTransacao();
 		}
 
+		$this->desconectar();
+
 		return $sucesso;
 	}
 
@@ -64,7 +67,9 @@ final class DalUsuario extends DalBase implements iDalCrud {
 	 */
 	public function obter(int $id) : ?Usuario {
 		$sql = new SqlComando();
-		$sql->select()->from(self::TABELA)->where('usr_id', '=', $id)->limit(1);
+		$sql->select()->from(self::SQL_TABELA)->where('usr_id', '=', $id)->limit(1);
+
+		$this->conectar();
 
 		$lista = $this->getObjetos($sql, 
 			function(array $arrayObjeto) : Usuario {
@@ -77,6 +82,8 @@ final class DalUsuario extends DalBase implements iDalCrud {
 				);
 			}
 		);
+
+		$this->desconectar();
 
 		if (count($lista) >= 1)
 			return $lista[0];
@@ -94,7 +101,7 @@ final class DalUsuario extends DalBase implements iDalCrud {
 		$sucesso = false;
 
 		$sql = new SqlComando();
-		$sql->update(self::TABELA, 
+		$sql->update(self::SQL_TABELA, 
 			[
 				'usr_login' => $usuario->getLogin(),
 				'usr_senha' => $usuario->getHashSenha(),
@@ -102,7 +109,9 @@ final class DalUsuario extends DalBase implements iDalCrud {
 			]
 		)->where('usr_id', '=', $usuario->getId())->limit(1);
 
+		$this->conectar();
 		$this->iniciarTransacao();
+
 		$linhasAfetadas = $this->exec($sql);
 
 		if ($linhasAfetadas === 1) {
@@ -112,6 +121,7 @@ final class DalUsuario extends DalBase implements iDalCrud {
 			$this->descartarTransacao();
 		}
 
+		$this->desconectar();
 		return $sucesso;
 	}
 
@@ -124,9 +134,11 @@ final class DalUsuario extends DalBase implements iDalCrud {
 		$sucesso = false;
 
 		$sql = new SqlComando();
-		$sql->delete(self::TABELA)->where('usr_id', '=', $usuario->getId())->limit(1);
+		$sql->delete(self::SQL_TABELA)->where('usr_id', '=', $usuario->getId())->limit(1);
 
+		$this->conectar();
 		$this->iniciarTransacao();
+		
 		$linhasAfetadas = $this->exec($sql);
 
 		if ($linhasAfetadas === 1) {
@@ -136,6 +148,7 @@ final class DalUsuario extends DalBase implements iDalCrud {
 			$this->descartarTransacao();
 		}
 
+		$this->desconectar();
 		return $sucesso;
 	}
 }

@@ -3,9 +3,11 @@
  * Interface que impede a criação de fábricas sem um método criar
  */
 
-namespace App\Fabricas;
+namespace App\Interfaces;
 
-interface iFabrica {
+use App\Objetos\Objeto;
+
+interface FabricaInterface {
 	// Retorna uma nova instância de determinado objeto
 	// se nada for passado como argumentos, retorne um objeto genêrico para testes
 	public static function criar();

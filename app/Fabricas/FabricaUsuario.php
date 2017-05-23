@@ -6,17 +6,17 @@
 namespace App\Fabricas;
 
 use App\Objetos\Usuario;
-use App\Config\Config;
-use App\Fabricas\iFabrica;
+use App\Config\AppConfig;
+use App\Interfaces\FabricaInterface;
 
-abstract class FabricaUsuario extends FabricaBase implements iFabrica {
+abstract class FabricaUsuario extends FabricaBase implements FabricaInterface {
 	// $contador
 
 	/**
 	 * Cria um novo objeto Usuario
-	 * @param  string|null  $login
-	 * @param  string|null  $senha
-	 * @param  string|null  $nickname
+	 * @param  string  $login
+	 * @param  string  $senha
+	 * @param  string  $nickname
 	 * @return Usuario
 	 */
 	public static function criar(string $login = '', string $senha = '', string $nickname = '') : Usuario {
@@ -26,7 +26,7 @@ abstract class FabricaUsuario extends FabricaBase implements iFabrica {
 			$login,
 			$senha,
 			$nickname,
-			Config::get('Usuarios.algoritmoHash')
+			AppConfig::obter('Usuarios.algoritmoHash')
 		);
 	}
 }

@@ -17,25 +17,39 @@ abstract class DalBase {
 	}
 
 	/**
+	 * Prevenção: se todas as referências deste objeto Conexao forem apagadas, vamos apagar nosso
+	 * objeto de conexão, que tambêm irá cortar a conexão com o banco de dados
+	 */
+	public function __destruct() {
+		$this->desconectar();
+	}
+	
+	/**
 	 * Getters
 	 */
 	
-	protected function getConexao() : ?Conexao {
+	protected function getConexao() : Conexao {
 		return $this->conexao;
-	}
-
-	/**
-	 * Setters
-	 */
-	
-	protected function setConexao(?Conexao $valor) {
-		$this->conexao = $valor;
 	}
 
 	/**
 	 * Funções
 	 */
 	
+	/**
+	 * Estabelece a conexão com o banco de dados
+	 */
+	protected function conectar() {
+		$this->getConexao()->conectar();
+	}
+
+	/**
+	 * Fecha a conexão atual, se estiver ativa
+	 */
+	protected function desconectar() {
+		$this->getConexao()->desconectar();
+	}
+
 	/**
 	 * Desliga o salvamento automático das modificações no banco
 	 * @return bool
@@ -95,6 +109,8 @@ abstract class DalBase {
 	/**
 	 * Automaticamente faça o processo de rodar um comando, obter os resultados em um array,
 	 * criar os objetos apartir desse array e retornar ao usuário os objetos de App\Objetos
+	 * ATENÇÃO: esse método não abre automaticamente a conexão com o banco, apenas faz a execução
+	 * do comando passdo e retorna os resultados
 	 * @param  SqlComando $sqlComando
 	 * @param  callable   $manipuladorAtribuicao
 	 * @return array

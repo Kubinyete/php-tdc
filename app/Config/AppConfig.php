@@ -7,9 +7,10 @@ namespace App\Config;
 
 use Exception;
 
-abstract class Config {
+abstract class AppConfig {
+	// Delimitador de acesso às propriedades na string de get(string $caminhoAcesso)
 	private const GET_DELIMITADOR = '.';
-	
+	// O arquivo de configurações, um array de chaves e valores
 	private static $configuracoes;
 
 	/**
@@ -17,10 +18,14 @@ abstract class Config {
 	 * @param  string $arquivo
 	 */
 	public static function carregar(string $arquivo) {
-		if (file_exists($arquivo))
-			self::$configuracoes = json_decode(file_get_contents($arquivo), true);
-		else
-			exit('Não foi possível carregar o arquivo de configurações <strong>"'.$arquivo.'"</strong>.');
+		try {
+			if (file_exists($arquivo))
+				self::$configuracoes = json_decode(file_get_contents($arquivo), true);
+			else
+				throw new Exception('Não foi possível carregar o arquivo de configurações <strong>"'.$arquivo.'"</strong>.');
+		} catch (Exception $e) {
+			self::abortar($e);
+		}
 	}
 
 	/**
@@ -30,7 +35,7 @@ abstract class Config {
 	 * @param  string $caminhoAcesso
 	 * @return mixed
 	 */
-	public static function get(string $caminhoAcesso) {
+	public static function obter(string $caminhoAcesso) {
 		$retorno = null;
 		$array = explode(self::GET_DELIMITADOR, $caminhoAcesso);
 
@@ -38,6 +43,8 @@ abstract class Config {
 			if ($retorno === null) {
 				$retorno = &self::$configuracoes[$chave];
 			} else {
+				// Talvez não necessário o uso do operador '??', adicionado para previnir ou
+				// facilitar a leitura desta linha
 				$retorno = &$retorno[$chave] ?? null;
 				
 				if ($retorno === null)
@@ -47,5 +54,14 @@ abstract class Config {
 
 		return $retorno;
 	}
+
+	/**
+	 * Aborta o carregamento do arquivo de configurações devido à uma falha
+	 * @param  Exception $e
+	 */
+	private static function abortar(Exception $e) {
+		exit($e->getMessage());
+	}
 }
+
 ?>

@@ -19,7 +19,7 @@ spl_autoload_register(
 		$caminhoClasse = DIR_BASE.$caminhoClasse.'.php';
 
 		if (file_exists($caminhoClasse))
-			require_once $caminhoClasse;
+			require $caminhoClasse;
 		else
 			exit('Não foi possível importar a classe <strong>"'.$caminhoClasse.'"</strong>.');
 	}
