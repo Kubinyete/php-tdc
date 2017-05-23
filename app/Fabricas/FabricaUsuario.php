@@ -7,6 +7,7 @@ namespace App\Fabricas;
 
 use App\Objetos\Usuario;
 use App\Config\AppConfig;
+use App\Fabricas\FabricaBase;
 use App\Interfaces\FabricaInterface;
 
 abstract class FabricaUsuario extends FabricaBase implements FabricaInterface {

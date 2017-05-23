@@ -17,7 +17,7 @@ class Missao extends Objeto {
 	protected $vitoria;
 	protected $percentualExplorado;
 
-	public function __construct(int $id, string $dataCriacao, ?Alianca $alianca, ?Mapa $mapa, bool $vitoria, float $percentualExplorado) {
+	public function __construct(int $id, string $dataCriacao, ?Alianca $alianca, ?Mapa $mapa, bool $vitoria, int $percentualExplorado) {
 		parent::__construct($id, $dataCriacao);
 
 		$this->setAlianca($alianca);
@@ -42,7 +42,7 @@ class Missao extends Objeto {
 		return $this->vitoria;
 	}
 
-	public function getPercentualExplorado() : float {
+	public function getPercentualExplorado() : int {
 		return $this->percentualExplorado;
 	}
 	
@@ -62,8 +62,8 @@ class Missao extends Objeto {
 		$this->vitoria = $valor;
 	}
 
-	public function setPercentualExplorado(float $valor) {
-		$this->percentualExplorado = ($valor > 1.0) ? 1.0 : ($valor < 0.0) ? 0.0 : $valor;
+	public function setPercentualExplorado(int $valor) {
+		$this->percentualExplorado = (($valor > 100) ? 100 : ($valor < 0) ? 0 : $valor);
 	}
 }
 
