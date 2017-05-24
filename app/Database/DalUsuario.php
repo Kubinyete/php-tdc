@@ -33,7 +33,6 @@ final class DalUsuario extends DalBase implements CrudInterface {
 			[
 				'usr_login' => $usuario->getLogin(),
 				'usr_senha' => $usuario->getHashSenha(),
-				'usr_nickname' => $usuario->getNickname(),
 				'usr_data_criacao' => $usuario->getDataCriacao()
 			]
 		)->semicolon()->select('usr_id')->from(self::SQL_TABELA)->order('usr_id', false)->limit(1);
@@ -77,8 +76,7 @@ final class DalUsuario extends DalBase implements CrudInterface {
 					$arrayObjeto['usr_id'],
 					$arrayObjeto['usr_data_criacao'],
 					$arrayObjeto['usr_login'],
-					$arrayObjeto['usr_senha'],
-					$arrayObjeto['usr_nickname']
+					$arrayObjeto['usr_senha']
 				);
 			}
 		);
@@ -104,8 +102,7 @@ final class DalUsuario extends DalBase implements CrudInterface {
 		$sql->update(self::SQL_TABELA, 
 			[
 				'usr_login' => $usuario->getLogin(),
-				'usr_senha' => $usuario->getHashSenha(),
-				'usr_nickname' => $usuário->getNickname()
+				'usr_senha' => $usuario->getHashSenha()
 			]
 		)->where('usr_id', '=', $usuario->getId())->limit(1);
 

@@ -15,17 +15,14 @@ class Usuario extends Objeto {
 
 	protected $hashSenha;
 	protected $hashAlgoritmo;
-	
-	protected $nickname;
 
-	public function __construct(int $id, string $dataCriacao, string $login, string $senha, string $nickname, ?string $hashAlgoritmo = null) {
+	public function __construct(int $id, string $dataCriacao, string $login, string $senha, ?string $hashAlgoritmo = null) {
 		parent::__construct($id, $dataCriacao);
 
 		$this->hashAlgoritmo = $hashAlgoritmo;
 
 		$this->setLogin($login);
 		$this->setSenha($senha);
-		$this->setNickname($nickname);
 	}
 
 	/**
@@ -42,10 +39,6 @@ class Usuario extends Objeto {
 
 	public function getHashSenha() : string {
 		return $this->hashSenha;
-	}
-
-	public function getNickname() : string {
-		return $this->nickname;
 	}
 
 	/**
@@ -65,10 +58,6 @@ class Usuario extends Objeto {
 		// algoritmo, vamos então assumir que a senha obtida ja está em forma de hash, então apenas
 		// copie seu valor para ser obtido atrabés do getHashSenha()
 		$this->hashSenha = ($this->hashAlgoritmo !== null) ? hash($this->hashAlgoritmo, $valor) : $valor;
-	}
-
-	public function setNickname(string $valor) {
-		$this->nickname = $valor;
 	}
 }
 

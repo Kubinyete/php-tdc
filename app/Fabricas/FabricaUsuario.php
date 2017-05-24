@@ -14,19 +14,18 @@ abstract class FabricaUsuario extends FabricaBase implements FabricaInterface {
 	// $contador
 
 	/**
-	 * Cria um novo objeto Usuario
+	 * Retorna um novo objeto Usuario
 	 * @param  string  $login
 	 * @param  string  $senha
 	 * @param  string  $nickname
 	 * @return Usuario
 	 */
-	public static function criar(string $login = '', string $senha = '', string $nickname = '') : Usuario {
+	public static function criar(string $login = '', string $senha = '') : Usuario {
 		return new Usuario(
 			self::getNovoId(),
 			self::getDatetimeAtual(),
 			$login,
 			$senha,
-			$nickname,
 			AppConfig::obter('Usuarios.algoritmoHash')
 		);
 	}

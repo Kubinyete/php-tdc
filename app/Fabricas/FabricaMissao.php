@@ -12,9 +12,15 @@ use App\Fabricas\FabricaBase;
 use App\Interfaces\FabricaInterface;
 
 abstract class FabricaMissao extends FabricaBase implements FabricaInterface {
-	// $contador
-	
-	public static function criar(?Alianca $alianca, ?Mapa $mapa, bool $vitoria = true, int $percentualExplorado = 100) : Missao {
+	/**
+	 * Retorna uma nova Missao
+	 * @param  Alianca|null $alianca             
+	 * @param  Mapa|null    $mapa                
+	 * @param  bool|boolean $vitoria             
+	 * @param  int|integer  $percentualExplorado 
+	 * @return Missao                            
+	 */
+	public static function criar(?Alianca $alianca = null, ?Mapa $mapa = null, bool $vitoria = true, int $percentualExplorado = 100) : Missao {
 		return new Missao(
 			self::getNovoId(),
 			self::getDatetimeAtual(),

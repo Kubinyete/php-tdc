@@ -11,8 +11,6 @@ use App\Fabricas\FabricaBase;
 use App\Interfaces\FabricaInterface;
 
 abstract class FabricaAlianca extends FabricaBase implements FabricaInterface {
-	// $contador
-
 	/**
 	 * Retorna um objeto Alianca novo
 	 * @param  Usuario|null

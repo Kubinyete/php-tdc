@@ -6,7 +6,7 @@
 namespace App\Fabricas;
 
 abstract class FabricaBase {
-	protected static $idContadorGlobal = 0;
+	private static $idContador = 0;
 
 	/**
 	 * Retorna um datetime atual
@@ -22,7 +22,7 @@ abstract class FabricaBase {
 	 * @return int
 	 */
 	protected static function getNovoId() : int {
-		return static::$idContadorGlobal++;
+		return self::$idContador++;
 	}
 }
 

@@ -11,8 +11,13 @@ use App\Fabricas\FabricaBase;
 use App\Interfaces\FabricaInterface;
 
 abstract class FabricaGuerra extends FabricaBase implements FabricaInterface {
-	// $contador
-	
+	/**
+	 * Retorna uma nova Guerra
+	 * @param  Alianca|null $alianca        
+	 * @param  string       $nomeAdversario 
+	 * @param  bool|boolean $vitoria        
+	 * @return Guerra                       
+	 */
 	public static function criar(?Alianca $alianca = null, string $nomeAdversario = '', bool $vitoria = true) : Guerra {
 		return new Guerra(
 			self::getNovoId(),

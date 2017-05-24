@@ -11,8 +11,12 @@ use App\Fabricas\FabricaBase;
 use App\Interfaces\FabricaInterface;
 
 abstract class FabricaGrupo extends FabricaBase implements FabricaInterface {
-	// $contador
-
+	/**
+	 * Retorna um Grupo novo
+	 * @param  Alianca|null $alianca
+	 * @param  string       $nome
+	 * @return Grupo
+	 */
 	public static function criar(?Alianca $alianca = null, ?string $nome = '') : Grupo {
 		return new Grupo(
 			self::getNovoId(),
