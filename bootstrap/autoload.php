@@ -16,7 +16,7 @@ spl_autoload_register(
 
 		$caminhoClasse = implode(DIRECTORY_SEPARATOR, $caminhoClasse);
 
-		$caminhoClasse = DIR_BASE.$caminhoClasse.'.php';
+		$caminhoClasse = APP_BASE.$caminhoClasse.'.php';
 
 		if (file_exists($caminhoClasse))
 			require $caminhoClasse;
