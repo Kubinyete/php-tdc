@@ -5,8 +5,8 @@
 	},
 
 	"Database": {
-		"StringConexao": "mysql:host=;dbname=;charset=utf8",
-		"Usuario": "",
+		"StringConexao": "mysql:host=localhost;dbname=phptdc;charset=utf8",
+		"Usuario": "root",
 		"Senha": ""
 	},
 
