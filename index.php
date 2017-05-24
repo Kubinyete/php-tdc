@@ -22,12 +22,40 @@ define('APP_DEBUG', App\Config\AppConfig::obter('App.ModoDebug') ?? true);
 
 $conexao = new App\Database\Conexao();
 $dalUsuarios = new App\Database\DalUsuario($conexao);
+
 $testeAlianca = App\Fabricas\FabricaAlianca::criar();
 $testeGrupo = App\Fabricas\FabricaGrupo::criar();
 $testeGuerra = App\Fabricas\FabricaGuerra::criar();
 $testeJogador = App\Fabricas\FabricaJogador::criar();
 $testeMissao = App\Fabricas\FabricaMissao::criar();
-$testeUsuario = App\Fabricas\FabricaUsuario::criar();
+$testeUsuario = App\Fabricas\FabricaUsuario::criar('helloworld', 'senha');
+
+if ($dalUsuarios->criar($testeUsuario)) {
+	echo 'O Usuário foi criado, Usuario::getId() = '.$testeUsuario->getId().'<br>';
+}
+
+$usuarioDoBanco = $dalUsuarios->obter($testeUsuario->getId());
+
+if ($usuarioDoBanco !== null) {
+	echo 'O Usuário #'.$usuarioDoBanco->getId().' foi retornado do banco de dados<br>';
+}
+
+$usuarioDoBanco->setLogin('modificado');
+$dalUsuarios->atualizar($usuarioDoBanco);
+
+$usuarioDoBanco = $dalUsuarios->obter($testeUsuario->getId());
+
+if ($usuarioDoBanco->getLogin() === 'modificado') {
+	echo 'O Usuário teve o nome modificado para "modificado"<br>';
+}
+
+$dalUsuarios->deletar($usuarioDoBanco);
+
+$usuarioDoBanco = $dalUsuarios->obter($testeUsuario->getId());
+
+if ($usuarioDoBanco === null) {
+	echo 'O Usuário foi deletado do banco de dados<br>';
+}
 
 ?>
 
@@ -51,6 +79,7 @@ echo $testeMissao;
 echo '<br>';
 echo $testeUsuario;
 echo '<br>';
+echo $usuarioDoBanco;
 echo 'APP_DEBUG = '.((APP_DEBUG) ? 'true' : 'false');
 
 

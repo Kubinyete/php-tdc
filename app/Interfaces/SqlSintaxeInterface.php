@@ -12,7 +12,7 @@ interface SqlSintaxeInterface {
 
 	public function from(string $tabela) : SqlComando;
 
-	public function where(string $attr, string $expr, ?string $alvo) : SqlComando;
+	public function where(string $attr, string $expr, $alvo) : SqlComando;
 
 	public function semicolon() : SqlComando;
 
@@ -30,7 +30,7 @@ interface SqlSintaxeInterface {
 
 	public function and() : SqlComando;
 
-	public function expr(string $attr, string $expr, ?string $alvo) : SqlComando;
+	public function expr(string $attr, string $expr, $alvo) : SqlComando;
 
 	public function like(string $likeExpr) : SqlComando;
 

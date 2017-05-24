@@ -5,11 +5,12 @@
 
 namespace App\Database;
 
+use \PDO;
 use App\Database\SqlComando;
 use App\Objetos\Usuario;
-use App\Interfaces\CrudInterface;
+use App\Config\AppConfig;
 
-final class DalUsuario extends DalBase implements CrudInterface {
+final class DalUsuario extends DalBase {
 	// $conexao / get / set
 	// executar()
 	// exec()
@@ -35,22 +36,28 @@ final class DalUsuario extends DalBase implements CrudInterface {
 				'usr_senha' => $usuario->getHashSenha(),
 				'usr_data_criacao' => $usuario->getDataCriacao()
 			]
-		)->semicolon()->select('usr_id')->from(self::SQL_TABELA)->order('usr_id', false)->limit(1);
+		)->semicolon();
 
 		$this->conectar();
 		$this->iniciarTransacao();
 		
-		$query = $this->executar($sql);
+		$linhasAfetadas = $this->exec($sql);
 
-		if ($query !== null) {
-			$query = $query->fetchAll(PDO::FETCH_ASSOC);
-			$usuario->setId($query[0]['usr_id']);
-
+		if ($linhasAfetadas >= 1) {
 			$this->salvarTransacao();
 
-			$sucesso = true;
+			$sql->setTextoComando(null);
+			$sql->select('usr_id')->from(self::SQL_TABELA)->order('usr_id', false)->limit(1);
+
+			$query = $this->executar($sql);
+
+			if ($query !== null) {
+				$query = $query->fetchAll(PDO::FETCH_ASSOC);
+				$usuario->setId(intval($query[0]['usr_id']));
+
+				$sucesso = true;
+			}
 		} else {
-			$query->closeCursor();
 			$this->descartarTransacao();
 		}
 
@@ -73,7 +80,7 @@ final class DalUsuario extends DalBase implements CrudInterface {
 		$lista = $this->getObjetos($sql, 
 			function(array $arrayObjeto) : Usuario {
 				return new Usuario(
-					$arrayObjeto['usr_id'],
+					intval($arrayObjeto['usr_id']),
 					$arrayObjeto['usr_data_criacao'],
 					$arrayObjeto['usr_login'],
 					$arrayObjeto['usr_senha']
@@ -86,7 +93,7 @@ final class DalUsuario extends DalBase implements CrudInterface {
 		if (count($lista) >= 1)
 			return $lista[0];
 		else
-			return;
+			return null;
 	}
 
 	/**

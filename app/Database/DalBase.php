@@ -5,9 +5,10 @@
 
 namespace App\Database;
 
+use \PDO;
+use \PDOStatement;
 use App\Database\Conexao;
 use App\Database\SqlComando;
-use PDO;
 
 abstract class DalBase {
 	protected $conexao;

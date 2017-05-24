@@ -6,9 +6,9 @@
 
 namespace App\Database;
 
-use PDO;
-use PDOException;
-use PDOStatement;
+use \PDO;
+use \PDOException;
+use \PDOStatement;
 use App\Config\AppConfig;
 
 final class Conexao {
@@ -116,7 +116,6 @@ final class Conexao {
 	 */
 	public function executar(string $sql) : ?PDOStatement {
 		$query = $this->conexao->query($sql);
-
 		return (!$query) ? null : $query;
 	}
 
@@ -127,7 +126,8 @@ final class Conexao {
 	 * @return int
 	 */
 	public function exec(string $sql) : int {
-		return $this->conexao->exec($sql);
+		$linhasAfetadas = $this->conexao->exec($sql);
+		return (!$linhasAfetadas) ? 0 : $linhasAfetadas;
 	}
 
 	/**

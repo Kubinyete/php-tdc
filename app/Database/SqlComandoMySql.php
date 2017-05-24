@@ -41,15 +41,15 @@ abstract class SqlComandoMySql extends SqlComandoBase implements SqlSintaxeInter
 	 */
 	private static function traduzirTipo($tipo, bool $filtrarCasoString = true) : string {
 		switch ($tipo) {
-			case true:
+			case ($tipo === true):
 				return self::SQL_TIP0_TRUE;
-			case false:
+			case ($tipo === false):
 				return self::SQL_TIP0_FALSE;
-			case null:
+			case ($tipo === null):
 				return self::SQL_TIP0_NULL;
 			default:
 				if ($filtrarCasoString)
-					return self::SQL_STR_DELIMITADOR.self::filtrarString(strval($texto)).self::SQL_STR_DELIMITADOR;
+					return self::SQL_STR_DELIMITADOR.self::filtrarString(strval($tipo)).self::SQL_STR_DELIMITADOR;
 				else
 					return strval($tipo);
 		}
@@ -149,7 +149,7 @@ abstract class SqlComandoMySql extends SqlComandoBase implements SqlSintaxeInter
 		if ($e <= 0)
 			return $this;
 
-		$cmd = 'UPDATE '.$tabela;
+		$cmd = 'UPDATE '.$tabela.' ';
 		$valores = 'SET ';
 
 		$i = 0;
@@ -193,8 +193,8 @@ abstract class SqlComandoMySql extends SqlComandoBase implements SqlSintaxeInter
 	 * Equivalente ao comando AS
 	 * @return SqlComando
 	 */
-	public function as() : SqlComando {
-		$this->acrescentarTextoComando('AS ');
+	public function as(string $apelido) : SqlComando {
+		$this->acrescentarTextoComando('AS '.$apelido.' ');
 
 		return $this;
 	}
