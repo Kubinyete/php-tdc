@@ -21,8 +21,8 @@ abstract class FabricaAlianca extends FabricaBase implements FabricaInterface {
 	 */
 	public static function criar(?Usuario $usuario = null, string $nome = '') : Alianca {
 		return new Alianca(
-			parent::getNovoId(),
-			parent::getDatetimeAtual(),
+			self::getNovoId(),
+			self::getDatetimeAtual(),
 			$usuario,
 			$nome
 		);

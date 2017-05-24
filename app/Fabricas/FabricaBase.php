@@ -22,7 +22,7 @@ abstract class FabricaBase {
 	 * @return int
 	 */
 	protected static function getNovoId() : int {
-		return self::$idContadorGlobal++;
+		return static::$idContadorGlobal++;
 	}
 }
 

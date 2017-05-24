@@ -22,8 +22,8 @@ abstract class FabricaUsuario extends FabricaBase implements FabricaInterface {
 	 */
 	public static function criar(string $login = '', string $senha = '', string $nickname = '') : Usuario {
 		return new Usuario(
-			parent::getNovoId(),
-			parent::getDatetimeAtual(),
+			self::getNovoId(),
+			self::getDatetimeAtual(),
 			$login,
 			$senha,
 			$nickname,

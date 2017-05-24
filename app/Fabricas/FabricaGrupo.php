@@ -15,8 +15,8 @@ abstract class FabricaGrupo extends FabricaBase implements FabricaInterface {
 
 	public static function criar(?Alianca $alianca = null, ?string $nome = '') : Grupo {
 		return new Grupo(
-			parent::getNovoId(),
-			parent::getDatetimeAtual(),
+			self::getNovoId(),
+			self::getDatetimeAtual(),
 			$alianca,
 			$nome
 		);

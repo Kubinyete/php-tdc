@@ -15,8 +15,8 @@ abstract class FabricaGuerra extends FabricaBase implements FabricaInterface {
 	
 	public static function criar(?Alianca $alianca = null, string $nomeAdversario = '', bool $vitoria = true) : Guerra {
 		return new Guerra(
-			parent::getNovoId(),
-			parent::getDatetimeAtual(),
+			self::getNovoId(),
+			self::getDatetimeAtual(),
 			$alianca,
 			$nomeAdversario,
 			$vitoria

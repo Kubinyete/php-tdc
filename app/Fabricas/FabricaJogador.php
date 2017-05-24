@@ -14,10 +14,10 @@ abstract class FabricaJogador extends FabricaBase implements FabricaInterface {
 	// $contador
 
 	public static function criar(?Alianca $alianca = null, ?string $nome = null, string $nickname = '', int $nivel = 0, ?string $telefone = null, string $email = '', int $tipo = 0) : Jogador {
-		$datetime = parent::getDatetimeAtual();
+		$datetime = self::getDatetimeAtual();
 
 		return new Jogador(
-			parent::getNovoId(),
+			self::getNovoId(),
 			$datetime,
 			$alianca,
 			null,

@@ -16,8 +16,8 @@ abstract class FabricaMissao extends FabricaBase implements FabricaInterface {
 	
 	public static function criar(?Alianca $alianca, ?Mapa $mapa, bool $vitoria = true, int $percentualExplorado = 100) : Missao {
 		return new Missao(
-			parent::getNovoId(),
-			parent::getDatetimeAtual(),
+			self::getNovoId(),
+			self::getDatetimeAtual(),
 			$alianca,
 			$mapa,
 			$vitoria,
