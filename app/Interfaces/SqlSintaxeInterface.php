@@ -8,7 +8,7 @@ namespace App\Interfaces;
 use App\Database\SqlComando;
 
 interface SqlSintaxeInterface {
-	public function select(string $attr = '*') : SqlComando;
+	public function select() : SqlComando;
 
 	public function from(string $tabela) : SqlComando;
 
@@ -22,7 +22,7 @@ interface SqlSintaxeInterface {
 
 	public function delete(string $tabela) : SqlComando;
 
-	public function order(string $atributo, bool $crescente = true) : SqlComando;
+	public function order(string $atributo) : SqlComando;
 
 	public function as(string $apelido) : SqlComando;
 
