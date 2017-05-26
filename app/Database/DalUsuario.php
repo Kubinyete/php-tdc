@@ -8,7 +8,6 @@ namespace App\Database;
 use \PDO;
 use App\Database\SqlComando;
 use App\Objetos\Usuario;
-use App\Config\AppConfig;
 
 final class DalUsuario extends DalBase {
 	// $conexao / get / set
@@ -53,9 +52,12 @@ final class DalUsuario extends DalBase {
 
 			if ($query !== null) {
 				$query = $query->fetchAll(PDO::FETCH_ASSOC);
-				$usuario->setId(intval($query[0]['usr_id']));
+				
+				if (count($query) >= 1) {
+					$usuario->setId(intval($query[0]['usr_id']));
 
-				$sucesso = true;
+					$sucesso = true;
+				}
 			}
 		} else {
 			$this->descartarTransacao();
