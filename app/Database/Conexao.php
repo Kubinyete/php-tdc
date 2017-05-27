@@ -9,6 +9,7 @@ namespace App\Database;
 use \PDO;
 use \PDOException;
 use \PDOStatement;
+use App\Database\SqlComando;
 use App\Config\AppConfig;
 
 final class Conexao {
@@ -111,22 +112,22 @@ final class Conexao {
 	 * Executa uma string de comandos SQL em uma conexão PDO
 	 * Retorna um PDOStatement
 	 * Em caso de falha, retorna null
-	 * @param  string $sql
+	 * @param  SqlComando $sql
 	 * @return PDOStatement|null
 	 */
-	public function executar(string $sql) : ?PDOStatement {
-		$query = $this->conexao->query($sql);
+	public function executar(SqlComando $sql) : ?PDOStatement {
+		$query = $this->conexao->query($sql->getTextoComando());
 		return (!$query) ? null : $query;
 	}
 
 	/**
 	 * Executa uma string de comandos SQL e retorna o número de linhas afetadas
 	 * Em caso de falha, retornará 0
-	 * @param  string $sql
+	 * @param  SqlComando $sql
 	 * @return int
 	 */
-	public function exec(string $sql) : int {
-		$linhasAfetadas = $this->conexao->exec($sql);
+	public function exec(SqlComando $sql) : int {
+		$linhasAfetadas = $this->conexao->exec($sql->getTextoComando());
 		return (!$linhasAfetadas) ? 0 : $linhasAfetadas;
 	}
 
