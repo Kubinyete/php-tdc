@@ -9,15 +9,7 @@ use \PDO;
 use App\Database\SqlComando;
 use App\Objetos\Usuario;
 
-final class DalUsuario extends DalBase {
-	// $conexao / get / set
-	// executar()
-	// exec()
-	// iniciarTransacao()
-	// descartarTransacao()
-	// salvarTransacao()
-	// emTransacao()
-	// getObjetos()
+final class DalUsuarios extends DalBase {
 	private const SQL_TABELA = 'Usuarios';
 
 	/**
@@ -105,30 +97,16 @@ final class DalUsuario extends DalBase {
 	 * @return bool
 	 */
 	public function atualizar(Usuario $usuario) : bool {
-		$sucesso = false;
-
 		$sql = new SqlComando();
-		$sql->update(self::SQL_TABELA, 
-			[
-				'usr_login' => $usuario->getLogin(),
-				'usr_senha' => $usuario->getHashSenha()
-			]
-		)->where('usr_id', '=', $usuario->getId())->limit(1);
 
-		$this->conectar();
-		$this->iniciarTransacao();
-
-		$linhasAfetadas = $this->exec($sql);
-
-		if ($linhasAfetadas === 1) {
-			$this->salvarTransacao();
-			$sucesso = true;
-		} else {
-			$this->descartarTransacao();
-		}
-
-		$this->desconectar();
-		return $sucesso;
+		return $this->modificar(
+			$sql->update(self::SQL_TABELA, 
+				[
+					'usr_login' => $usuario->getLogin(),
+					'usr_senha' => $usuario->getHashSenha()
+				]
+			)->where('usr_id', '=', $usuario->getId())->limit(1)
+		);
 	}
 
 	/**
@@ -137,25 +115,11 @@ final class DalUsuario extends DalBase {
 	 * @return bool
 	 */
 	public function deletar(Usuario $usuario) : bool {
-		$sucesso = false;
-
 		$sql = new SqlComando();
-		$sql->delete(self::SQL_TABELA)->where('usr_id', '=', $usuario->getId())->limit(1);
-
-		$this->conectar();
-		$this->iniciarTransacao();
 		
-		$linhasAfetadas = $this->exec($sql);
-
-		if ($linhasAfetadas === 1) {
-			$this->salvarTransacao();
-			$sucesso = true;
-		} else {
-			$this->descartarTransacao();
-		}
-
-		$this->desconectar();
-		return $sucesso;
+		return $this->modificar(
+			$sql->delete(self::SQL_TABELA)->where('usr_id', '=', $usuario->getId())->limit(1)
+		);
 	}
 }
 

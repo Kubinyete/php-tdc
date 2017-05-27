@@ -93,7 +93,7 @@ abstract class DalBase {
 	 * @return PDOStatement|null
 	 */
 	protected function executar(SqlComando $sqlComando) : ?PDOStatement {
-		return $this->getConexao()->executar($sqlComando->getTextoComando());
+		return $this->getConexao()->executar($sqlComando);
 	}
 
 	/**
@@ -104,7 +104,7 @@ abstract class DalBase {
 	 * @return PDOStatement|null
 	 */
 	protected function exec(sqlComando $sqlComando) : int {
-		return $this->getConexao()->exec($sqlComando->getTextoComando());
+		return $this->getConexao()->exec($sqlComando);
 	}
 
 	/**
@@ -131,6 +131,32 @@ abstract class DalBase {
 		}
 
 		return $retornoObjetos;
+	}
+
+	/**
+	 * Facilita a modificação de apenas um objeto no banco de dados
+	 * Ex: atualizar() ou deletar()
+	 * @param  SqlComando $sqlComando
+	 * @return bool
+	 */
+	protected function modificar(SqlComando $sqlComando) : bool {
+		$sucesso = false;
+
+		$this->conectar();
+		$this->iniciarTransacao();
+		
+		$linhasAfetadas = $this->exec($sql);
+
+		if ($linhasAfetadas === 1) {
+			$this->salvarTransacao();
+			$sucesso = true;
+		} else {
+			$this->descartarTransacao();
+		}
+
+		$this->desconectar();
+
+		return $sucesso;
 	}
 }
 

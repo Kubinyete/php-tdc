@@ -10,15 +10,7 @@ use App\Database\SqlComando;
 use App\Objetos\Usuario;
 use App\Objetos\Alianca;
 
-final class DalAlianca extends DalBase {
-	// $conexao / get / set
-	// executar()
-	// exec()
-	// iniciarTransacao()
-	// descartarTransacao()
-	// salvarTransacao()
-	// emTransacao()
-	// getObjetos()
+final class DalAliancas extends DalBase {
 	private const SQL_TABELA = 'Aliancas';
 
 	/**
@@ -71,7 +63,7 @@ final class DalAlianca extends DalBase {
 
 	/**
 	 * Retorna um objeto Alianca do banco de dados
-	 * @param  int    $id
+	 * @param  int       $id
 	 * @return Alianca|null
 	 */
 	public function obter(int $id) : ?Alianca {
@@ -85,11 +77,47 @@ final class DalAlianca extends DalBase {
 				return new Alianca(
 					$arrayObjetos['ali_id'],
 					$arrayObjetos['ali_data_criacao'],
-
+					$arrayObjetos['usr_id'],
+					$arrayObjetos['ali_nome']
 				);
 			}
 		);
+
+		$this->desconectar();
+
+		if (count($lista) >= 1)
+			return $lista[0];
+		else
+			return null;
 	}
-	public function atualizar();
-	public function deletar();
+
+	/**
+	 * Atualiza as propriedades de uma Alianca no banco de dados
+	 * @param  Alianca $alianca
+	 * @return bool
+	 */
+	public function atualizar(Alianca $alianca) : bool {
+		$sql = new SqlComando();
+		
+		return $this->modificar(
+			$sql->update(self::SQL_TABELA, 
+				[
+					'ali_nome' => $alianca->getNome()
+				]
+			)->where('ali_id', '=', $alianca->getId())->limit(1);
+		);
+	}
+
+	/**
+	 * Remove uma Alianca do banco de dados
+	 * @param  Alianca $alianca
+	 * @return bool
+	 */
+	public function deletar(Alianca $alianca) : bool {
+		$sql = new SqlComando();
+
+		return $this->modificar(
+			$sql->delete(self::SQL_TABELA)->where('ali_id', '=', $alianca->getId())->limit(1)
+		);
+	}
 ?>
