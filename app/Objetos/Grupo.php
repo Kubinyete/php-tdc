@@ -6,18 +6,17 @@
 namespace App\Objetos;
 
 use App\Objetos\Objeto;
-use App\Objetos\Alianca;
 
 class Grupo extends Objeto {
 	// $id
 	// $dataCriacao
 	protected $nome;
-	protected $alianca;
+	protected $aliancaId;
 
-	public function __construct(int $id, string $dataCriacao, ?Alianca $alianca, ?string $nome) {
+	public function __construct(int $id, string $dataCriacao, int $aliancaId, ?string $nome) {
 		parent::__construct($id, $dataCriacao);
 
-		$this->setAlianca($alianca);
+		$this->setAliancaId($aliancaId);
 		$this->setNome($nome);
 	}
 
@@ -29,8 +28,8 @@ class Grupo extends Objeto {
 		return $this->nome;
 	}
 	
-	public function getAlianca() : ?Alianca {
-		return $this->alianca;
+	public function getAliancaId() : int {
+		return $this->aliancaId;
 	}
 
 	/**
@@ -41,8 +40,8 @@ class Grupo extends Objeto {
 		$this->nome = $valor;
 	}
 	
-	public function setAlianca(?Alianca $valor) {
-		$this->alianca = $valor;
+	public function setAliancaId(int $valor) {
+		$this->aliancaId = $valor;
 	}
 }
 

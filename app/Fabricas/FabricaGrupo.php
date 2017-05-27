@@ -13,15 +13,15 @@ use App\Interfaces\FabricaInterface;
 abstract class FabricaGrupo extends FabricaBase implements FabricaInterface {
 	/**
 	 * Retorna um Grupo novo
-	 * @param  Alianca|null $alianca
-	 * @param  string       $nome
+	 * @param  int          $aliancaId
+	 * @param  string|null  $nome
 	 * @return Grupo
 	 */
-	public static function criar(?Alianca $alianca = null, ?string $nome = '') : Grupo {
+	public static function criar(int $aliancaId = 0, ?string $nome = null) : Grupo {
 		return new Grupo(
 			self::getNovoId(),
 			self::getDatetimeAtual(),
-			$alianca,
+			$aliancaId,
 			$nome
 		);
 	}

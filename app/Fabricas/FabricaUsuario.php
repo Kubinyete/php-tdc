@@ -11,8 +11,6 @@ use App\Fabricas\FabricaBase;
 use App\Interfaces\FabricaInterface;
 
 abstract class FabricaUsuario extends FabricaBase implements FabricaInterface {
-	// $contador
-
 	/**
 	 * Retorna um novo objeto Usuario
 	 * @param  string  $login

@@ -6,16 +6,12 @@
 namespace App\Objetos;
 
 use App\Objetos\Objeto;
-use App\Objetos\Alianca;
-use App\Objetos\Grupo;
-use App\Objetos\Missao;
-use App\Objetos\Guerra;
 
 class Jogador extends Objeto {
 	// $id
 	// $dataCriacao
-	protected $alianca;
-	protected $grupo;
+	protected $aliancaId;
+	protected $grupoId;
 	protected $nome;
 	protected $nickname;
 	protected $nivel;
@@ -25,15 +21,15 @@ class Jogador extends Objeto {
 	protected $status;
 	protected $observacoes;
 	protected $dataAdicionado;
-	protected $missao;
-	protected $guerra;
+	protected $missaoId;
+	protected $guerraId;
 	protected $pontuacao;
 
-	public function __construct(int $id, string $dataCriacao, ?Alianca $alianca, ?Grupo $grupo, string $dataAdicionado, ?Missao $missao, ?Guerra $guerra, int $pontuacao, ?string $nome, string $nickname, int $nivel, ?string $telefone, string $email, int $tipo, bool $status, ?string $observacoes) {
+	public function __construct(int $id, string $dataCriacao, int $aliancaId, int $grupoId, string $dataAdicionado, int $missaoId, int $guerraId, int $pontuacao, ?string $nome, string $nickname, int $nivel, ?string $telefone, string $email, int $tipo, bool $status, ?string $observacoes) {
 		parent::__construct($id, $dataCriacao);
 
-		$this->setAlianca($alianca);
-		$this->setGrupo($grupo);
+		$this->setAliancaId($alianca);
+		$this->setGrupoId($grupo);
 		$this->setNome($nome);
 		$this->setNickname($nickname);
 		$this->setNivel($nivel);
@@ -43,8 +39,8 @@ class Jogador extends Objeto {
 		$this->setStatus($status);
 		$this->setObservacoes($observacoes);
 		$this->setDataAdicionado($dataAdicionado);
-		$this->setMissao($missao);
-		$this->setGuerra($guerra);
+		$this->setMissaoId($missao);
+		$this->setGuerraId($guerra);
 		$this->setPontuacao($pontuacao);
 	}
 
@@ -52,12 +48,12 @@ class Jogador extends Objeto {
 	 * Getters
 	 */
 
-	public function getAlianca() : ?Alianca {
-		return $this->alianca;
+	public function getAliancaId() : int {
+		return $this->aliancaId;
 	}
 
-	public function getGrupo() : ?Grupo {
-		return $this->grupo;
+	public function getGrupoId() : int {
+		return $this->grupoId;
 	}
 	
 	public function getNome() : ?string {
@@ -96,12 +92,12 @@ class Jogador extends Objeto {
 		return $this->dataAdicionado;
 	}
 
-	public function getMissao() : ?Missao {
-		return $this->missao;
+	public function getMissaoId() : int {
+		return $this->missaoId;
 	}
 
-	public function getGuerra() : ?Guerra {
-		return $this->guerra;
+	public function getGuerraId() : int {
+		return $this->guerraId;
 	}
 
 	public function getPontuacao() : int {
@@ -112,12 +108,12 @@ class Jogador extends Objeto {
 	 * Setters
 	 */
 	
-	public function setAlianca(?Alianca $valor) {
-		$this->alianca = $valor;
+	public function setAliancaId(int $valor) {
+		$this->aliancaId = $valor;
 	}
 
-	public function setGrupo(?Grupo $valor) {
-		$this->grupo = $valor;
+	public function setGrupoId(int $valor) {
+		$this->grupoId = $valor;
 	}
 
 	public function setNome(?string $valor) {
@@ -156,12 +152,12 @@ class Jogador extends Objeto {
 		$this->dataAdicionado = $valor;
 	}
 
-	public function setMissao(?Missao $valor) {
-		$this->missao = $valor;
+	public function setMissaoId(int $valor) {
+		$this->missaoId = $valor;
 	}
 
-	public function setGuerra(?Guerra $valor) {
-		$this->guerra = $valor;
+	public function setGuerraId(int $valor) {
+		$this->guerraId = $valor;
 	}
 
 	public function setPontuacao(int $valor) {

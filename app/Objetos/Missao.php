@@ -6,22 +6,20 @@
 namespace App\Objetos;
 
 use App\Objetos\Objeto;
-use App\Objetos\Mapa;
-use App\Objetos\Alianca;
 
 class Missao extends Objeto {
 	// $id
 	// $dataCriacao
-	protected $alianca;
-	protected $mapa;
+	protected $aliancaId;
+	protected $mapaId;
 	protected $vitoria;
 	protected $percentualExplorado;
 
-	public function __construct(int $id, string $dataCriacao, ?Alianca $alianca, ?Mapa $mapa, bool $vitoria, int $percentualExplorado) {
+	public function __construct(int $id, string $dataCriacao, int $aliancaId, int $mapaId, bool $vitoria, int $percentualExplorado) {
 		parent::__construct($id, $dataCriacao);
 
-		$this->setAlianca($alianca);
-		$this->setMapa($mapa);
+		$this->setAliancaId($aliancaId);
+		$this->setMapaId($mapaId);
 		$this->setVitoria($vitoria);
 		$this->setPercentualExplorado($percentualExplorado);
 	}
@@ -30,12 +28,12 @@ class Missao extends Objeto {
 	 * Getters
 	 */
 	
-	public function getAlianca() : ?Alianca {
-		return $this->alianca;
+	public function getAliancaId() : int {
+		return $this->aliancaId;
 	}
 
-	public function getMapa() : ?Mapa {
-		return $this->mapa;
+	public function getMapaId() : int {
+		return $this->mapaId;
 	}
 
 	public function getVitoria() : bool {
@@ -50,12 +48,12 @@ class Missao extends Objeto {
 	 * Setters
 	 */
 	
-	public function setAlianca(?Alianca $valor) {
-		$this->alianca = $valor;
+	public function setAliancaId(int $valor) {
+		$this->aliancaId = $valor;
 	}
 
-	public function setMapa(?Mapa $valor) {
-		$this->mapa = $valor;
+	public function setMapaId(int $valor) {
+		$this->mapaId = $valor;
 	}
 
 	public function setVitoria(bool $valor) {

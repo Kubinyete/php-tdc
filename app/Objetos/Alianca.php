@@ -6,19 +6,18 @@
 namespace App\Objetos;
 
 use App\Objetos\Objeto;
-use App\Objetos\Usuario;
 
 class Alianca extends Objeto {
 	// $id
 	// $dataCriacao
 	protected $nome;
-	protected $usuario;
+	protected $usuarioId;
 
-	public function __construct(int $id, string $dataCriacao, ?Usuario $usuario, string $nome) {
+	public function __construct(int $id, string $dataCriacao, int $usuarioId, string $nome) {
 		parent::__construct($id, $dataCriacao);
 
 		$this->setNome($nome);
-		$this->setUsuario($usuario);
+		$this->setUsuarioId($usuarioId);
 	}
 
 	/**
@@ -29,8 +28,8 @@ class Alianca extends Objeto {
 		return $this->nome;
 	}
 
-	public function getUsuario() : ?Usuario {
-		return $this->usuario;
+	public function getUsuarioId() : int {
+		return $this->usuarioId;
 	}
 	
 	/**
@@ -41,8 +40,8 @@ class Alianca extends Objeto {
 		$this->nome = $valor;
 	}
 
-	public function setUsuario(?Usuario $valor) {
-		$this->usuario = $valor;
+	public function setUsuarioId(int $valor) {
+		$this->usuarioId = $valor;
 	}
 }
 

@@ -13,15 +13,15 @@ use App\Interfaces\FabricaInterface;
 abstract class FabricaAlianca extends FabricaBase implements FabricaInterface {
 	/**
 	 * Retorna um objeto Alianca novo
-	 * @param  Usuario|null
+	 * @param  int          $usuarioId
 	 * @param  string       $nome
 	 * @return Alianca
 	 */
-	public static function criar(?Usuario $usuario = null, string $nome = '') : Alianca {
+	public static function criar(int $usuarioId = 0, string $nome = '') : Alianca {
 		return new Alianca(
 			self::getNovoId(),
 			self::getDatetimeAtual(),
-			$usuario,
+			$usuarioId,
 			$nome
 		);
 	}

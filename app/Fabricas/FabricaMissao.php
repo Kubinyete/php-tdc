@@ -14,18 +14,18 @@ use App\Interfaces\FabricaInterface;
 abstract class FabricaMissao extends FabricaBase implements FabricaInterface {
 	/**
 	 * Retorna uma nova Missao
-	 * @param  Alianca|null $alianca             
-	 * @param  Mapa|null    $mapa                
+	 * @param  int          $aliancaId             
+	 * @param  int          $mapaId                
 	 * @param  bool|boolean $vitoria             
 	 * @param  int|integer  $percentualExplorado 
 	 * @return Missao                            
 	 */
-	public static function criar(?Alianca $alianca = null, ?Mapa $mapa = null, bool $vitoria = true, int $percentualExplorado = 100) : Missao {
+	public static function criar(int $aliancaId = 0, int $mapaId = 0, bool $vitoria = true, int $percentualExplorado = 100) : Missao {
 		return new Missao(
 			self::getNovoId(),
 			self::getDatetimeAtual(),
-			$alianca,
-			$mapa,
+			$aliancaId,
+			$mapaId,
 			$vitoria,
 			$percentualExplorado
 		);

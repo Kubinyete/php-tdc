@@ -6,19 +6,18 @@
 namespace App\Objetos;
 
 use App\Objetos\Objeto;
-use App\Objetos\Alianca;
 
 class Guerra extends Objeto {
 	// $id
 	// $dataCriacao
-	protected $alianca;
+	protected $aliancaId;
 	protected $nomeAdversario;
 	protected $vitoria;
 
-	public function __construct(int $id, string $dataCriacao, ?Alianca $alianca, string $nomeAdversario, bool $vitoria) {
+	public function __construct(int $id, string $dataCriacao, int $aliancaId, string $nomeAdversario, bool $vitoria) {
 		parent::__construct($id, $dataCriacao);
 
-		$this->setAlianca($alianca);
+		$this->setAliancaId($aliancaId);
 		$this->setNomeAdversario($nomeAdversario);
 		$this->setVitoria($vitoria);
 	}
@@ -27,8 +26,8 @@ class Guerra extends Objeto {
 	 * Getters
 	 */
 	
-	public function getAlianca() : ?Alianca {
-		return $this->alianca;
+	public function getAliancaId() : int {
+		return $this->aliancaId;
 	}
 
 	public function getNomeAdversario() : string {
@@ -43,8 +42,8 @@ class Guerra extends Objeto {
 	 * Setters
 	 */
 	
-	public function setAlianca(?Alianca $valor) {
-		$this->alianca = $valor;
+	public function setAliancaId(int $valor) {
+		$this->aliancaId = $valor;
 	}
 
 	public function setNomeAdversario(string $valor) {
