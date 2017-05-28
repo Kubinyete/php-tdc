@@ -7,7 +7,7 @@ namespace App\Objetos;
 
 use App\Objetos\Objeto;
 
-class Missao extends Objeto {
+final class Missao extends Objeto {
 	// $id
 	// $dataCriacao
 	protected $aliancaId;

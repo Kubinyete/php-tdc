@@ -7,7 +7,7 @@ namespace App\Objetos;
 
 use App\Objetos\Objeto;
 
-class Usuario extends Objeto {
+final class Usuario extends Objeto {
 	// $id
 	// $dataCriacao
 	protected $login;

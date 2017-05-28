@@ -7,7 +7,7 @@ namespace App\Objetos;
 
 use App\Objetos\Objeto;
 
-class Mapa extends Objeto {
+final class Mapa extends Objeto {
 	// $id
 	// $dataCriacao
 	protected $nome;
