@@ -13,7 +13,7 @@ abstract class FabricaBase {
 	 * utils para atribuir à data de criação
 	 * @return string
 	 */
-	protected static function getDatetimeAtual() : string {
+	public static function getDatetimeAtual() : string {
 		return date('Y-m-d H:i:s');
 	}
 
@@ -21,7 +21,7 @@ abstract class FabricaBase {
 	 * Retorna uma nova id, e acrescenta ao contador estático
 	 * @return int
 	 */
-	protected static function getNovoId() : int {
+	public static function getNovoId() : int {
 		return self::$idContador++;
 	}
 }
