@@ -1,7 +1,8 @@
 {
 	"App": {
 		"Versao": "1.0.0",
-		"ModoDebug": true
+		"ModoDebug": true,
+		"WebBase": "/"
 	},
 
 	"Database": {

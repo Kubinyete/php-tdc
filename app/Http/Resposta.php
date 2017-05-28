@@ -40,6 +40,21 @@ abstract class Resposta {
 		if ($pararExecucao)
 			exit();
 	}
+
+	/**
+	 * Redireciona o usuário de forma restira a nossa apliação
+	 * @param  string $rota
+	 * @param  array  $args
+	 */
+	public static function appRedirecionar(string $rota, array $args = [], $pararExecucao = true) {
+		$str = WEB_BASE.'?r='.$rota;
+
+		foreach ($args as $chave => $valor) {
+			$str .= '&'.$chave.'='.$valor;
+		}
+
+		self::redirecionar($str, $pararExecucao);
+	}
 }
 
 ?>
