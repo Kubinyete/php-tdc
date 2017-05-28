@@ -7,7 +7,6 @@ namespace App\Database;
 
 use \PDO;
 use App\Database\SqlComando;
-use App\Objetos\Usuario;
 use App\Objetos\Alianca;
 
 final class DalAliancas extends DalBase {
@@ -73,7 +72,7 @@ final class DalAliancas extends DalBase {
 		$this->conectar();
 
 		$lista = $this->getObjetos($sql,
-			function (array $arrayObjetos) : Usuario {
+			function (array $arrayObjetos) : Alianca {
 				return new Alianca(
 					$arrayObjetos['ali_id'],
 					$arrayObjetos['ali_data_criacao'],
