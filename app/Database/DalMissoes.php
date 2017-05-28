@@ -5,6 +5,7 @@
 
 namespace App\Database;
 
+use \PDO;
 use App\Database\SqlComando;
 use App\Objetos\Missao;
 
