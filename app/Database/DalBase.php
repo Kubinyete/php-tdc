@@ -11,6 +11,7 @@ use App\Database\Conexao;
 use App\Database\SqlComando;
 
 abstract class DalBase {
+	private static $autoridade;
 	protected $conexao;
 
 	public function __construct(?Conexao $conexao = null) {
@@ -37,18 +38,32 @@ abstract class DalBase {
 	 * Funções
 	 */
 	
+	private static function temPermissaoParaModificarEstadoDaConexao() : bool {
+		if (self::$autoridade === null) {
+			self::$autoridade = static::class;
+			return true;
+		} else {
+			if (self::$autoridade !== static::class) 
+				return false;
+			else
+				return true;
+		}
+	}
+
 	/**
 	 * Estabelece a conexão com o banco de dados
 	 */
 	protected function conectar() {
-		$this->getConexao()->conectar();
+		if (self::temPermissaoParaModificarEstadoDaConexao())
+			$this->getConexao()->conectar();
 	}
 
 	/**
 	 * Fecha a conexão atual, se estiver ativa
 	 */
 	protected function desconectar() {
-		$this->getConexao()->desconectar();
+		if (self::temPermissaoParaModificarEstadoDaConexao())
+			$this->getConexao()->desconectar();
 	}
 
 	/**
