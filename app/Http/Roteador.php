@@ -1,0 +1,66 @@
+<?php declare(strict_types=1);
+/**
+ * Classe responsável por manipular e servir a requisição HTTP de acordo com os parâmetros passados
+ * para o roteador
+ */
+
+namespace App\Http;
+
+use \Exception;
+use App\Views\ViewBase;
+
+abstract class Roteador {
+	private const REQ_TAMANHO_LIMITE = 16;
+
+	private static $rotas = [];
+
+	/**
+	 * Registra um manipulador a uma rota de requisição
+	 * @param  string   $req        
+	 * @param  callable $manipulador'
+	 */
+	public static function registrar(string $req, callable $manipulador) {
+		try {
+			if (!isset(self::$rotas[$req]))
+				self::$rotas[$req] = $manipular;
+			else
+				throw new Exception('A rota de requisição já existe ao tentar registrar <strong>"'.$req.'"</strong>.');
+		} catch (Exception $e) {
+			self::abortar($e);
+		}
+	}
+
+	/**
+	 * Executa a rota desejada
+	 * @param  string $req
+	 */
+	public static function servir(string $req) {
+		$reqLen = strlen($req);
+		$renderizavel = null;
+
+		if ($reqLen > 0 && $reqLen <= self::REQ_TAMANHO_LIMITE && isset(self::$rotas[$req])) {
+			$renderizavel = self::$rotas[$req]();
+		} else {
+			$renderizavel = self::$rotas['404']();
+		}
+
+		try {
+			if ($renderizavel instanceof ViewBase)
+				$renderizavel();
+			else
+				throw new Exception('Visualização não renderizável retornada ao tentar servir o pedido'.(($renderizavel !== null) ? ' na rota <strong>"'.$req.'"</strong>.' : '.'));
+		} catch (Exception $e) {
+			self::abortar($e);
+		}
+	}
+
+	/**
+	 * Aborta a operação atual devido a um erro crítico
+	 * @param  Exception $e
+	 */
+	private static function abortar(Exception $e) {
+		exit($e->getMessage());
+	}
+}
+
+?>
