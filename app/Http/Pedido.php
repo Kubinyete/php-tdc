@@ -50,16 +50,17 @@ abstract class Pedido {
 
 	/**
 	 * Traduzir o um tipo de Pedido::<TIPO> para uma referência ao array original
+	 * EDIT: e tenta obter a chave informada
 	 * @param  int    $metodo
-	 * @return array|null
+	 * @return mixed|null
 	 */
-	private static function traduzir(int $metodo) : ?array {
+	private static function traduzirEObter(string $chave, int $metodo) {
 		if ($metodo === self::GET)
-			return &$_GET;
+			return $_GET[$chave];
 		else if ($metodo === self::POST)
-			return &$_POST;
+			return $_POST[$chave];
 		else if ($metodo === self::FILE)
-			return &$_FILES;
+			return $_FILES[$chave];
 		else
 			return null;
 	}
@@ -72,7 +73,7 @@ abstract class Pedido {
 	 */
 	public static function obter(string $chave, int $metodo) {
 		if (self::existe($chave, $metodo))
-			return traduzir($metodo)[$chave];
+			return self::traduzirEObter($chave, $metodo);
 		else
 			return null;
 	}

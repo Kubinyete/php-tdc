@@ -3,8 +3,8 @@
  * Registra a função de auto-carregar classes
  */
 
-spl_autoload_register(
-	function (string $caminhoClasse) {
+spl_autoload_register(function (string $caminhoClasse)
+	{
 		$caminhoClasse = explode('\\', $caminhoClasse);
 
 		// Transforma o nome do primeiro diretório para lowercase

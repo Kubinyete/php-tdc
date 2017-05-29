@@ -10,7 +10,8 @@ use \Exception;
 use App\Views\ViewBase;
 
 abstract class Roteador {
-	private const REQ_TAMANHO_LIMITE = 16;
+	private const ROTA_STRING_LIMITE = 32;
+	private const ROTA_NOTFOUND_PADRAO = 'notfound';
 
 	private static $rotas = [];
 
@@ -22,7 +23,7 @@ abstract class Roteador {
 	public static function registrar(string $req, callable $manipulador) {
 		try {
 			if (!isset(self::$rotas[$req]))
-				self::$rotas[$req] = $manipular;
+				self::$rotas[$req] = $manipulador;
 			else
 				throw new Exception('A rota de requisição já existe ao tentar registrar <strong>"'.$req.'"</strong>.');
 		} catch (Exception $e) {
@@ -38,10 +39,10 @@ abstract class Roteador {
 		$reqLen = strlen($req);
 		$renderizavel = null;
 
-		if ($reqLen > 0 && $reqLen <= self::REQ_TAMANHO_LIMITE && isset(self::$rotas[$req])) {
+		if ($reqLen > 0 && $reqLen <= self::ROTA_STRING_LIMITE && isset(self::$rotas[$req])) {
 			$renderizavel = self::$rotas[$req]();
 		} else {
-			$renderizavel = self::$rotas['404']();
+			$renderizavel = self::$rotas[self::ROTA_NOTFOUND_PADRAO]();
 		}
 
 		try {

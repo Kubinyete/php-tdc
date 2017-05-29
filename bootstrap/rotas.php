@@ -10,10 +10,21 @@ use App\Http\Sessao;
 
 use App\Database\Conexao;
 
+use App\Views\TesteView;
+
+/*
 use App\Controllers\LoginController;
 use App\Models\LoginModel;
 use App\Views\LoginView;
+*/
 
+Roteador::registrar('teste', function()
+	{
+		return new TesteView('Olá mundo!');
+	}
+);
+
+/*
 Roteador::registrar('login', function() 
 	{
 		// Se o usuário já estiver logado, envie ele para a página principal
@@ -21,7 +32,7 @@ Roteador::registrar('login', function()
 			Resposta::appRedirecionar('home');
 
 		$login = Pedido::obter('log', Pedido::POST);
-		$senha = Pedido::obter('sen', Peido::POST);
+		$senha = Pedido::obter('sen', Pedido::POST);
 
 		// Não sei se ficaria muito feio fazer isso, por enquanto vai ficar assim
 		$controlador = new LoginController(
@@ -35,5 +46,6 @@ Roteador::registrar('login', function()
 		return $controlador($login, $senha);
 	}
 );
+*/
 
 ?>
