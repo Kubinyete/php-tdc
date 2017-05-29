@@ -30,6 +30,8 @@ Roteador::registrar('login', function()
 			)
 		);
 
+		// O controlador é obrigado a retornar uma view RENDERIZÁVEL para o Roteador,
+		// para que o método Roteador::servir() lide corretamente com o pedido
 		return $controlador($login, $senha);
 	}
 );
