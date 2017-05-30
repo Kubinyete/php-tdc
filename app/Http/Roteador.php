@@ -11,7 +11,7 @@ use App\Views\ViewBase;
 
 abstract class Roteador {
 	private const ROTA_STRING_LIMITE = 32;
-	private const ROTA_NOTFOUND_PADRAO = 'notfound';
+	public const ROTA_NOTFOUND_PADRAO = 'notfound';
 
 	private static $rotas = [];
 
