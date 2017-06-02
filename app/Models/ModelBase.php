@@ -33,9 +33,6 @@ abstract class ModelBase {
 	// nesta função, você poderá consultar o banco de dados utilizando os objetos em App\Database
 	// retornando valores para completar uma View com essas informações, após isso, retorne essa
 	// View 'recheada' de informações
-	public abstract function index();
-
-	// Apelido para ::index()
 	public abstract function __invoke();
 }
 

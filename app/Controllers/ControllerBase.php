@@ -35,9 +35,6 @@ abstract class ControllerBase {
 	// Todo Controller pode ser inicializado utilizando este método
 	// os argumentos para rodar um Controller podem ser opcionais, tendo um valor já setado caso não
 	// for informado
-	public abstract function rodar();
-
-	// Apelido para ::rodar()
 	public abstract function __invoke();
 }
 

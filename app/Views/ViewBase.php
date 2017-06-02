@@ -14,10 +14,12 @@ abstract class ViewBase {
 	// Templates necessárias antes do conteúdo
 	private const PRE_TEMPLATES = [
 		# Ex: header, cabecalho, menu_superior
+		'cabecalho'
 	];
 	// Templates necessárias após o conteúdo
 	private const POS_TEMPLATES = [
 		# Ex: footer, rodape, scripts
+		'rodape'
 	];
 	
 	// Templates necessárias para renderizar o conteúdo dessa página
@@ -40,17 +42,14 @@ abstract class ViewBase {
 		$this->templates = [];
 		
 		// É possível especificar aqui alguns itens que já existem por padrão
-		$this->itens = [];
+		$this->itens = [
+			'doc-url' => AppConfig::obter('Templates.Itens.Documento.Url'),
+			'doc-titulo' => AppConfig::obter('Templates.Itens.Documento.Titulo'),
+
+		];
 
 		$this->adicionarTemplates($templates);
 		$this->adicionarItens($itens);
-	}
-
-	/**
-	 * Apelido para ::renderizar()
-	 */
-	public function __invoke() {
-		$this->renderizar();
 	}
 
 	/**
@@ -74,7 +73,7 @@ abstract class ViewBase {
 	/**
 	 * Importa todas as templates dessa visualização
 	 */
-	public function renderizar() {
+	public function __invoke() {
 		foreach (self::PRE_TEMPLATES as $tpl)
 			self::importarTemplate($this->itens, $this->usuarioLogado, $tpl);
 
@@ -86,6 +85,23 @@ abstract class ViewBase {
 	}
 
 	/**
+	 * Imprime informações sobre a template atual (para debug)
+	 * @param  string $origem
+	 * @param  string $tpl   
+	 */
+	private static function imprimirInfoTemplate(string $tpl) {
+		self::imprimirComentario('Início de '.$tpl);
+	}
+
+	/**
+	 * Imprimi um comentário na template atual
+	 * @param  string $texto
+	 */
+	private static function imprimirComentario(string $texto) {
+		?><!-- <?= $texto; ?> --><?= PHO_EOL; ?><?php
+	}
+
+	/**
 	 * Importa um arquivo de template com base no $tplNome informado
 	 * @param  string $tplNome
 	 */
@@ -93,6 +109,14 @@ abstract class ViewBase {
 		$arquivo = APP_BASE.AppConfig::obter('Templates.Diretorio').DIRECTORY_SEPARATOR.$tplNome.(AppConfig::obter('Templates.Extensao') ?? self::TEMPLATE_EXTENSAO_PADRAO);
 
 		if (file_exists($arquivo))
+			if (AppConfig::obter('App.ModoDebug') ?? false)
+				self::imprimirInfoTemplate($tplNome);
+
+			// Vamos permitir que uma template possa importar outra template
+			$_IMPORTAR = function(string $tpl) {
+				self::importarTemplate($_, $_USUARIO, $tpl);
+			}
+
 			include $arquivo;
 		else
 			exit('Não foi possível importar a template <strong>"'.$arquivo.'"</strong>.');
