@@ -11,12 +11,11 @@ use App\Http\Sessao;
 use App\Database\Conexao;
 
 use App\Views\TesteView;
+use App\Views\ErroView;
 
-/*
 use App\Controllers\LoginController;
 use App\Models\LoginModel;
 use App\Views\LoginView;
-*/
 
 Roteador::registrar('teste', function()
 	{
@@ -24,7 +23,16 @@ Roteador::registrar('teste', function()
 	}
 );
 
-/*
+Roteador::registrar(Roteador::ROTA_NOTFOUND_PADRAO, function()
+	{
+		Resposta::status(404);
+		return new ErroView(
+			'404 NOT FOUND',
+			['A página que você está procurando não existe']
+		);
+	}
+);
+
 Roteador::registrar('login', function() 
 	{
 		// Se o usuário já estiver logado, envie ele para a página principal
@@ -46,6 +54,29 @@ Roteador::registrar('login', function()
 		return $controlador($login, $senha);
 	}
 );
-*/
+
+Roteador::registrar('registrar', function()
+	{
+		// Se o usuário já estiver logado, envie ele para a página principal
+		if (Sessao::getUsuario() !== null)
+			Resposta::appRedirecionar('home');
+
+		// TODO
+	
+		return new TesteView('Em construção...');
+	}
+);
+
+Roteador::registrar('home', function()
+	{
+		// Se o usuário não estiver logado, envie ele para a página de login
+		if (Sessao::getUsuario() === null)
+			Resposta::appRedirecionar('login');
+
+		// TODO
+	
+		return new TesteView('Em construção...');
+	}
+);
 
 ?>

@@ -13,11 +13,12 @@ abstract class ControllerBase {
 	protected $usuarioLogado;
 
 	public function __construct($model, ?Usuario $usuarioLogado = null) {
-		if ($model instanceof ModelBase) 
+		if ($model instanceof ModelBase) {
 			$this->model = $model;
 			$this->usuarioLogado = $usuarioLogado;
-		else
+		} else {
 			exit('Não é possível criar um Controller para manipular um objeto que não seja um Model em <strong>"'.static::class.'"</strong>.');
+		}
 	}
 
 	/**

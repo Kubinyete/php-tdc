@@ -5,12 +5,14 @@
 
 namespace App\Controllers;
 
+use App\Controllers\ControllerBase;
+
 final class LoginController extends ControllerBase {
-	public function __invoke(?string $Login = null, ?string $senha = null) {
+	public function __invoke(?string $login = null, ?string $senha = null) {
 		if ($login === null && $senha === null)
-			$this->getModel()($this->getUsuarioLogado());
+			return $this->getModel()($this->getUsuarioLogado());
 		else
-			$this->getModel()->logar($this->getUsuarioLogado(), $login, $senha);
+			return $this->getModel()->logar($this->getUsuarioLogado(), $login, $senha);
 	}
 }
 

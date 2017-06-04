@@ -1,1 +1,197 @@
-@charset "utf-8";
+@charset 'utf-8';
+
+/**
+ * Globais
+ */
+
+body {
+	margin: 0;
+	background-color: #efefef;
+	background-image: url('/static/resources/fundo-encaixavel-preto.png');
+	font-size: 62.5%;
+}
+
+header, main, article, section, aside, footer {
+	display: block;
+}
+
+a {
+	text-decoration: none;
+	color: #0288d1;
+}
+
+a:hover {
+	color: cornflowerblue;
+	font-weight: bold;
+}
+
+/**
+ * Login
+ */
+
+main.login-form {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+}
+
+main.login-form div.login-form {
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+div.login-form {
+	width: 420px;
+	position: absolute;
+	background-color: white;
+	border-radius: 3px;
+	box-shadow: 0px 0px 8px rgba(0,0,0, .2);
+}
+
+.login-form__logo {
+	width: 90%;
+	height: 10em;
+	margin: 2em auto;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-attachment: scroll;
+	background-position: center;
+}
+
+.login-form__separador {
+	width: 100%;
+	margin: .5em 0;
+	height: .1em;
+	background-color: #dedede;
+}
+
+div.login-form label {
+	position: relative;
+	transition: 200ms ease-in-out;
+	display: inline-block;
+	font-family: Raleway, Arial, sans-serif;
+	font-size: 1.8em;
+	font-weight: 300;
+	color: white;
+	background-color: #0288d1;
+	padding: .25em 1em;
+	margin: .3em 0;
+}
+
+div.login-form label:hover {
+	transition: 200ms ease-in-out;
+	background-color: cornflowerblue;
+}
+
+div.login-form label:after {
+	position: absolute;
+	transform: translate(90%);
+	content: '...';
+	color: transparent;
+	right: 0;
+	top: 0;
+	padding: .25em 0;
+	background-color: cornflowerblue;
+}
+
+div.login-form input {
+	display: block;
+	font-family: 'Source Sans Pro', Arial, sans-serif;
+	font-size: 1.5em;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	border-bottom: .05em solid #0288d1;
+	width: 90%;
+	margin: 0 auto;
+	outline: none;
+	color: #777;
+}
+
+div.login-form__texto {
+	font-family: 'Source Sans Pro', Arial, sans-serif;
+	font-size: 1.3em;
+	width: 90%;
+	margin: 0 auto;
+	color: #777;
+}
+
+div.login-form__centralizador {
+	text-align: center;
+	width: 90%;
+	margin: 0 auto;
+}
+
+button.login-form__botao {
+	transition: 200ms ease-in-out;
+	display: inline-block;
+	font-family: Raleway, Arial, sans-serif;
+	font-weight: 500;
+	text-transform: uppercase;
+	background-color: #0288d1;
+	font-size: 1.5em;
+	color: white;
+	padding: .5em .8em;
+	border: 0;
+	margin: 1em 0;
+	border-radius: 3px;
+}
+
+button.login-form__botao:hover {
+	transition: 200ms ease-in-out;
+	background-color: cornflowerblue;
+	box-shadow: 0px 0px 6px rgba(0,0,0, .4);
+}
+
+/**
+ * Erro
+ */
+
+main.erro-pag {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+}
+
+main.erro-pag div.erro-pag {
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+div.erro-pag {
+	width: 75%;
+	position: absolute;
+	text-align: center;
+	border-radius: 3px;
+}
+
+.erro-pag__icone {
+	width: 100%;
+	height: 20em;
+	margin: 2em auto;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-attachment: scroll;
+	background-position: center;
+}
+
+div.erro-pag h1 {
+	font-size: 4em;
+	font-weight: 300;
+	font-family: Roboto, Arial, sans-serif;
+	color: white;
+}
+
+div.erro-pag h2 {
+	font-size: 3em;
+	font-family: Robot, Arial, sans-serif;
+	color: #ff0033;
+}
+
+.erro-pag__texto {
+	font-family: "Source Sans Pro", Arial, sans-serif;
+	font-size: 2em;
+	color: #888;
+}

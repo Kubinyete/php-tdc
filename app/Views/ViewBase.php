@@ -60,12 +60,12 @@ abstract class ViewBase {
 			'doc-palavraschave' => AppConfig::obter('Templates.Itens.Documento.PalavrasChave'),
 			'doc-descricao' => AppConfig::obter('Templates.Itens.Documento.Descricao'),
 			'doc-autor' => AppConfig::obter('Templates.Itens.Documento.Autor'),
-			'doc-icone' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.IconeUrl')),
+			'doc-icone' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.IconeUrl'), false, false),
 			'doc-gfonts' => $apiReq,
-			'doc-fa' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.FontAwesomeUrl')),
-			'doc-css' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.StylesheetUrl')),
-			'doc-jquery' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.JqueryUrl')),
-			'doc-js' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.JavascriptUrl')),
+			'doc-fa' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.FontAwesomeUrl'), false, false),
+			'doc-css' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.StylesheetUrl'), false, false),
+			'doc-jquery' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.JqueryUrl'), false, false),
+			'doc-js' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.JavascriptUrl'), false, false),
 
 			// Open Graph
 			'og-imagem' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.OpenGraph.ImagemUrl'))

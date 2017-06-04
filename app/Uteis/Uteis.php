@@ -17,8 +17,8 @@ abstract class Uteis {
 	 * @param  bool|boolean $utilizarPrefixoHttp
 	 * @return string
 	 */
-	public static function obterCaminhoWebCompleto(string $reqRelativa, bool $utilizarPrefixoHttp = true) : string {
-		return (($utilizarPrefixoHttp) ? 'http://' : '').WEB_HOST.WEB_BASE.$reqRelativa;
+	public static function obterCaminhoWebCompleto(string $reqRelativa = '', bool $utilizarPrefixoHttp = true, bool $utilizarHost = true) : string {
+		return (($utilizarPrefixoHttp) ? 'http://' : '').(($utilizarHost) ? WEB_HOST : '').WEB_BASE.$reqRelativa;
 	}
 
 	/**

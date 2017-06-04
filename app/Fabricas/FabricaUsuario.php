@@ -24,7 +24,7 @@ abstract class FabricaUsuario extends FabricaBase implements FabricaInterface {
 			self::getDatetimeAtual(),
 			$login,
 			$senha,
-			AppConfig::obter('Usuarios.algoritmoHash')
+			AppConfig::obter('Usuarios.AlgoritmoHash')
 		);
 	}
 }

@@ -13,7 +13,9 @@
 	},
 
 	"Usuarios": {
-		"algoritmoHash": "sha256"
+		"AlgoritmoHash": "sha256",
+		"NomeTamanhoLimite": 16,
+		"SenhaTamanhoLimite": 32 
 	},
 
 	"Templates": {
@@ -28,7 +30,7 @@
 				"Autor": "Vitor Kubinyete",
 				
 				"GoogleFontsApiUrl": "https://fonts.googleapis.com/css",
-				"Fontes": ["Roboto", "Raleway", "Source Sans Pro"],
+				"Fontes": ["Roboto", "Roboto:300", "Raleway", "Raleway:300", "Raleway:500", "Source Sans Pro"],
 
 				"IconeUrl": "favicon.ico",
 				"JqueryUrl": "static/js/jquery.js",
