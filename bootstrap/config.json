@@ -1,8 +1,8 @@
 {
 	"App": {
 		"Versao": "1.0.0",
-		"ModoDebug": true,
-		"Url": "localhost",
+		"Debug": true,
+		"WebHost": "localhost",
 		"WebBase": "/"
 	},
 
@@ -25,18 +25,16 @@
 				"Titulo": "Gerenciador de Alianças",
 				"PalavrasChave": "gerenciador, alianças, torneio de campeões, contest of champions, marvel, dfilitto, danilo filitto, makeindiegames, jogos, games, aplicativo, sistema, desenvolvimento, jogadores, registro",
 				"Descricao": "Venha gerenciar suas alianças do jogo Torneio de Campeões, um gerenciador de alianças gratuito!",
-				"Autor": "Vitor Kubinyete, Ygor Marchiori, Lucas de Paula, Claudio Hashimoto",
+				"Autor": "Vitor Kubinyete",
 				
+				"GoogleFontsApiUrl": "https://fonts.googleapis.com/css",
 				"Fontes": ["Roboto", "Raleway", "Source Sans Pro"],
 
-				"Links": {
-					"IconeUrl": "favicon.ico",
-					"JavascriptUrl": "static/js/main.js",
-					"StylesheetUrl": "static/css/estilos.css",
-					"FontAwesomeUrl": "static/css/font-awesome.css",
-					"GoogleFontsApiUrl": "https://fonts.googleapis.com/css",
-					"JqueryUrl": "static/js/jquery.js"
-				}
+				"IconeUrl": "favicon.ico",
+				"JqueryUrl": "static/js/jquery.js",
+				"JavascriptUrl": "static/js/main.js",
+				"FontAwesomeUrl": "static/css/font-awesome.css",
+				"StylesheetUrl": "static/css/estilos.css"
 			},
 
 			"OpenGraph": {

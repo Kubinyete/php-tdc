@@ -7,8 +7,10 @@ namespace App\Views;
 
 use App\Objetos\Usuario;
 use App\Config\AppConfig;
+use App\Uteis\Uteis;
 
 abstract class ViewBase {
+	private const GOOGLE_FONTS_API_QUERY = '?family=';
 	private const TEMPLATE_EXTENSAO_PADRAO = '.php';
 
 	// Templates necessárias antes do conteúdo
@@ -21,7 +23,7 @@ abstract class ViewBase {
 		# Ex: footer, rodape, scripts
 		'rodape'
 	];
-	
+
 	// Templates necessárias para renderizar o conteúdo dessa página
 	protected $templates;
 	// O usuário logado atualmente na sessão
@@ -32,7 +34,7 @@ abstract class ViewBase {
 	public function __construct(?Usuario $usuarioLogado = null, array $templates = [], array $itens = []) {
 		$this->usuarioLogado = $usuarioLogado;
 
-		// É possível especificar aqui algumas templates que já existem por padrão, não é 
+		// É possível especificar aqui algumas templates que já existem por padrão, não é
 		// recomendável utilizar este campo para juntar templates necessárias, seria mais lógico
 		// utilizar as constantes PRE_TEMPLATES e POS_TEMPLATES, já que não são dinâmicas
 		// ---
@@ -40,12 +42,33 @@ abstract class ViewBase {
 		// à ela receba alguns dados adicionais, Exemplo: É possível importar uma template tipo
 		// 'painel_usuario' caso o parâmetro $usuarioLogado não esteja nulo
 		$this->templates = [];
-		
+
+		$apiReq = AppConfig::obter('Templates.Itens.Documento.GoogleFontsApiUrl').self::GOOGLE_FONTS_API_QUERY;
+		$primeira = true;
+
+		foreach (AppConfig::obter('Templates.Itens.Documento.Fontes') as $fonte) {
+			$apiReq .= (($primeira) ? '' : '|').Uteis::filtrarNomeFonte($fonte);
+
+			if ($primeira)
+				$primeira = false;
+		}
+
 		// É possível especificar aqui alguns itens que já existem por padrão
 		$this->itens = [
-			'doc-url' => AppConfig::obter('Templates.Itens.Documento.Url'),
+			// Documento
 			'doc-titulo' => AppConfig::obter('Templates.Itens.Documento.Titulo'),
+			'doc-palavraschave' => AppConfig::obter('Templates.Itens.Documento.PalavrasChave'),
+			'doc-descricao' => AppConfig::obter('Templates.Itens.Documento.Descricao'),
+			'doc-autor' => AppConfig::obter('Templates.Itens.Documento.Autor'),
+			'doc-icone' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.IconeUrl')),
+			'doc-gfonts' => $apiReq,
+			'doc-fa' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.FontAwesomeUrl')),
+			'doc-css' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.StylesheetUrl')),
+			'doc-jquery' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.JqueryUrl')),
+			'doc-js' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.JavascriptUrl')),
 
+			// Open Graph
+			'og-imagem' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.OpenGraph.ImagemUrl'))
 		];
 
 		$this->adicionarTemplates($templates);
@@ -87,10 +110,10 @@ abstract class ViewBase {
 	/**
 	 * Imprime informações sobre a template atual (para debug)
 	 * @param  string $origem
-	 * @param  string $tpl   
+	 * @param  string $tpl
 	 */
 	private static function imprimirInfoTemplate(string $tpl) {
-		self::imprimirComentario('Início de '.$tpl);
+		self::imprimirComentario('Início de '.$tpl.(AppConfig::obter('Templates.Extensao') ?? self::TEMPLATE_EXTENSAO_PADRAO));
 	}
 
 	/**
@@ -98,7 +121,7 @@ abstract class ViewBase {
 	 * @param  string $texto
 	 */
 	private static function imprimirComentario(string $texto) {
-		?><!-- <?= $texto; ?> --><?= PHO_EOL; ?><?php
+		?><?= PHP_EOL; ?><!-- <?= $texto; ?> --><?= PHP_EOL; ?><?php
 	}
 
 	/**
@@ -108,18 +131,19 @@ abstract class ViewBase {
 	private static function importarTemplate(&$_, &$_USUARIO, string $tplNome) {
 		$arquivo = APP_BASE.AppConfig::obter('Templates.Diretorio').DIRECTORY_SEPARATOR.$tplNome.(AppConfig::obter('Templates.Extensao') ?? self::TEMPLATE_EXTENSAO_PADRAO);
 
-		if (file_exists($arquivo))
-			if (AppConfig::obter('App.ModoDebug') ?? false)
+		if (file_exists($arquivo)) {
+			if (APP_DEBUG)
 				self::imprimirInfoTemplate($tplNome);
 
 			// Vamos permitir que uma template possa importar outra template
 			$_IMPORTAR = function(string $tpl) {
 				self::importarTemplate($_, $_USUARIO, $tpl);
-			}
+			};
 
 			include $arquivo;
-		else
+		} else {
 			exit('Não foi possível importar a template <strong>"'.$arquivo.'"</strong>.');
+		}
 	}
 }
 

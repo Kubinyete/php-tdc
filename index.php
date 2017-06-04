@@ -15,7 +15,13 @@ require APP_BASE.'bootstrap'.DIRECTORY_SEPARATOR.'autoload.php';
 App\Config\AppConfig::carregar(APP_BASE.'bootstrap'.DIRECTORY_SEPARATOR.'config.json');
 
 // Define de modo global se estamos com o modo debug ativado
-define('APP_DEBUG', App\Config\AppConfig::obter('App.ModoDebug') ?? false);
+define('APP_DEBUG', App\Config\AppConfig::obter('App.Debug') ?? false);
+
+// Define a string global de versão do aplicativo
+define('APP_VER', App\Config\AppConfig::obter('App.Versao') ?? '1.0.0');
+
+// Define o url aonde o servidor está
+define('WEB_HOST', App\Config\AppConfig::obter('App.WebHost') ?? 'localhost');
 
 // Define a base web de requisições
 define('WEB_BASE', App\Config\AppConfig::obter('App.WebBase') ?? '/');
