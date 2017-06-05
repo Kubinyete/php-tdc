@@ -195,3 +195,28 @@ div.erro-pag h2 {
 	font-size: 2em;
 	color: #888;
 }
+
+/**
+ * Debug
+ */
+
+#modoDebugIcone {
+	transition: 250ms ease-in-out;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	width: 150px;
+	height: 150px;
+	opacity: .75;
+	padding-right: 1em;
+	background-attachment: scroll;
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+#modoDebugIcone:hover {
+	transition: 250ms ease-in-out;
+	padding-right: 2.5em;
+	opacity: 0;
+}

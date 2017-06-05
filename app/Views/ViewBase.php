@@ -21,6 +21,7 @@ abstract class ViewBase {
 	// Templates necessárias após o conteúdo
 	private const POS_TEMPLATES = [
 		# Ex: footer, rodape, scripts
+		'debug',
 		'rodape'
 	];
 
@@ -68,7 +69,9 @@ abstract class ViewBase {
 			'doc-js' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.JavascriptUrl'), false, false),
 
 			// Open Graph
-			'og-imagem' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.OpenGraph.ImagemUrl'))
+			'og-imagem' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.OpenGraph.ImagemUrl')),
+
+			'debug-icone' =>Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Debug.IconeUrl'))
 		];
 
 		$this->adicionarTemplates($templates);

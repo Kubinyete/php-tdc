@@ -41,6 +41,10 @@
 
 			"OpenGraph": {
 				"ImagemUrl": "static/resources/gerenciador-miniatura.jpg"
+			},
+
+			"Debug": {
+				"IconeUrl": "static/resources/modo-debug-icone.png"
 			}
 		}
 	}
