@@ -41,6 +41,25 @@ abstract class Uteis {
 	public static function filtrarEntidadesHtml(string $str) : string {
 		return htmlspecialchars($str);
 	}
+
+	/**
+	 * Retorna se determinada $str contêm carácteres inválidos
+	 * @param  string $str
+	 * @return bool
+	 */
+	public static function contemCaracteresInvalidos(string $str) : bool {
+		$retorno = false;
+
+		for ($i = 0; $i < strlen($str); $i++) {
+			// Verificando por carácteres inválidos
+			
+			if (ord($str[$i]) <= 47 || ord($str[$i]) >= 58 && ord($str[$i]) <= 64 || ord($str[$i]) >= 91 && ord($str[$i]) <= 96 || ord($str[$i]) >= 123) {
+				$retorno = true;
+			}
+		}
+
+		return $retorno;
+	}
 }
 
 ?>
