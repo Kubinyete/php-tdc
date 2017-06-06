@@ -16,6 +16,9 @@ use App\Views\ErroView;
 use App\Controllers\LoginController;
 use App\Models\LoginModel;
 use App\Views\LoginView;
+use App\Controllers\RegistrarController;
+use App\Models\RegistrarModel;
+use App\Views\RegistrarView;
 
 Roteador::registrar('teste', function()
 	{
@@ -47,7 +50,7 @@ Roteador::registrar('login', function()
 			new LoginModel(
 				new Conexao()
 			)
-		);
+		, Sessao::getUsuario());
 
 		// O controlador é obrigado a retornar uma view RENDERIZÁVEL para o Roteador,
 		// para que o método Roteador::servir() lide corretamente com o pedido
@@ -61,9 +64,20 @@ Roteador::registrar('registrar', function()
 		if (Sessao::getUsuario() !== null)
 			Resposta::appRedirecionar('home');
 
-		// TODO
-	
-		return new TesteView('Em construção...');
+		$login = Pedido::obter('log', Pedido::POST);
+		$senha = Pedido::obter('sen', Pedido::POST);
+		$confirmaSenha = Pedido::obter('con', Pedido::POST);
+
+		// Não sei se ficaria muito feio fazer isso, por enquanto vai ficar assim
+		$controlador = new RegistrarController(
+			new RegistrarModel(
+				new Conexao()
+			)
+		, Sessao::getUsuario());
+
+		// O controlador é obrigado a retornar uma view RENDERIZÁVEL para o Roteador,
+		// para que o método Roteador::servir() lide corretamente com o pedido
+		return $controlador($login, $senha, $confirmaSenha);
 	}
 );
 
