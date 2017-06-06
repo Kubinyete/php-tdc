@@ -5,6 +5,7 @@
 namespace App\Http;
 
 use App\Objetos\Usuario;
+use App\Uteis\Uteis;
 
 abstract class Sessao {
 	private const USUARIO_CHAVE = 'usrlgd';
@@ -78,15 +79,7 @@ abstract class Sessao {
 			return false;
 		}
 
-		$retorno = true;
-		for ($i = 0; $i < strlen($sessaoId); $i++) {
-			// Verificando por carácteres inválidos
-			if (ord($sessaoId[$i]) <= 47 || ord($sessaoId[$i]) >= 58 && ord($sessaoId[$i]) <= 64 || ord($sessaoId[$i]) >= 91 && ord($sessaoId[$i]) <= 96 || ord($sessaoId[$i]) >= 123) {
-				$retorno = false;
-			}
-		}
-
-		return $retorno;
+		return !Uteis::contemCaracteresInvalidos($sessaoId);
 	}
 
 	/**
