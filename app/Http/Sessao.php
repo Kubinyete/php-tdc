@@ -63,7 +63,7 @@ abstract class Sessao {
 	 * Atualiza o Usuario logado na sessão atual
 	 * @param Usuario $usuario
 	 */
-	public static function setUsuario(Usuario $usuario) {
+	public static function setUsuario(?Usuario $usuario) {
 		self::set(self::USUARIO_CHAVE, $usuario);
 	}
 
