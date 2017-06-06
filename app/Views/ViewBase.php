@@ -103,13 +103,13 @@ abstract class ViewBase {
 	 */
 	public function __invoke() {
 		foreach (self::PRE_TEMPLATES as $tpl)
-			self::importarTemplate($this->itens, $this->usuarioLogado, $tpl);
+			self::importarTemplate($tpl);
 
 		foreach ($this->templates as $tpl)
-			self::importarTemplate($this->itens, $this->usuarioLogado, $tpl);
+			self::importarTemplate($tpl);
 
 		foreach (self::POS_TEMPLATES as $tpl)
-			self::importarTemplate($this->itens, $this->usuarioLogado, $tpl);
+			self::importarTemplate($tpl);
 	}
 
 	/**
@@ -133,7 +133,7 @@ abstract class ViewBase {
 	 * Importa um arquivo de template com base no $tplNome informado
 	 * @param  string $tplNome
 	 */
-	private static function importarTemplate(&$_, &$_USUARIO, string $tplNome) {
+	private function importarTemplate(string $tplNome) {
 		$arquivo = APP_BASE.AppConfig::obter('Templates.Diretorio').DIRECTORY_SEPARATOR.$tplNome.(AppConfig::obter('Templates.Extensao') ?? self::TEMPLATE_EXTENSAO_PADRAO);
 
 		if (file_exists($arquivo)) {
@@ -142,12 +142,16 @@ abstract class ViewBase {
 				AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Importando template '.$arquivo));
 			}
 
-			// Vamos permitir que uma template possa importar outra template
-			$_IMPORTAR = function(string $tpl) use ($_, $_USUARIO) {
-				self::importarTemplate($_, $_USUARIO, $tpl);
+			$_ = &$this->itens;
+			$_USUARIO = &$this->usuarioLogado;
+			
+			// Uma template poderá importar outra template, e assim em diante...
+			$_IMPORTAR = function(string $tpl) {
+				$this->importarTemplate($tpl);
 			};
 
-			// Só retorne os objetos Notificacao quando $_LOG for chamado
+			// É possível retornar todas as notificações guardadas no nosso log
+			// do aplicativo, utilizando $_LOG() as $notificacao
 			$_LOG = function() : array {
 				return AppLog::getNotificacoes();
 			};

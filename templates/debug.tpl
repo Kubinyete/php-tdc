@@ -6,7 +6,7 @@ if (APP_DEBUG):
 
 <!-- LogPainel -->
 <div id="modoDebugLogPainel">
-
+	<h2>Log</h2>
 	<?php
 	foreach ($_LOG() as $n):
 	?>
