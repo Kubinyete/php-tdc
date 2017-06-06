@@ -14,8 +14,12 @@
 
 	"Usuarios": {
 		"AlgoritmoHash": "sha256",
+		
 		"NomeTamanhoLimite": 16,
-		"SenhaTamanhoLimite": 32 
+		"NomeTamanhoMinimo": 4,
+
+		"SenhaTamanhoLimite": 32,
+		"SenhaTamanhoMinimo": 6 
 	},
 
 	"Templates": {
