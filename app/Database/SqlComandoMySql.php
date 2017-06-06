@@ -236,11 +236,12 @@ abstract class SqlComandoMySql extends SqlComandoBase implements SqlSintaxeInter
 
 	/**
 	 * Equivalente ao comando SQL LIKE '$likeExpr' 
+	 * @param  string $attr
 	 * @param  string $likeExpr
 	 * @return SqlComando
 	 */
-	public function like(string $likeExpr) : SqlComando {
-		$this->acrescentarTextoComando('LIKE '.self::SQL_STR_DELIMITADOR.self::filtrarString($likeExpr).self::SQL_STR_DELIMITADOR.' ');
+	public function like(string $attr, string $likeExpr) : SqlComando {
+		$this->acrescentarTextoComando($attr.' LIKE '.self::SQL_STR_DELIMITADOR.self::filtrarString($likeExpr).self::SQL_STR_DELIMITADOR.' ');
 
 		return $this;
 	}

@@ -8,6 +8,8 @@ namespace App\Views;
 use App\Objetos\Usuario;
 use App\Config\AppConfig;
 use App\Uteis\Uteis;
+use App\Log\AppLog;
+use App\Log\Notificacao;
 
 abstract class ViewBase {
 	private const GOOGLE_FONTS_API_QUERY = '?family=';
@@ -21,7 +23,6 @@ abstract class ViewBase {
 	// Templates necessárias após o conteúdo
 	private const POS_TEMPLATES = [
 		# Ex: footer, rodape, scripts
-		'debug',
 		'rodape'
 	];
 
@@ -67,6 +68,7 @@ abstract class ViewBase {
 			'doc-css' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.StylesheetUrl'), false, false),
 			'doc-jquery' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.JqueryUrl'), false, false),
 			'doc-js' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Documento.JavascriptUrl'), false, false),
+			'doc-fundo' => Uteis::obterCaminhoWebCompleto('static/resources/fundo-encaixavel-preto.png', false, false),
 
 			// Open Graph
 			'og-imagem' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.OpenGraph.ImagemUrl')),
@@ -135,12 +137,19 @@ abstract class ViewBase {
 		$arquivo = APP_BASE.AppConfig::obter('Templates.Diretorio').DIRECTORY_SEPARATOR.$tplNome.(AppConfig::obter('Templates.Extensao') ?? self::TEMPLATE_EXTENSAO_PADRAO);
 
 		if (file_exists($arquivo)) {
-			if (APP_DEBUG)
+			if (APP_DEBUG) {
 				self::imprimirInfoTemplate($tplNome);
+				AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Importando template '.$arquivo));
+			}
 
 			// Vamos permitir que uma template possa importar outra template
-			$_IMPORTAR = function(string $tpl) {
+			$_IMPORTAR = function(string $tpl) use ($_, $_USUARIO) {
 				self::importarTemplate($_, $_USUARIO, $tpl);
+			};
+
+			// Só retorne os objetos Notificacao quando $_LOG for chamado
+			$_LOG = function() : array {
+				return AppLog::getNotificacoes();
 			};
 
 			include $arquivo;

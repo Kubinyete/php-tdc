@@ -36,4 +36,4 @@
 	<script src="<?= $_['doc-jquery']; ?>"></script>
 	<script src="<?= $_['doc-js']; ?>"></script>
 </head>
-<body>
+<body style="background-image: url('<?= $_['doc-fundo'] ?>');">

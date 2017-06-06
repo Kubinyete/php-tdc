@@ -5,7 +5,7 @@
 
 namespace App\Config;
 
-use Exception;
+use \Exception;
 
 abstract class AppConfig {
 	// Delimitador de acesso às propriedades na string de get(string $caminhoAcesso)

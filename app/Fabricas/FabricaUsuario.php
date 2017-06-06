@@ -27,6 +27,15 @@ abstract class FabricaUsuario extends FabricaBase implements FabricaInterface {
 			AppConfig::obter('Usuarios.AlgoritmoHash')
 		);
 	}
+
+	/**
+	 * Retorna uma hash de uma string utilizando o algoritmo especificado em todos os usuários
+	 * @param  string $str
+	 * @return string
+	 */
+	public static function criarHash(string $str) : string {
+		return hash(AppConfig::obter('Usuarios.AlgoritmoHash'), $str);
+	}
 }
 
 ?>

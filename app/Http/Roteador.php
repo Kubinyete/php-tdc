@@ -8,6 +8,9 @@ namespace App\Http;
 
 use \Exception;
 use App\Views\ViewBase;
+use App\Uteis\Uteis;
+use App\Log\AppLog;
+use App\Log\Notificacao;
 
 abstract class Roteador {
 	private const ROTA_STRING_LIMITE = 32;
@@ -40,8 +43,10 @@ abstract class Roteador {
 		$renderizavel = null;
 
 		if ($reqLen > 0 && $reqLen <= self::ROTA_STRING_LIMITE && isset(self::$rotas[$req])) {
+			AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Roteador: Requisição "'.$req.'" encontrada'));
 			$renderizavel = self::$rotas[$req]();
 		} else {
+			AppLog::adicionar(new Notificacao(Notificacao::AVISO, 'Roteador: Requisição "'.$req.'" falhou'));
 			$renderizavel = self::$rotas[self::ROTA_NOTFOUND_PADRAO]();
 		}
 

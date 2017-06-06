@@ -32,7 +32,7 @@ interface SqlSintaxeInterface {
 
 	public function expr(string $attr, string $expr, $alvo) : SqlComando;
 
-	public function like(string $likeExpr) : SqlComando;
+	public function like(string $attr, string $likeExpr) : SqlComando;
 
 	public function limit(int $numero) : SqlComando;
 }

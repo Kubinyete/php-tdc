@@ -44,6 +44,14 @@ App\Http\Sessao::validar();
 
 ####################################################################################################
 
+App\Log\AppLog::adicionar(new App\Log\Notificacao(App\Log\Notificacao::INFO, 'APP_BASE: '.APP_BASE));
+
+App\Log\AppLog::adicionar(new App\Log\Notificacao(App\Log\Notificacao::INFO, 'APP_VER: '.APP_VER));
+
+App\Log\AppLog::adicionar(new App\Log\Notificacao(App\Log\Notificacao::INFO, 'WEB_HOST: '.WEB_HOST));
+
+App\Log\AppLog::adicionar(new App\Log\Notificacao(App\Log\Notificacao::INFO, 'WEB_BASE: '.WEB_BASE));
+
 // Sirva nosso pedido HTTP com base na querystring ?r=<pagina>
 // se o valor de 'r' for null, quer dizer que o usuário fez uma simples requisição '/', então assuma
 // que ele queira acessar a página de login

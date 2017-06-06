@@ -7,8 +7,20 @@
 body {
 	margin: 0;
 	background-color: #efefef;
-	background-image: url('/static/resources/fundo-encaixavel-preto.png');
+	background-position-x: 0%;
+	background-position-y: 0%;
 	font-size: 62.5%;
+	animation: 120s moverFundo linear infinite;
+}
+
+@keyframes moverFundo {
+	from {
+		background-position-x: 0%;
+		background-position-y: 0%;
+	} to {
+		background-position-x: 100%;
+		background-position-y: -100%;
+	}
 }
 
 header, main, article, section, aside, footer {
@@ -144,6 +156,16 @@ button.login-form__botao:hover {
 	box-shadow: 0px 0px 6px rgba(0,0,0, .4);
 }
 
+span.login-form__erro {
+	font-family: 'Source Sans Pro', Arial, sans-serif;
+	color: #ff0033;
+	padding-left: 2em;
+}
+
+span.login-form__erro::before {
+	content: '* ';
+}
+
 /**
  * Erro
  */
@@ -191,7 +213,7 @@ div.erro-pag h2 {
 }
 
 .erro-pag__texto {
-	font-family: "Source Sans Pro", Arial, sans-serif;
+	font-family: 'Source Sans Pro', Arial, sans-serif;
 	font-size: 2em;
 	color: #888;
 }
@@ -205,8 +227,8 @@ div.erro-pag h2 {
 	position: fixed;
 	right: 0;
 	bottom: 0;
-	width: 150px;
-	height: 150px;
+	width: 100px;
+	height: 100px;
 	opacity: .75;
 	padding-right: 1em;
 	background-attachment: scroll;
@@ -219,4 +241,48 @@ div.erro-pag h2 {
 	transition: 250ms ease-in-out;
 	padding-right: 2.5em;
 	opacity: 0;
+}
+
+#modoDebugLogPainel {
+	transition: 300ms ease-out;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 420px;
+	height: 100vh;
+	opacity: 0;
+	scroll-behavior: smooth;
+	overflow-y: scroll;
+	transform: translate(95%);
+}
+
+#modoDebugLogPainel:hover {
+	transition: 300ms ease-out;
+	opacity: 1;
+	visibility: visible;
+	transform: translate(0%);
+}
+
+.modoDebugLogPainel__notificacao {
+	position: relative;
+	width: 90%;
+	margin: 1em auto;
+	padding: .5em 2.5%;
+	background-color: #efefef;
+	box-shadow: 0px 0px 6px rgba(0,0,0, .4);
+	border-radius: 5px;
+}
+
+.modoDebugLogPainel__notificacao p {
+	margin: 0;
+	font-family: Raleway, Arial, sans-serif;
+	color: cornflowerblue;
+	font-size: 2em;
+}
+
+.modoDebugLogPainel__notificacao span {
+	font-family: 'Source Sans Pro', Arial, sans-serif;
+	color: #777;
+	font-size: 1.2em;
 }

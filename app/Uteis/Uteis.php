@@ -31,6 +31,16 @@ abstract class Uteis {
 	public static function filtrarNomeFonte(string $fnt) : string {
 		return str_replace(' ', '+', $fnt);
 	}
+
+	/**
+	 * Filtra uma string de entidades HTML, que poderiam possibilitar a execução
+	 * de scripts maniciosos
+	 * @param  string $str
+	 * @return string   
+	 */
+	public static function filtrarEntidadesHtml(string $str) : string {
+		return htmlspecialchars($str);
+	}
 }
 
 ?>

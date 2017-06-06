@@ -31,7 +31,7 @@ final class DalUsuarios extends DalBase {
 
 		$this->conectar();
 		$this->iniciarTransacao();
-		
+
 		$linhasAfetadas = $this->exec($sql);
 
 		if ($linhasAfetadas >= 1) {
@@ -44,7 +44,7 @@ final class DalUsuarios extends DalBase {
 
 			if ($query !== null) {
 				$query = $query->fetchAll(PDO::FETCH_ASSOC);
-				
+
 				if (count($query) >= 1) {
 					$usuario->setId(intval($query[0]['usr_id']));
 
@@ -71,7 +71,32 @@ final class DalUsuarios extends DalBase {
 
 		$this->conectar();
 
-		$lista = $this->getObjetos($sql, 
+		$lista = $this->getObjetos($sql,
+			function(array $arrayObjeto) : Usuario {
+				return new Usuario(
+					intval($arrayObjeto['usr_id']),
+					$arrayObjeto['usr_data_criacao'],
+					$arrayObjeto['usr_login'],
+					$arrayObjeto['usr_senha']
+				);
+			}
+		);
+
+		$this->desconectar();
+
+		if (count($lista) >= 1)
+			return $lista[0];
+		else
+			return null;
+	}
+
+	public function obterPeloNome(string $nome) : ?Usuario {
+		$sql = new SqlComando();
+		$sql->select()->from(self::SQL_TABELA)->where('usr_nome', '=', $nome)->limit(1);
+
+		$this->conectar();
+
+		$lista = $this->getObjetos($sql,
 			function(array $arrayObjeto) : Usuario {
 				return new Usuario(
 					intval($arrayObjeto['usr_id']),
@@ -93,14 +118,14 @@ final class DalUsuarios extends DalBase {
 	/**
 	 * Atualiza o estado de um usuario no banco de dados de acordo com as modificações efetuadas
 	 * no objeto Usuario informado
-	 * @param  Usuario $usuario 
+	 * @param  Usuario $usuario
 	 * @return bool
 	 */
 	public function atualizar(Usuario $usuario) : bool {
 		$sql = new SqlComando();
 
 		return $this->modificar(
-			$sql->update(self::SQL_TABELA, 
+			$sql->update(self::SQL_TABELA,
 				[
 					'usr_login' => $usuario->getLogin(),
 					'usr_senha' => $usuario->getHashSenha()
@@ -116,7 +141,7 @@ final class DalUsuarios extends DalBase {
 	 */
 	public function deletar(Usuario $usuario) : bool {
 		$sql = new SqlComando();
-		
+
 		return $this->modificar(
 			$sql->delete(self::SQL_TABELA)->where('usr_id', '=', $usuario->getId())->limit(1)
 		);

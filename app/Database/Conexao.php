@@ -11,6 +11,8 @@ use \PDOException;
 use \PDOStatement;
 use App\Database\SqlComando;
 use App\Config\AppConfig;
+use App\Log\AppLog;
+use App\Log\Notificacao;
 
 final class Conexao {
 	private $conexao;
@@ -61,7 +63,11 @@ final class Conexao {
 				throw new Exception('Não é possível iniciar uma nova conexão enquanto a atual estiver ativa.');
 			else
 				$this->conexao = new PDO($this->stringConexao, $this->usuario, $this->senha);
+
+				AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Conexão com o banco de dados estabelecida'));
 		} catch (Exception $e) {
+			self::abortar($e);
+		} catch (PDOException $e) {
 			self::abortar($e);
 		}
 	}
@@ -70,8 +76,11 @@ final class Conexao {
 	 * Fecha a conexão atual, se estiver ativa
 	 */
 	public function desconectar() {
-		if ($this->conexao !== null)
+		if ($this->conexao !== null) {
 			$this->conexao = null;
+
+			AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Conexão com o banco de dados destruída'));
+		}
 	}
 
 	/**
@@ -79,6 +88,8 @@ final class Conexao {
 	 * @return bool
 	 */
 	public function iniciarTransacao() : bool {
+		AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Transação iniciada'));
+
 		return $this->conexao->beginTransaction();
 	}
 
@@ -88,6 +99,8 @@ final class Conexao {
 	 * @return bool
 	 */
 	public function descartarTransacao() : bool {
+		AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Transação descartada'));
+
 		return $this->conexao->rollBack();
 	}
 
@@ -97,6 +110,8 @@ final class Conexao {
 	 * @return bool
 	 */
 	public function salvarTransacao() : bool {
+		AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Transação salva'));
+
 		return $this->conexao->commit();
 	}
 
@@ -116,6 +131,8 @@ final class Conexao {
 	 * @return PDOStatement|null
 	 */
 	public function executar(SqlComando $sql) : ?PDOStatement {
+		AppLog::adicionar(new Notificacao(Notificacao::INFO, 'SqlComando: '.$sql->getTextoComando()));
+
 		$query = $this->conexao->query($sql->getTextoComando());
 		return (!$query) ? null : $query;
 	}
@@ -127,7 +144,12 @@ final class Conexao {
 	 * @return int
 	 */
 	public function exec(SqlComando $sql) : int {
+		AppLog::adicionar(new Notificacao(Notificacao::INFO, 'SqlComando: '.$sql->getTextoComando()));
+
 		$linhasAfetadas = $this->conexao->exec($sql->getTextoComando());
+
+		AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Linhas afetadas: '.$linhasAfetadas));
+
 		return (!$linhasAfetadas) ? 0 : $linhasAfetadas;
 	}
 
@@ -135,7 +157,7 @@ final class Conexao {
 	 * Aborta a inicialização da conexão com o banco de dados devido à algum erro
 	 * @param  Exception $e
 	 */
-	private static function abortar(Exception $e) {
+	private function abortar($e) {
 		$this->desconectar();
 
 		exit(
