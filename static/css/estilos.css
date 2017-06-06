@@ -9,6 +9,8 @@ body {
 	background-color: #efefef;
 	background-position-x: 0%;
 	background-position-y: 0%;
+	background-repeat: repeat;
+	background-size: 250px;
 	font-size: 62.5%;
 	animation: 120s moverFundo linear infinite;
 }
