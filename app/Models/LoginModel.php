@@ -7,7 +7,7 @@ namespace App\Models;
 
 use App\Models\ModelBase;
 use App\Objetos\Usuario;
-use App\Objetos\FabricaUsuarios;
+use App\Fabricas\FabricaUsuario;
 use App\Views\LoginView;
 use App\Database\DalUsuarios;
 use App\Exceptions\LoginException;
@@ -48,22 +48,22 @@ final class LoginModel extends ModelBase {
 				throw new LoginException(null, self::SENHA_NAO_INFORMADA);
 
 			$dal = new DalUsuarios($this->getConexao());
-			$usuario = $dal->obterPeloNome($login);
+			$localUsuario = $dal->obterPeloNome($login);
 
 			// Este usuário não existe!
-			if ($usuario === null)
+			if ($localUsuario === null)
 				throw new LoginException(self::LOGIN_NAO_EXISTE);
 			
 			// Você errou a senha!
-			if ($usuario->getHashSenha() !== FabricaUsuarios::criarHash($senha)) {
+			if ($localUsuario->getHashSenha() !== FabricaUsuario::criarHash($senha)) {
 				throw new LoginException(null, self::SENHA_INVALIDA);
 			} else {
 				// Vamos logar!
-				Sessao::setUsuarioLogado($usuario);
+				Sessao::setUsuarioLogado($localUsuario);
 				Sessao::appRedirecionar('home');
 			}
 		} catch (LoginException $e) {
-			return new LoginView($usuario, $login, $e->getLoginErro(), $senha, $e->getSenhaErro());
+			return new LoginView($localUsuario, $login, $e->getLoginErro(), $senha, $e->getSenhaErro());
 		}
 	}
 }
