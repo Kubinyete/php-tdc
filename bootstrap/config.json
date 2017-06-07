@@ -14,12 +14,12 @@
 
 	"Usuarios": {
 		"AlgoritmoHash": "sha256",
-		
+
 		"NomeTamanhoLimite": 16,
 		"NomeTamanhoMinimo": 4,
 
 		"SenhaTamanhoLimite": 32,
-		"SenhaTamanhoMinimo": 6 
+		"SenhaTamanhoMinimo": 6
 	},
 
 	"Templates": {
@@ -32,7 +32,7 @@
 				"PalavrasChave": "gerenciador, alianças, torneio de campeões, contest of champions, marvel, dfilitto, danilo filitto, makeindiegames, jogos, games, aplicativo, sistema, desenvolvimento, jogadores, registro",
 				"Descricao": "Venha gerenciar suas alianças do jogo Torneio de Campeões, um gerenciador de alianças gratuito!",
 				"Autor": "Vitor Kubinyete",
-				
+
 				"GoogleFontsApiUrl": "https://fonts.googleapis.com/css",
 				"Fontes": ["Roboto", "Roboto:300", "Raleway", "Raleway:300", "Raleway:500", "Source Sans Pro"],
 
@@ -45,10 +45,6 @@
 
 			"OpenGraph": {
 				"ImagemUrl": "static/resources/gerenciador-miniatura.jpg"
-			},
-
-			"Debug": {
-				"IconeUrl": "static/resources/modo-debug-icone.png"
 			}
 		}
 	}

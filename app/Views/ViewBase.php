@@ -73,7 +73,7 @@ abstract class ViewBase {
 			// Open Graph
 			'og-imagem' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.OpenGraph.ImagemUrl')),
 
-			'debug-icone' =>Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.Debug.IconeUrl'))
+			'debug-icone' =>Uteis::obterCaminhoWebCompleto('static/resources/modo-debug-icone.png')
 		];
 
 		$this->adicionarTemplates($templates);
@@ -144,7 +144,7 @@ abstract class ViewBase {
 
 			$_ = &$this->itens;
 			$_USUARIO = &$this->usuarioLogado;
-			
+
 			// Uma template poderá importar outra template, e assim em diante...
 			$_IMPORTAR = function(string $tpl) {
 				$this->importarTemplate($tpl);
