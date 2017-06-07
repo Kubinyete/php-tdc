@@ -8,31 +8,42 @@ namespace App\Log;
 use App\Uteis\Uteis;
 
 final class Notificacao {
+	// Desconhecido
+	private const DESC = 0;
 	// Utilizado para informar
 	public const INFO = 1;
 	// Avisar algo inesperado ou operação importante
 	public const AVISO = 2;
 	// Ao ocorrer um erro
 	public const ERRO = 3;
-	// Ao ocorrer um erro crítico
-	public const CRITICO = 4;
+	// Ao ocorrer algo relacionado ao banco de dados
+	public const DB = 4;
 
-	// Representação dos tipos em string
-	private const TIPO_STRING = [
-		'Desconhecido',					#DESC
-		'Info',							#INFO
-		'Aviso',						#AVISO
-		'Erro',							#ERRO
-		'Crítico'						#CRITICO
-	];
+	private const TIPOS = [
+		self::DESC => [
+			'string' => 'Erro desconhecido',
+			'icone' => 'fa-question-circle'
+		],
 
-	// Ícones em Font Awesome
-	private const TIPO_FA_ICONE = [
-		'fa-question-circle',			#DESC
-		'fa-info-circle',				#INFO
-		'fa-exclamation',				#AVISO
-		'fa-exclamation-triangle',		#ERRO
-		'fa-power-off'					#CRITICO
+		self::INFO => [
+			'string' => 'Informação',
+			'icone' => 'fa-info-circle'
+		],
+
+		self::AVISO => [
+			'string' => 'Aviso',
+			'icone' => 'fa-exclamation'
+		],
+
+		self::ERRO => [
+			'string' => 'Erro',
+			'icone' => 'fa-exclamation-triangle'
+		],
+
+		self::DB => [
+			'string' => 'Banco de dados',
+			'icone' => 'fa-database'
+		]
 	];
 
 	private $msg;
@@ -47,16 +58,12 @@ final class Notificacao {
 		return $this->msg;
 	}
 
-	public function getTipoId() : int {
-		return $this->tipo;
-	}
-
 	public function getTipoString() : string {
-		return self::TIPO_STRING[$this->tipo] ?? self::TIPO_STRING[0];
+		return self::TIPOS[$this->tipo]['string'] ?? self::TIPOS[self::DESC]['string'];
 	}
 
 	public function getTipoIcone() : string {
-		return self::TIPO_FA_ICONE[$this->tipo] ?? self::TIPO_FA_ICONE[0];
+		return self::TIPOS[$this->tipo]['icone'] ?? self::TIPOS[self::DESC]['icone'];
 	}
 }
 

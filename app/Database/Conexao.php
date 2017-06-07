@@ -64,7 +64,7 @@ final class Conexao {
 			else
 				$this->conexao = new PDO($this->stringConexao, $this->usuario, $this->senha);
 
-				AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Conexão com o banco de dados estabelecida'));
+				AppLog::adicionar(new Notificacao(Notificacao::DB, 'Conexão com o banco de dados estabelecida'));
 		} catch (Exception $e) {
 			self::abortar($e);
 		} catch (PDOException $e) {
@@ -79,7 +79,7 @@ final class Conexao {
 		if ($this->conexao !== null) {
 			$this->conexao = null;
 
-			AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Conexão com o banco de dados destruída'));
+			AppLog::adicionar(new Notificacao(Notificacao::DB, 'Conexão com o banco de dados destruída'));
 		}
 	}
 
@@ -88,7 +88,7 @@ final class Conexao {
 	 * @return bool
 	 */
 	public function iniciarTransacao() : bool {
-		AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Transação iniciada'));
+		AppLog::adicionar(new Notificacao(Notificacao::DB, 'Transação iniciada'));
 
 		return $this->conexao->beginTransaction();
 	}
@@ -99,7 +99,7 @@ final class Conexao {
 	 * @return bool
 	 */
 	public function descartarTransacao() : bool {
-		AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Transação descartada'));
+		AppLog::adicionar(new Notificacao(Notificacao::DB, 'Transação descartada'));
 
 		return $this->conexao->rollBack();
 	}
@@ -110,7 +110,7 @@ final class Conexao {
 	 * @return bool
 	 */
 	public function salvarTransacao() : bool {
-		AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Transação salva'));
+		AppLog::adicionar(new Notificacao(Notificacao::DB, 'Transação salva'));
 
 		return $this->conexao->commit();
 	}
@@ -131,7 +131,7 @@ final class Conexao {
 	 * @return PDOStatement|null
 	 */
 	public function executar(SqlComando $sql) : ?PDOStatement {
-		AppLog::adicionar(new Notificacao(Notificacao::INFO, 'SqlComando: '.$sql->getTextoComando()));
+		AppLog::adicionar(new Notificacao(Notificacao::DB, 'SqlComando: '.$sql->getTextoComando()));
 
 		$query = $this->conexao->query($sql->getTextoComando());
 		return (!$query) ? null : $query;
@@ -144,11 +144,11 @@ final class Conexao {
 	 * @return int
 	 */
 	public function exec(SqlComando $sql) : int {
-		AppLog::adicionar(new Notificacao(Notificacao::INFO, 'SqlComando: '.$sql->getTextoComando()));
+		AppLog::adicionar(new Notificacao(Notificacao::DB, 'SqlComando: '.$sql->getTextoComando()));
 
 		$linhasAfetadas = $this->conexao->exec($sql->getTextoComando());
 
-		AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Linhas afetadas: '.$linhasAfetadas));
+		AppLog::adicionar(new Notificacao(Notificacao::DB, 'Linhas afetadas: '.$linhasAfetadas));
 
 		return (!$linhasAfetadas) ? 0 : $linhasAfetadas;
 	}
