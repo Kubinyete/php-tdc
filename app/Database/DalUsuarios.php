@@ -92,7 +92,7 @@ final class DalUsuarios extends DalBase {
 
 	public function obterPeloNome(string $nome) : ?Usuario {
 		$sql = new SqlComando();
-		$sql->select()->from(self::SQL_TABELA)->where('usr_nome', '=', $nome)->limit(1);
+		$sql->select()->from(self::SQL_TABELA)->where('usr_login', '=', $nome)->limit(1);
 
 		$this->conectar();
 

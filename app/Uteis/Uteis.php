@@ -15,6 +15,7 @@ abstract class Uteis {
 	 * => http://WEB_HOST.WEB_BASE.static/teste.txt => http://localhost/static/teste.txt
 	 * @param  string       $reqRelativa
 	 * @param  bool|boolean $utilizarPrefixoHttp
+	 * @param bool|boolean  $utilizarHost
 	 * @return string
 	 */
 	public static function obterCaminhoWebCompleto(string $reqRelativa = '', bool $utilizarPrefixoHttp = true, bool $utilizarHost = true) : string {
@@ -36,7 +37,7 @@ abstract class Uteis {
 	 * Filtra uma string de entidades HTML, que poderiam possibilitar a execução
 	 * de scripts maniciosos
 	 * @param  string $str
-	 * @return string   
+	 * @return string
 	 */
 	public static function filtrarEntidadesHtml(string $str) : string {
 		return htmlspecialchars($str);

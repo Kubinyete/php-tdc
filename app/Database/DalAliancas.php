@@ -103,7 +103,7 @@ final class DalAliancas extends DalBase {
 				[
 					'ali_nome' => $alianca->getNome()
 				]
-			)->where('ali_id', '=', $alianca->getId())->limit(1);
+			)->where('ali_id', '=', $alianca->getId())->limit(1));
 		);
 	}
 
