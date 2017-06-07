@@ -12,17 +12,7 @@
 
 # Observações
 
-O ambiente de testes e desenvolvimento para esta aplicação pode ser obtido através da instalação do [XAMPP](https://www.apachefriends.org/pt_br/download.html).
-
-É recomendável a utilização do editor de textos [Sublime Text 3](https://sublimetext.com/3).
-
-* **Lembrete** 
-	* Escrever um documento simples contendo regras e padrões de desenvolvimento para esta aplicação como:
-		* Nome de variáveis.
-		* Estrutura relacional da ***D**atabase **A**ccess **L**ayer* (**DAL**).
-		* Estrutura relacional do modelo ***M**odel, **V**iew e **C**ontroller* (**MVC**).
-		* Classes necessárias.
-	* Em caso de dúvidas utilize os padrões que já utilizei em [phpgallery](https://github.com/Kubinyete/phpgallery).
+O ambiente de testes e desenvolvimento desta aplicação pode ser obtido através da instalação do [XAMPP](https://www.apachefriends.org/pt_br/download.html).
 
 # Estruturação
 
