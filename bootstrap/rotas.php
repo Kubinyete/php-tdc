@@ -10,7 +10,6 @@ use App\Http\Sessao;
 
 use App\Database\Conexao;
 
-use App\Views\TesteView;
 use App\Views\ErroView;
 
 use App\Controllers\LoginController;
