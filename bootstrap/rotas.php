@@ -20,16 +20,11 @@ use App\Controllers\RegistrarController;
 use App\Models\RegistrarModel;
 use App\Views\RegistrarView;
 
-Roteador::registrar('teste', function()
-	{
-		return new TesteView('Olá mundo!');
-	}
-);
-
 Roteador::registrar(Roteador::ROTA_NOTFOUND_PADRAO, function()
 	{
 		Resposta::status(404);
 		return new ErroView(
+			Sessao::getUsuario(),
 			'404 NOT FOUND',
 			['A página que você está procurando não existe']
 		);
@@ -49,7 +44,7 @@ Roteador::registrar('login', function()
 		$controlador = new LoginController(
 			new LoginModel(
 				new Conexao()
-			)
+			, Sessao::getUsuario())
 		, Sessao::getUsuario());
 
 		// O controlador é obrigado a retornar uma view RENDERIZÁVEL para o Roteador,
@@ -72,7 +67,7 @@ Roteador::registrar('registrar', function()
 		$controlador = new RegistrarController(
 			new RegistrarModel(
 				new Conexao()
-			)
+			, Sessao::getUsuario())
 		, Sessao::getUsuario());
 
 		// O controlador é obrigado a retornar uma view RENDERIZÁVEL para o Roteador,

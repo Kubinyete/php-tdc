@@ -10,9 +10,9 @@ use App\Controllers\ControllerBase;
 final class LoginController extends ControllerBase {
 	public function __invoke(?string $login = null, ?string $senha = null) {
 		if ($login === null && $senha === null)
-			return $this->getModel()($this->getUsuarioLogado());
+			return $this->getModel()();
 		else
-			return $this->getModel()->logar($this->getUsuarioLogado(), $login, $senha);
+			return $this->getModel()->logar($login, $senha);
 	}
 }
 

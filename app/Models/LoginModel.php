@@ -22,22 +22,20 @@ final class LoginModel extends ModelBase {
 
 	/**
 	 * Retorna uma LoginView padrão
-	 * @param  Usuario|null $usuario
 	 * @return LoginView
 	 */
-	public function __invoke(?Usuario $usuario = null) : LoginView {
-		return new LoginView($usuario);
+	public function __invoke() : LoginView {
+		return new LoginView($this->getUsuarioLogado());
 	}
 
 	/**
 	 * Tenta logar o usuário atual, em caso de falha, retorne uma LoginView com
 	 * informações do erro
-	 * @param  Usuario $usuario
 	 * @param  string  $login
 	 * @param  string  $senha
 	 * @return LoginView
 	 */
-	public function logar(?Usuario $usuario, ?string $login, ?string $senha) : LoginView {
+	public function logar(?string $login, ?string $senha) : LoginView {
 		try {
 			// Opa, tentou enviar sem um nome de usuário
 			if ($login === null)
@@ -63,7 +61,7 @@ final class LoginModel extends ModelBase {
 				Sessao::appRedirecionar('home');
 			}
 		} catch (LoginException $e) {
-			return new LoginView($localUsuario, $login, $e->getLoginErro(), $senha, $e->getSenhaErro());
+			return new LoginView($this->getUsuarioLogado(), $login, $e->getLoginErro(), $senha, $e->getSenhaErro());
 		}
 	}
 }

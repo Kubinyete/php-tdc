@@ -34,14 +34,21 @@ final class RegistrarModel extends ModelBase {
 
 	/**
 	 * Retorna uma RegistrarView padrão
-	 * @param  Usuario|null $usuario
 	 * @return RegistrarView
 	 */
-	public function __invoke(?Usuario $usuario = null) : RegistrarView {
-		return new RegistrarView($usuario);
+	public function __invoke() : RegistrarView {
+		return new RegistrarView($this->getUsuarioLogado());
 	}
 
-	public function registrar(?Usuario $usuario, ?string $login, ?string $senha, ?string $confirmaSenha) : RegistrarView {
+	/**
+	 * Efetua o registro de um usuário
+	 *
+	 * @param string|null $login
+	 * @param string|null $senha
+	 * @param string|null $confirmaSenha
+	 * @return RegistrarView
+	 */
+	public function registrar(?string $login, ?string $senha, ?string $confirmaSenha) : RegistrarView {
 		try {
 			// Informou os campos?
 
@@ -86,7 +93,7 @@ final class RegistrarModel extends ModelBase {
 			Resposta::appRedirecionar('home');
 
 		} catch (RegistrarException $e) {
-			return new RegistrarView($usuario, $login, $e->getLoginErro(), $senha, $e->getSenhaErro(), $confirmaSenha, $e->getConfirmaSenhaErro());
+			return new RegistrarView($this->getUsuarioLogado(), $login, $e->getLoginErro(), $senha, $e->getSenhaErro(), $confirmaSenha, $e->getConfirmaSenhaErro());
 		}
 	}
 

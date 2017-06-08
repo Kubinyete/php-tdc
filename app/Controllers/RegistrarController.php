@@ -10,9 +10,9 @@ use App\Controllers\ControllerBase;
 final class RegistrarController extends ControllerBase {
 	public function __invoke(?string $login = null, ?string $senha = null, ?string $confirmaSenha = null) {
 		if ($login === null && $senha === null && $confirmaSenha === null)
-			return $this->getModel()($this->getUsuarioLogado());
+			return $this->getModel()();
 		else
-			return $this->getModel()->registrar($this->getUsuarioLogado(), $login, $senha, $confirmaSenha);
+			return $this->getModel()->registrar($login, $senha, $confirmaSenha);
 	}
 }
 
