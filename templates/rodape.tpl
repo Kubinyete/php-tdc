@@ -1,5 +1,6 @@
 <?php
-$_IMPORTAR('debug');
+if (APP_DEBUG)
+	$_IMPORTAR('log');
 ?>
 </body>
 </html>
