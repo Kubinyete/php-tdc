@@ -75,6 +75,7 @@ Roteador::registrar('registrar', function()
 	}
 );
 
+/*
 Roteador::registrar('home', function()
 	{
 		// Se o usuário não estiver logado, envie ele para a página de login
@@ -82,9 +83,8 @@ Roteador::registrar('home', function()
 			Resposta::appRedirecionar('login');
 
 		// TODO
-	
-		return new TesteView('Em construção...');
 	}
 );
+*/
 
 ?>
