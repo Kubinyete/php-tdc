@@ -16,17 +16,28 @@ abstract class AppLog {
 	 * Adiciona mais uma mensagem à nossa lista de notificações
 	 * @param  Notificacao $notificacao
 	 */
-	public function adicionar(Notificacao $notificacao) {
-		if (APP_DEBUG)
-			array_push(self::$notificacoes, $notificacao);
+	private static function adicionar(Notificacao $notificacao) {
+		array_push(self::$notificacoes, $notificacao);
 	}
 	
 	/**
 	 * Retorna uma lista de notificações
 	 * @return array
 	 */
-	public function getNotificacoes() : array {
+	public static function getNotificacoes() : array {
 		return self::$notificacoes;
+	}
+
+	/**
+	 * Adiciona uma notificação ao nosso AppLog
+	 *
+	 * @param int $tipo
+	 * @param string $mensagem
+	 * @return void
+	 */
+	public static function log(int $tipo, string $mensagem) {
+		if (APP_DEBUG)
+			self::adicionar(new Notificacao($tipo, $mensagem));
 	}
 }
 

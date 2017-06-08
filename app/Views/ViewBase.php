@@ -139,7 +139,7 @@ abstract class ViewBase {
 		if (file_exists($arquivo)) {
 			if (APP_DEBUG) {
 				self::imprimirInfoTemplate($tplNome);
-				AppLog::adicionar(new Notificacao(Notificacao::INFO, 'Importando template '.$arquivo));
+				AppLog::log(Notificacao::INFO, 'Importando template '.$arquivo);
 			}
 
 			$_ = &$this->itens;

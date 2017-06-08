@@ -27,7 +27,7 @@ abstract class Sessao {
 
 	/**
 	 * Retorna um valor guardado na sessão atual
-	 * @param  [type] $string
+	 * @param  string $string
 	 * @return mixed
 	 */
 	public static function obter(string $chave) {
