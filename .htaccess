@@ -1,7 +1,7 @@
 RewriteEngine On
 RewriteBase /
 
-ErrorDocument 404 index.php?r=notfound
+ErrorDocument 404 /index.php?r=notfound
 
 RewriteCond %{REQUEST_URI} !^/static
 RewriteCond %{REQUEST_FILENAME} !-f
