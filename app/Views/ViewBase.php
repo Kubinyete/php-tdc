@@ -73,7 +73,18 @@ abstract class ViewBase {
 			// Open Graph
 			'og-imagem' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.OpenGraph.ImagemUrl')),
 
-			'debug-icone' =>Uteis::obterCaminhoWebCompleto('static/resources/modo-debug-icone.png')
+			// Twitter Cards
+			'twitter-card' => AppConfig::obter('Templates.Itens.TwitterCards.CardStyle'),
+			'twitter-imagem' => Uteis::obterCaminhoWebCompleto(AppConfig::obter('Templates.Itens.TwitterCards.ImagemUrl')),
+
+			// Debug
+			'debug-icone' => Uteis::obterCaminhoWebCompleto('static/resources/modo-debug-icone.png', false, false),
+
+			// Header
+			'header-logo' => Uteis::obterCaminhoWebCompleto('static/resources/app-logo.png', false, false),
+			'header-usuario' => ($usuarioLogado !== null) ? Uteis::filtrarEntidadesHtml($usuarioLogado->getLogin()) : $usuarioLogado,
+			'header-sair' => Uteis::obterCaminhoWebCompleto('?r=login&sair=1', false, false),
+			'header-home' => Uteis::obterCaminhoWebCompleto('?r=home', false, false)
 		];
 
 		$this->adicionarTemplates($templates);
