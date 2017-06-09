@@ -18,6 +18,9 @@ use App\Views\LoginView;
 use App\Controllers\RegistrarController;
 use App\Models\RegistrarModel;
 use App\Views\RegistrarView;
+use App\Controllers\HomeController;
+use App\Models\HomeModel;
+use App\Views\HomeView;
 
 Roteador::registrar(Roteador::ROTA_NOTFOUND_PADRAO, function()
 	{
@@ -30,11 +33,19 @@ Roteador::registrar(Roteador::ROTA_NOTFOUND_PADRAO, function()
 	}
 );
 
-Roteador::registrar('login', function() 
+Roteador::registrar('login', function()
 	{
+		$sair =	intval(Pedido::obter('sair', Pedido::GET));
+
 		// Se o usuário já estiver logado, envie ele para a página principal
-		if (Sessao::getUsuario() !== null)
-			Resposta::appRedirecionar('home');
+		if (Sessao::getUsuario() !== null) {
+			if ($sair > 0) {
+				Sessao::setUsuario(null);
+				Resposta::appRedirecionar('login');
+			} else {
+				Resposta::appRedirecionar('home');
+			}
+		}
 
 		$login = Pedido::obter('log', Pedido::POST);
 		$senha = Pedido::obter('sen', Pedido::POST);
@@ -75,16 +86,20 @@ Roteador::registrar('registrar', function()
 	}
 );
 
-/*
 Roteador::registrar('home', function()
 	{
 		// Se o usuário não estiver logado, envie ele para a página de login
 		if (Sessao::getUsuario() === null)
 			Resposta::appRedirecionar('login');
 
-		// TODO
+		$controlador = new HomeController(
+			new HomeModel(
+				new Conexao()
+			, Sessao::getUsuario())
+		, Sessao::getUsuario());
+
+		return $controlador();
 	}
 );
-*/
 
 ?>
