@@ -46,7 +46,7 @@ abstract class Resposta {
 	 * @param  string $rota
 	 * @param  array  $args
 	 */
-	public static function appRedirecionar(string $rota, array $args = [], $pararExecucao = true) {
+	public static function appRedirecionar(string $rota, array $args = [], bool $pararExecucao = true) {
 		$str = WEB_BASE.'?r='.$rota;
 
 		foreach ($args as $chave => $valor) {
