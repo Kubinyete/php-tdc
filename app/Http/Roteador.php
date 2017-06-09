@@ -20,7 +20,7 @@ abstract class Roteador {
 
 	/**
 	 * Registra um manipulador a uma rota de requisição
-	 * @param  string   $req        
+	 * @param  string   $req
 	 * @param  callable $manipulador'
 	 */
 	public static function registrar(string $req, callable $manipulador) {
@@ -32,6 +32,14 @@ abstract class Roteador {
 		} catch (Exception $e) {
 			self::abortar($e);
 		}
+	}
+
+	/**
+	 * Retorna um array com todas as rotas registradas até o momento
+	 * @return array
+	 */
+	public function getListaRotas() : array {
+		return array_keys(self::$rotas);
 	}
 
 	/**
