@@ -34,7 +34,7 @@
 				"Autor": "Vitor Kubinyete",
 
 				"GoogleFontsApiUrl": "https://fonts.googleapis.com/css",
-				"Fontes": ["Roboto", "Roboto:300", "Raleway", "Raleway:300", "Raleway:500", "Source Sans Pro"],
+				"Fontes": ["Roboto", "Roboto:300", "Raleway", "Raleway:300", "Raleway:500", "Source Sans Pro", "Source Sans Pro:400", "Ubuntu"],
 
 				"IconeUrl": "favicon.ico",
 				"JqueryUrl": "static/js/jquery.js",
@@ -45,7 +45,19 @@
 
 			"OpenGraph": {
 				"ImagemUrl": "static/resources/gerenciador-miniatura.jpg"
+			},
+
+			"TwitterCards": {
+				"CardStyle": "summary_large_image",
+				"ImagemUrl": "static/resources/gerenciador-miniatura.jpg"
 			}
 		}
+	},
+
+	"Robots": {
+		"UserAgent": "*",
+
+		"Blocked": ["home", "static", "static/*"],
+		"SitemapUrl": "sitemap.xml"
 	}
 }
