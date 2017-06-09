@@ -7,9 +7,19 @@
 namespace App\Models;
 
 use App\Models\ModelBase;
+use App\Database\DalAliancas;
+use App\Views\HomeView;
 
 final class HomeModel extends ModelBase {
-	// TODO
+	public function __invoke() {
+        $dal = new DalAliancas($this->getConexao());
+        $aliancas = $dal->obterDeUmUsuario($this->getUsuarioLogado());
+
+        return new HomeView(
+            $this->getUsuarioLogado(),
+            $aliancas
+        );
+    }
 }
 
 ?>

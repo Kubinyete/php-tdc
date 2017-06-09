@@ -51,14 +51,14 @@ final class LoginModel extends ModelBase {
 			// Este usuário não existe!
 			if ($localUsuario === null)
 				throw new LoginException(self::LOGIN_NAO_EXISTE);
-			
+
 			// Você errou a senha!
 			if ($localUsuario->getHashSenha() !== FabricaUsuario::criarHash($senha)) {
 				throw new LoginException(null, self::SENHA_INVALIDA);
 			} else {
 				// Vamos logar!
-				Sessao::setUsuarioLogado($localUsuario);
-				Sessao::appRedirecionar('home');
+				Sessao::setUsuario($localUsuario);
+				Resposta::appRedirecionar('home');
 			}
 		} catch (LoginException $e) {
 			return new LoginView($this->getUsuarioLogado(), $login, $e->getLoginErro(), $senha, $e->getSenhaErro());
