@@ -92,13 +92,15 @@ Roteador::registrar('home', function()
 		if (Sessao::getUsuario() === null)
 			Resposta::appRedirecionar('login');
 
+		$nomeAlianca = Pedido::obter('nom', Pedido::POST);
+
 		$controlador = new HomeController(
 			new HomeModel(
 				new Conexao()
 			, Sessao::getUsuario())
 		, Sessao::getUsuario());
 
-		return $controlador();
+		return $controlador($nomeAlianca);
 	}
 );
 

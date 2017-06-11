@@ -11,7 +11,19 @@
     		<div class="cfix"></div>
     	</section>
 
-    	<!-- TODO: Form para adicionar novas alianças -->
+    	<section class="generic-form">
+    		<form method="POST" action="<?= $_['home-aliancasform-action'] ?>" autocomplete="off">
+    			<label for="nom">Aliança</label>
+    			<input type="text" id="nom" name="nom" placeholder="Nome da Aliança" required value="<?= $_['home-aliancasform-nom'] ?? '' ?>">
+
+    			<?php if ($_['home-aliancasform-nom-erro'] !== null): ?>
+    			<span class="generic-form__erro"><?= $_['home-aliancasform-nom-erro'] ?></span>
+				<br>
+				<?php endif; ?>
+    			
+    			<button type="submit">Adicionar</button>
+    		</form>
+    	</section>
     	
     	<section class="generic-lista aliancas-lista">
     		<h3>Listagem de Alianças</h3>

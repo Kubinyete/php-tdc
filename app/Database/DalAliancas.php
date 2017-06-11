@@ -24,7 +24,7 @@ final class DalAliancas extends DalBase {
 		$sql = new SqlComando();
 		$sql->insert(self::SQL_TABELA,
 			[
-				'usr_id' => $alianca->getUsuario()->getId(),
+				'usr_id' => $alianca->getUsuarioId(),
 				'ali_nome' => $alianca->getNome(),
 				'ali_data_criacao' => $alianca->getDataCriacao()
 			]
@@ -75,9 +75,9 @@ final class DalAliancas extends DalBase {
 		$lista = $this->getObjetos($sql,
 			function (array $arrayObjetos) : Alianca {
 				return new Alianca(
-					$arrayObjetos['ali_id'],
+					intval($arrayObjetos['ali_id']),
 					$arrayObjetos['ali_data_criacao'],
-					$arrayObjetos['usr_id'],
+					intval($arrayObjetos['usr_id']),
 					$arrayObjetos['ali_nome']
 				);
 			}
@@ -105,9 +105,9 @@ final class DalAliancas extends DalBase {
 		$lista = $this->getObjetos($sql,
 			function (array $arrayObjetos) : Alianca {
 				return new Alianca(
-					$arrayObjetos['ali_id'],
+					intval($arrayObjetos['ali_id']),
 					$arrayObjetos['ali_data_criacao'],
-					$arrayObjetos['usr_id'],
+					intval($arrayObjetos['usr_id']),
 					$arrayObjetos['ali_nome']
 				);
 			}
@@ -132,9 +132,9 @@ final class DalAliancas extends DalBase {
 		$lista = $this->getObjetos($sql,
 			function (array $arrayObjetos) : Alianca {
 				return new Alianca(
-					$arrayObjetos['ali_id'],
+					intval($arrayObjetos['ali_id']),
 					$arrayObjetos['ali_data_criacao'],
-					$arrayObjetos['usr_id'],
+					intval($arrayObjetos['usr_id']),
 					$arrayObjetos['ali_nome']
 				);
 			}
@@ -143,6 +143,31 @@ final class DalAliancas extends DalBase {
 		$this->desconectar();
 
 		return $lista;
+	}
+
+	/**
+	 * Retorna a contagem de Aliancas de determinado Usuário
+	 * @param  Usuario       $usuario
+	 * @return array
+	 */
+	public function obterContagemAliancasDeUmUsuario(Usuario $usuario) : int {
+		$sql = new SqlComando();
+		$sql->select('COUNT()')->as('contagem')->from(self::SQL_TABELA)->where('usr_id', '=', $usuario->getId());
+
+		$this->conectar();
+
+		$lista = $this->getObjetos($sql,
+			function (array $arrayObjetos) : int {
+				return intval($arrayObjetos['contagem']);
+			}
+		);
+
+		$this->desconectar();
+
+		if (count($lista) >= 1)
+			return $lista[0];
+		else
+			return 0;
 	}
 
 	/**
