@@ -30,10 +30,6 @@ header, nav, main, article, aside, section, footer {
 	}
 }
 
-header, main, article, section, aside, footer {
-	display: block;
-}
-
 a {
 	text-decoration: none;
 	color: #0288d1;
@@ -359,7 +355,7 @@ div.erro-pag h2 {
  */
 
  header {
-	 width: 100&;
+	 width: 100%;
 	 background-color: #0288d1;
  }
 
@@ -434,7 +430,6 @@ header .usuario-container__centralizador {
 header .usuario-container__centralizador.botao-container {
 	display: inline-block;
 	padding: 3em 0;
-	background-color: rgba(0,0,0, .05);
 }
 
 header .usuario-container__centralizador * {
@@ -453,7 +448,7 @@ header .usuario-container span {
 }
 
 header .usuario-container a.botao {
-	transition: 200ms ease-in-out;
+	transition: 150ms ease-in-out;
 	display: inline-block;
 	font-family: Raleway, Arial, sans-serif;
 	font-weight: 500;
@@ -462,11 +457,11 @@ header .usuario-container a.botao {
 	margin: 0 .5em;
 	text-transform: uppercase;
 	padding: .4em 1em;
-	border-radius: 5px;
+	border-radius: 3px;
 }
 
 header .usuario-container a.botao:hover {
-	transition: 200ms ease-in-out;
+	transition: 150ms ease-in-out;
 	background-color: rgba(0,0,0, .4);
 }
 
@@ -477,7 +472,6 @@ header .usuario-container a.botao:hover {
 main.home {
 	position: relative;
 	max-width: 1000px;
-	min-height: 100vh;
 	margin: 0 auto;
 }
 
@@ -513,11 +507,11 @@ section.generic .generic__right-container h3 {
 	padding: .5em 2.5%;
 	font-family: Roboto, Arial, sans-serif;
 	font-size: 4em;
-	background-color: rgba(0,0,0, .025);
+	background-color: #0288d1;
 	font-weight: 300;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
-	color: #333;
+	color: #eee;
 	margin-top: 0;
 	margin-bottom: .5em;
 }
@@ -538,12 +532,91 @@ section.generic-lista {
 	border-radius: 5px;
 }
 
+section.generic-lista ul {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	list-style-type: none;
+}
+
+section.generic-lista ul li {
+	position: relative;
+	transition: 300ms ease-in-out;
+}
+
+section.generic-lista ul li:hover {
+	transition: 300ms ease-in-out;
+	background-color: rgba(0,0,0, .05);
+}
+
+section.generic-lista ul li:hover .generic-lista__icone {
+	transition: 350ms cubic-bezier(0.76,-0.02, 0, 1.57);
+	transform: scale(1.2) rotate(-15deg);
+}
+
+section.generic-lista ul li:hover .generic-lista__nome p {
+	transition: 250ms ease-in-out;
+	transform: translate(.5em);
+}
+
+section.generic-lista .generic-lista__icone {
+	transition: 350ms cubic-bezier(0.76,-0.02, 0, 1.57);
+	float: left;
+	width: 10%;
+	height: 5em;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-attachment: scroll;
+	background-position: center;
+}
+
+section.generic-lista .generic-lista__nome {
+	float: left;
+	width: 60%;
+	min-height: 5em;
+}
+
+section.generic-lista .generic-lista__nome p {
+	transition: 250ms ease-in-out;
+	font-size: 2em;
+	color: #777;
+	margin: 0 .25em;
+	padding: .675em 0;
+	font-family: Roboto, Arial, sans-serif;
+	font-weight: 300;
+}
+
+section.generic-lista .generic-lista__botao {
+	position: relative;
+	float: right;
+	width: 30%;
+	height: 5em;
+}
+
+section.generic-lista .generic-lista__botao a {
+	transition: 200ms ease-in-out;
+	display: block;
+	font-family: Raleway, Arial, sans-serif;
+	font-weight: 500;
+	text-transform: uppercase;
+	background-color: #0288d1;
+	font-size: 1.5em;
+	color: white;
+	padding: .5em .8em;
+	margin: .5em auto;
+	border-radius: 3px;
+}
+
+section.generic-lista .generic-lista__botao a:hover {
+	transition: 200ms ease-in-out;
+	background-color: cornflowerblue;
+	box-shadow: 0px 0px 6px rgba(0,0,0, .4);
+}
+
 section.generic-lista h3 {
 	font-family: 'Source Sans Pro', Arial, sans-serif;
 	font-size: 1.4em;
 	margin: .5em;
-	background-color: rgba(0,0,0, .025);
-	border-radius: 3px;
 	color: #555;
 }
 
@@ -646,3 +719,9 @@ section.generic-form .generic-form__erro::before {
 	content: '* ';
 }
 
+section.generic-form h3 {
+	font-family: 'Source Sans Pro', Arial, sans-serif;
+	font-size: 1.4em;
+	margin: .5em;
+	color: #555;
+}

@@ -8,7 +8,9 @@ namespace App\Models;
 
 use App\Models\ModelBase;
 use App\Database\DalAliancas;
+use App\Database\DalGrupos;
 use App\Fabricas\FabricaAlianca;
+use App\Fabricas\FabricaGrupo;
 use App\Views\HomeView;
 use App\Config\AppConfig;
 use \Exception;
@@ -29,9 +31,9 @@ final class HomeModel extends ModelBase {
 
     /**
      * Retorna uma HomeView preenchida com o erro retornado de um processamento
-     * @param  string $nomeAlianca    
+     * @param  string $nomeAlianca
      * @param  string $nomeAliancaErro
-     * @return HomeView                 
+     * @return HomeView
      */
     private function erro(?string $nomeAlianca, string $nomeAliancaErro) : HomeView {
     	$dal = new DalAliancas($this->getConexao());
@@ -67,10 +69,19 @@ final class HomeModel extends ModelBase {
 
     		$dal->criar($novaAlianca);
 
-    		unset($dal);
+			$dal = new DalGrupos($this->getConexao());
+
+			// Crie automaticamente na tabela Grupos do banco de dados 3 Grupos
+			// vazios para esta Aliança
+			for ($i = 0; $i < 3; $i++) {
+				$novoGrupo = FabricaGrupo::criar($novaAlianca->getId(), 'Grupo '.chr(65 + $i));
+				$dal->criar($novoGrupo);
+			}
+
+			unset($dal);
 
     		return $this->__invoke();
-	
+
     	} catch (Exception $e) {
     		return $this->erro(
     			$nomeAlianca,
@@ -84,7 +95,7 @@ final class HomeModel extends ModelBase {
     					AppConfig::obter('Aliancas.NomeTamanhoMinimo'),
     					AppConfig::obter('Aliancas.NomeTamanhoLimite'),
     					AppConfig::obter('Aliancas.LimitePorUsuario')
-    				], 
+    				],
     				$e->getMessage()
     			)
     		);
@@ -100,9 +111,9 @@ final class HomeModel extends ModelBase {
     private static function tamanhoNomeAliancaValido(string $str) : bool {
     	$strlen = strlen($str);
 
-    	return ($strlen >= AppConfig::obter('Aliancas.NomeTamanhoMinimo') 
+    	return ($strlen >= AppConfig::obter('Aliancas.NomeTamanhoMinimo')
     		&&
-    			$strlen <= AppConfig::obter('Aliancas.NomeTamanhoLimite')); 
+    			$strlen <= AppConfig::obter('Aliancas.NomeTamanhoLimite'));
     }
 }
 

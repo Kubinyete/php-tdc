@@ -6,6 +6,7 @@
 namespace App\Objetos;
 
 use App\Objetos\Objeto;
+use App\Uteis\Uteis;
 
 final class Alianca extends Objeto {
 	// $id
@@ -24,14 +25,14 @@ final class Alianca extends Objeto {
 	 * Getters
 	 */
 
-	public function getNome() : string {
-		return $this->nome;
+	public function getNome(bool $formatarEntidadesHtml = false) : string {
+		return ($formatarEntidadesHtml) ? Uteis::filtrarEntidadesHtml($this->nome) : $this->nome;
 	}
 
 	public function getUsuarioId() : int {
 		return $this->usuarioId;
 	}
-	
+
 	/**
 	 * Setters
 	 */
