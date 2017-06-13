@@ -152,7 +152,7 @@ final class DalAliancas extends DalBase {
 	 */
 	public function obterContagemAliancasDeUmUsuario(Usuario $usuario) : int {
 		$sql = new SqlComando();
-		$sql->select('COUNT()')->as('contagem')->from(self::SQL_TABELA)->where('usr_id', '=', $usuario->getId());
+		$sql->select('COUNT(*)')->as('contagem')->from(self::SQL_TABELA)->where('usr_id', '=', $usuario->getId());
 
 		$this->conectar();
 

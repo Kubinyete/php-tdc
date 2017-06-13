@@ -11,7 +11,6 @@ use App\Database\Conexao;
 use App\Database\SqlComando;
 
 abstract class DalBase {
-	private static $autoridade;
 	protected $conexao;
 
 	public function __construct(?Conexao $conexao = null) {
@@ -25,11 +24,11 @@ abstract class DalBase {
 	public function __destruct() {
 		$this->desconectar();
 	}
-	
+
 	/**
 	 * Getters
 	 */
-	
+
 	protected function getConexao() : Conexao {
 		return $this->conexao;
 	}
@@ -37,33 +36,19 @@ abstract class DalBase {
 	/**
 	 * Funções
 	 */
-	
-	private static function temPermissaoParaModificarEstadoDaConexao() : bool {
-		if (self::$autoridade === null) {
-			self::$autoridade = static::class;
-			return true;
-		} else {
-			if (self::$autoridade !== static::class) 
-				return false;
-			else
-				return true;
-		}
-	}
 
 	/**
 	 * Estabelece a conexão com o banco de dados
 	 */
 	protected function conectar() {
-		if (self::temPermissaoParaModificarEstadoDaConexao())
-			$this->getConexao()->conectar();
+		$this->getConexao()->conectar();
 	}
 
 	/**
 	 * Fecha a conexão atual, se estiver ativa
 	 */
 	protected function desconectar() {
-		if (self::temPermissaoParaModificarEstadoDaConexao())
-			$this->getConexao()->desconectar();
+		$this->getConexao()->desconectar();
 	}
 
 	/**
@@ -99,10 +84,10 @@ abstract class DalBase {
 	protected function emTransacao() : bool {
 		return $this->getConexao()->emTransacao();
 	}
-	
+
 	/**
 	 * Encapsulamento da função Conexao::executar
-	 * Automaticamente pega o texto de um objeto SqlComando e passa como argumento para 
+	 * Automaticamente pega o texto de um objeto SqlComando e passa como argumento para
 	 * Conexao::executar
 	 * @param  SqlComando $sqlComando
 	 * @return PDOStatement|null
@@ -113,7 +98,7 @@ abstract class DalBase {
 
 	/**
 	 * Encapsulamento da função Conexao::exec
-	 * Automaticamente pega o texto de um objeto SqlComando e passa como argumento para 
+	 * Automaticamente pega o texto de um objeto SqlComando e passa como argumento para
 	 * Conexao::exec
 	 * @param  SqlComando $sqlComando
 	 * @return PDOStatement|null
@@ -159,7 +144,7 @@ abstract class DalBase {
 
 		$this->conectar();
 		$this->iniciarTransacao();
-		
+
 		$linhasAfetadas = $this->exec($sql);
 
 		if ($linhasAfetadas === 1) {

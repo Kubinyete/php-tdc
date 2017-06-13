@@ -30,7 +30,7 @@ final class DalJogadoresEmGrupos extends DalBase {
 
 		$this->conectar();
 		$this->iniciarTransacao();
-		
+
 		$linhasAfetadas = $this->exec($sql);
 
 		if ($linhasAfetadas >= 1) {
@@ -55,7 +55,7 @@ final class DalJogadoresEmGrupos extends DalBase {
 		$sql = new SqlComando();
 
 		return $this->modificar(
-			$sql->update(self::SQL_TABELA, 
+			$sql->update(self::SQL_TABELA,
 				[
 					'grp_id' => $jogador->getGrupoId(),
 					'jeu_data_adicionado' => $jogador->getDataAdicionado()
@@ -75,7 +75,7 @@ final class DalJogadoresEmGrupos extends DalBase {
 
 		$this->conectar();
 
-		$lista = $this->getObjetos($sql, 
+		$lista = $this->getObjetos($sql,
 			function(array $arrayObjeto) : array {
 				return $arrayObjeto
 			}
@@ -99,11 +99,11 @@ final class DalJogadoresEmGrupos extends DalBase {
 	 */
 	public function existe(Jogador $jogador) : bool {
 		$sql = new SqlComando();
-		$sql->select('COUNT()')->as('contagem')->from(self::SQL_TABELA)->where('jgd_id', '=', $jogador->getId())->limit(1);
+		$sql->select('COUNT(*)')->as('contagem')->from(self::SQL_TABELA)->where('jgd_id', '=', $jogador->getId())->limit(1);
 
 		$this->conectar();
 
-		$lista = $this->getObjetos($sql, 
+		$lista = $this->getObjetos($sql,
 			function(array $arrayObjeto) : array {
 				return $arrayObjeto;
 			}
@@ -120,11 +120,11 @@ final class DalJogadoresEmGrupos extends DalBase {
 	/**
 	 * Remove um jogador de um grupo
 	 * @param  Jogador $jogador
-	 * @return bool          
+	 * @return bool
 	 */
 	public function remover(Jogador $jogador) : bool {
 		$sql = new SqlComando();
-		
+
 		return $this->modificar(
 			$sql->delete(self::SQL_TABELA)->where('jgd_id', '=', $jogador->getId())->limit(1)
 		);

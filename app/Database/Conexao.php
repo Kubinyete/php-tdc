@@ -33,7 +33,7 @@ final class Conexao {
 		/**
 		 * Obtenha as carácteristicas padrões de uma conexão definida no arquivo de configurações
 		 */
-		
+
 		$this->stringConexao = $stringConexao ?? AppConfig::obter('Database.StringConexao');
 		$this->usuario = $usuario ?? AppConfig::obter('Database.Usuario');
 		$this->senha = $senha ?? AppConfig::obter('Database.Senha');
