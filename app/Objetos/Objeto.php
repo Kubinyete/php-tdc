@@ -5,6 +5,8 @@
 
 namespace App\Objetos;
 
+use App\Uteis\Uteis;
+
 abstract class Objeto {
 	protected $id;
 	protected $dataCriacao;
@@ -22,8 +24,8 @@ abstract class Objeto {
 		return $this->id;
 	}
 
-	public function getDataCriacao() : string {
-		return $this->dataCriacao;
+	public function getDataCriacao(bool $formatar = false) : string {
+		return ($formatar) ? self::formatarDataAmigavel($this->dataCriacao) : $this->dataCriacao;
 	}
 
 	/**
@@ -40,6 +42,17 @@ abstract class Objeto {
 
 	public function __toString() : string {
 		return print_r($this, true);
+	}
+
+	/**
+	 * Funções
+	 */
+	
+	private static function formatarDataAmigavel(string $data) : string {
+		$itens = explode(' ', $data);
+		$data = implode(' às ', $itens);
+
+		return $data;
 	}
 }
 

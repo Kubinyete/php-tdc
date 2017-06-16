@@ -6,6 +6,7 @@
 namespace App\Objetos;
 
 use App\Objetos\Objeto;
+use App\Uteis\Uteis;
 
 final class Usuario extends Objeto {
 	// $id
@@ -29,8 +30,8 @@ final class Usuario extends Objeto {
 	 * Getters
 	 */
 
-	public function getLogin() : string {
-		return $this->login;
+	public function getLogin(bool $formatarEntidadesHtml = false) : string {
+		return ($formatarEntidadesHtml) ? Uteis::filtrarEntidadesHtml($this->login) : $this->login;
 	}
 
 	public function getSenha() : string {

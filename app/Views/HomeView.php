@@ -20,7 +20,8 @@ final class HomeView extends ViewBase {
 			'home-aliancas-descricao' => ['Aqui estão listadas as suas <strong>Alianças</strong> criadas até o momento, elas são a base de gerenciamento deste aplicativo, aonde você poderá incluir <strong>Jogadores</strong>, organizar <strong>Grupos</strong>, adicionar <em>Eventos</em> como <strong>Guerras</strong> & <strong>Missões</strong>, entre outros.','Você poderá adicionar uma nova aliança sem esforços utilizando o simples formulário abaixo, apenas insira o nome dela utilizada em-jogo e começe já.'],
 			'home-aliancasform-action' => Uteis::obterCaminhoWebCompleto('?r=home', false, false),
 			'home-aliancasform-nom' => ($aliancaNomeErro !== null) ? Uteis::filtrarEntidadesHtml($aliancaNome) : $aliancaNome,
-			'home-aliancasform-nom-erro' => $aliancaNomeErro
+			'home-aliancasform-nom-erro' => $aliancaNomeErro,
+			'home-aliancasform-nom-maxlength' => AppConfig::obter('Aliancas.NomeTamanhoLimite')
 		]);
 	}
 }

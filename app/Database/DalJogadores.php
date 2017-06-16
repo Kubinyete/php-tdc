@@ -8,6 +8,7 @@ namespace App\Database;
 use \PDO;
 use App\Database\SqlComando;
 use App\Objetos\Jogador;
+use App\Objetos\Alianca;
 
 final class DalJogadores extends DalBase {
 	private const SQL_TABELA = 'Jogadores';
@@ -107,6 +108,31 @@ final class DalJogadores extends DalBase {
 			return $lista[0];
 		else
 			return null;
+	}
+
+	/**
+	 * Retorna a contagem de jogadores de determinada Aliança
+	 * @param  Alianca    $alianca
+	 * @return Jogador|null
+	 */
+	public function obterContagemAlianca(Alianca $alianca) : int {
+		$sql = new SqlComando();
+		$sql->select('COUNT(*)')->as('contagem')->from(self::SQL_TABELA)->where('ali_id', '=', $alianca->getId());
+
+		$this->conectar();
+
+		$lista = $this->getObjetos($sql, 
+			function(array $arrayObjeto) : int {
+				return intval($arrayObjeto['contagem']);
+			}
+		);
+
+		$this->desconectar();
+
+		if (count($lista) >= 1)
+			return $lista[0];
+		else
+			return 0;
 	}
 
 	/**

@@ -1,4 +1,4 @@
-<main class="home">
+<main class="generic">
     <article class="home">
     	<section class="generic aliancas-header">
     		<div class="generic__icone" style="background-image: url('<?= $_['home-aliancas-icone'] ?>');"></div>
@@ -15,7 +15,7 @@
             <h3>Adicione uma nova Aliança</h3>
     		<form method="POST" action="<?= $_['home-aliancasform-action'] ?>" autocomplete="off">
     			<label for="nom">Nome da Aliança</label>
-    			<input type="text" id="nom" name="nom" placeholder="Nome da Aliança" required value="<?= $_['home-aliancasform-nom'] ?? '' ?>">
+    			<input type="text" id="nom" name="nom" placeholder="Nome da Aliança" required value="<?= $_['home-aliancasform-nom'] ?? '' ?>" maxlength="<?= $_['home-aliancasform-nom-maxlength'] ?>">
 
     			<?php if ($_['home-aliancasform-nom-erro'] !== null): ?>
     			<span class="generic-form__erro"><?= $_['home-aliancasform-nom-erro'] ?></span>

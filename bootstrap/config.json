@@ -29,6 +29,10 @@
 		"NomeTamanhoMinimo": 4
 	},
 
+	"Jogadores": {
+		"LimitePorAlianca": 30
+	},
+
 	"Templates": {
 		"Diretorio": "templates",
 		"Extensao": ".tpl",

@@ -14,13 +14,15 @@ use App\Views\ErroView;
 
 use App\Controllers\LoginController;
 use App\Models\LoginModel;
-use App\Views\LoginView;
+
 use App\Controllers\RegistrarController;
 use App\Models\RegistrarModel;
-use App\Views\RegistrarView;
+
 use App\Controllers\HomeController;
 use App\Models\HomeModel;
-use App\Views\HomeView;
+
+use App\Controllers\AliancaController;
+use App\Models\AliancaModel;
 
 Roteador::registrar(Roteador::ROTA_NOTFOUND_PADRAO, function()
 	{
@@ -101,6 +103,24 @@ Roteador::registrar('home', function()
 		, Sessao::getUsuario());
 
 		return $controlador($nomeAlianca);
+	}
+);
+
+Roteador::registrar('alianca', function()
+	{
+		// Se o usuário não estiver logado, envie ele para a página de login
+		if (Sessao::getUsuario() === null)
+			Resposta::appRedirecionar('login');
+
+		$aliancaId = Pedido::obter('id', Pedido::GET);
+
+		$controlador = new AliancaController(
+			new AliancaModel(
+				new Conexao()
+			, Sessao::getUsuario())
+		, Sessao::getUsuario());
+
+		return $controlador($aliancaId);
 	}
 );
 

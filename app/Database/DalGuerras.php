@@ -8,6 +8,7 @@ namespace App\Database;
 use \PDO;
 use App\Database\SqlComando;
 use App\Objetos\Guerra;
+use App\Objetos\Alianca;
 
 final class DalGuerras extends DalBase {
 	private const SQL_TABELA = 'Guerras';
@@ -90,6 +91,31 @@ final class DalGuerras extends DalBase {
 			return $lista[0];
 		else
 			return null;
+	}
+
+	/**
+	 * Retorna a contagem de guerras de uma Aliança
+	 * @param  Alianca    $alianca
+	 * @return int
+	 */
+	public function obterContagemAlianca(Alianca $alianca) : int {
+		$sql = new SqlComando();
+		$sql->select('COUNT(*)')->as('contagem')->from(self::SQL_TABELA)->where('ali_id', '=', $alianca->getId());
+
+		$this->conectar();
+
+		$lista = $this->getObjetos($sql, 
+			function(array $arrayObjeto) : int {
+				return intval($arrayObjeto['contagem']);
+			}
+		);
+
+		$this->desconectar();
+
+		if (count($lista) >= 1)
+			return $lista[0];
+		else
+			return 0;
 	}
 
 	/**
