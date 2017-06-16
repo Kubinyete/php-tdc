@@ -9,7 +9,7 @@ use \Exception;
 
 abstract class AppConfig {
 	// Delimitador de acesso às propriedades na string de get(string $caminhoAcesso)
-	private const GET_DELIMITADOR = '.';
+	private const OBTER_DELIMITADOR = '.';
 	// O arquivo de configurações, um array de chaves e valores
 	private static $configuracoes;
 
@@ -37,7 +37,7 @@ abstract class AppConfig {
 	 */
 	public static function obter(string $caminhoAcesso) {
 		$retorno = null;
-		$array = explode(self::GET_DELIMITADOR, $caminhoAcesso);
+		$array = explode(self::OBTER_DELIMITADOR, $caminhoAcesso);
 
 		foreach ($array as $chave) {
 			if ($retorno === null) {
