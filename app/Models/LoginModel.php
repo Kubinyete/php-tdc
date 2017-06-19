@@ -10,7 +10,7 @@ use App\Objetos\Usuario;
 use App\Fabricas\FabricaUsuario;
 use App\Views\LoginView;
 use App\Database\DalUsuarios;
-use App\Exceptions\LoginException;
+use App\Exceptions\FormException;
 use App\Http\Sessao;
 use App\Http\Resposta;
 
@@ -37,31 +37,44 @@ final class LoginModel extends ModelBase {
 	 */
 	public function logar(?string $login, ?string $senha) : LoginView {
 		try {
+			// Estágio 1
+			$validador = new FormException();
+
 			// Opa, tentou enviar sem um nome de usuário
 			if ($login === null)
-				throw new LoginException(self::LOGIN_NAO_INFORMADO);
+				$validador->adicionarErros(['login-erro' => self::LOGIN_NAO_INFORMADO]);
 
 			// Opa, tentou enviar sem uma senha
 			if ($senha === null)
-				throw new LoginException(null, self::SENHA_NAO_INFORMADA);
+				$validador->adicionarErros(['login-erro' => self::SENHA_NAO_INFORMADA]);
 
-			$dal = new DalUsuarios($this->getConexao());
-			$localUsuario = $dal->obterPeloNome($login);
-
-			// Este usuário não existe!
-			if ($localUsuario === null)
-				throw new LoginException(self::LOGIN_NAO_EXISTE);
-
-			// Você errou a senha!
-			if ($localUsuario->getHashSenha() !== FabricaUsuario::criarHash($senha)) {
-				throw new LoginException(null, self::SENHA_INVALIDA);
+			if ($validador->ocorreuErro()) {
+				throw $validador;
 			} else {
-				// Vamos logar!
-				Sessao::setUsuario($localUsuario);
-				Resposta::appRedirecionar('home');
+				// Estágio 2
+				$dal = new DalUsuarios($this->getConexao());
+				$localUsuario = $dal->obterPeloNome($login);
+
+				// Este usuário não existe!
+				if ($localUsuario === null) {
+					$validador->adicionarErros(['login-erro' => self::LOGIN_NAO_EXISTE]);
+					throw $validador;
+				} else {
+					// Estágio 3
+
+					// Você errou a senha?
+					if ($localUsuario->getHashSenha() !== FabricaUsuario::criarHash($senha)) {
+						$validador->adicionarErros(['senha-erro' => self::SENHA_INVALIDA]);
+						throw $validador;
+					} else {
+						// Vamos logar
+						Sessao::setUsuario($localUsuario);
+						Resposta::appRedirecionar('home');
+					}
+				}
 			}
-		} catch (LoginException $e) {
-			return new LoginView($this->getUsuarioLogado(), $login, $e->getLoginErro(), $senha, $e->getSenhaErro());
+		} catch (FormException $e) {
+			return new LoginView($this->getUsuarioLogado(), $login, $e->obter('login-erro'), $senha, $e->obter('senha-erro'));
 		}
 	}
 }

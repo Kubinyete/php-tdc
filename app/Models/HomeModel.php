@@ -13,7 +13,7 @@ use App\Fabricas\FabricaAlianca;
 use App\Fabricas\FabricaGrupo;
 use App\Views\HomeView;
 use App\Config\AppConfig;
-use \Exception;
+use App\Exceptions\FormException;
 
 final class HomeModel extends ModelBase {
 	private const ALIANCA_NOME_TAMANHO_INVALIDO = 'O nome da aliança que você está tentando adicionar deve ter no mínimo %m e no máximo %M carácteres.';
@@ -54,35 +54,47 @@ final class HomeModel extends ModelBase {
      */
     public function adicionarAlianca(string $nomeAlianca) : HomeView {
     	try {
+            // Estágio 1
+            
+            $validador = new FormException();
+
     		$nomeAlianca = trim($nomeAlianca);
 
-    		if (!self::tamanhoNomeAliancaValido($nomeAlianca))
-    			throw new Exception(self::ALIANCA_NOME_TAMANHO_INVALIDO);
+    		if (!self::tamanhoNomeAliancaValido($nomeAlianca)) {
+    			$validador->adicionarErros(['nome-erro' => self::ALIANCA_NOME_TAMANHO_INVALIDO]);
+                throw $validador;
+            } else {
+                // Estágio 2
+                
+                $dal = new DalAliancas($this->getConexao());
+                $contagem = $dal->obterContagemAliancasDeUmUsuario($this->getUsuarioLogado());
 
-    		$dal = new DalAliancas($this->getConexao());
-    		$contagem = $dal->obterContagemAliancasDeUmUsuario($this->getUsuarioLogado());
+                if ($contagem >= AppConfig::obter('Aliancas.LimitePorUsuario')) {
+                    $validador->adicionarErros(['nome-erro' => self::ALIANCA_ATINGIDO_NUMERO_LIMITE]);
+                    throw $validador;
+                } else {
+                    // Estágio 3
+                    // Crie
+                    
+                    $novaAlianca = FabricaAlianca::criar($this->getUsuarioLogado()->getId(), $nomeAlianca);
 
-    		if ($contagem >= AppConfig::obter('Aliancas.LimitePorUsuario'))
-    			throw new Exception(self::ALIANCA_ATINGIDO_NUMERO_LIMITE);
+                    $dal->criar($novaAlianca);
 
-    		$novaAlianca = FabricaAlianca::criar($this->getUsuarioLogado()->getId(), $nomeAlianca);
+                    $dal = new DalGrupos($this->getConexao());
 
-    		$dal->criar($novaAlianca);
+                    // Crie automaticamente na tabela Grupos do banco de dados 3 Grupos
+                    // vazios para esta Aliança
+                    for ($i = 0; $i < 3; $i++) {
+                        $novoGrupo = FabricaGrupo::criar($novaAlianca->getId(), 'Grupo '.chr(65 + $i));
+                        $dal->criar($novoGrupo);
+                    }
 
-			$dal = new DalGrupos($this->getConexao());
+                    unset($dal);
 
-			// Crie automaticamente na tabela Grupos do banco de dados 3 Grupos
-			// vazios para esta Aliança
-			for ($i = 0; $i < 3; $i++) {
-				$novoGrupo = FabricaGrupo::criar($novaAlianca->getId(), 'Grupo '.chr(65 + $i));
-				$dal->criar($novoGrupo);
-			}
-
-			unset($dal);
-
-    		return $this->__invoke();
-
-    	} catch (Exception $e) {
+                    return $this->__invoke();
+                }
+            }
+    	} catch (FormException $e) {
     		return $this->erro(
     			$nomeAlianca,
     			str_replace(
@@ -96,7 +108,7 @@ final class HomeModel extends ModelBase {
     					AppConfig::obter('Aliancas.NomeTamanhoLimite'),
     					AppConfig::obter('Aliancas.LimitePorUsuario')
     				],
-    				$e->getMessage()
+    				$e->obter('nome-erro')
     			)
     		);
     	}

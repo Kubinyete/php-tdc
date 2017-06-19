@@ -262,7 +262,7 @@ div.erro-pag h2 {
 	width: 420px;
 	height: 100vh;
 	opacity: 0;
-	background-color: rgba(0,0,0, .2);
+	background-color: rgba(0,0,0, .6);
 	overflow-y: scroll;
 	overflow-x: hidden;
 	transform: translate(95%);
@@ -542,6 +542,8 @@ section.generic-lista ul {
 section.generic-lista ul li {
 	position: relative;
 	transition: 300ms ease-in-out;
+	border-top: .05em solid rgba(0,0,0, .05);
+	border-bottom: .05em solid rgba(0,0,0, .05);
 }
 
 section.generic-lista ul li:hover {
@@ -568,6 +570,14 @@ section.generic-lista .generic-lista__icone {
 	background-size: contain;
 	background-attachment: scroll;
 	background-position: center;
+}
+
+section.generic-lista .generic-lista__descricao {
+	font-size: .65em;
+	text-indent: 1em;
+	background-color: rgba(0,0,0, .02);
+	border-radius: 3px;
+	margin: 2em 0;
 }
 
 section.generic-lista .generic-lista__nome {
@@ -684,6 +694,31 @@ section.generic-form input {
 	width: 100%;
 	margin: 0 auto;
 	outline: none;
+	color: #777;
+}
+
+section.generic-form textarea {
+	display: block;
+	font-family: 'Source Sans Pro', Arial, sans-serif;
+	font-size: 1.5em;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	border-radius: 5px;
+	width: 100%;
+	min-height: 10em;
+	resize: vertical;
+	margin: 0 auto;
+	outline: none;
+	color: #777;
+}
+
+section.generic-form select {
+	font-family: 'Source Sans Pro', Arial, sans-serif;
+	font-size: 1.5em;
+	border: 0;
+	padding: 0;
+	margin: 0;
 	color: #777;
 }
 

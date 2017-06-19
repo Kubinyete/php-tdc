@@ -114,13 +114,33 @@ Roteador::registrar('alianca', function()
 
 		$aliancaId = Pedido::obter('id', Pedido::GET);
 
+		// Formulário de adição de jogadores
+		$nom = Pedido::obter('nom', Pedido::POST);
+		$nic = Pedido::obter('nic', Pedido::POST);
+		$niv = Pedido::obter('niv', Pedido::POST);
+		$tel = Pedido::obter('tel', Pedido::POST);
+		$ema = Pedido::obter('ema', Pedido::POST);
+		$tip = Pedido::obter('tip', Pedido::POST);
+		$sta = Pedido::obter('sta', Pedido::POST);
+		$obs = Pedido::obter('obs', Pedido::POST);
+
 		$controlador = new AliancaController(
 			new AliancaModel(
 				new Conexao()
 			, Sessao::getUsuario())
 		, Sessao::getUsuario());
 
-		return $controlador($aliancaId);
+		return $controlador(
+			$aliancaId,
+			$nom,
+			$nic,
+			$niv,
+			$tel,
+			$ema,
+			$tip,
+			$sta,
+			$obs
+		);
 	}
 );
 

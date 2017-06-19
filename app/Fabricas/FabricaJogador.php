@@ -22,17 +22,17 @@ abstract class FabricaJogador extends FabricaBase implements FabricaInterface {
 	 * @param  int|integer  $tipo     
 	 * @return Jogador                 
 	 */
-	public static function criar(int $aliancaId = 0, ?string $nome = null, string $nickname = '', int $nivel = 0, ?string $telefone = null, string $email = '', int $tipo = 0) : Jogador {
+	public static function criar(int $aliancaId = 0, ?string $nome = null, string $nickname = '', int $nivel = 0, ?string $telefone = null, string $email = '', int $tipo = 0, bool $status = true, ?string $observacoes = null) : Jogador {
 		$datetime = self::getDatetimeAtual();
 
 		return new Jogador(
 			self::getNovoId(),
 			$datetime,
 			$aliancaId,
-			null,
+			0,
 			$datetime,
-			null,
-			null,
+			0,
+			0,
 			0,
 			$nome,
 			$nickname,
@@ -40,8 +40,8 @@ abstract class FabricaJogador extends FabricaBase implements FabricaInterface {
 			$telefone,
 			$email,
 			$tipo,
-			true,
-			null
+			$status,
+			$observacoes
 		);
 	}
 }

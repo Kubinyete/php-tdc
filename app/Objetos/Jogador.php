@@ -6,6 +6,8 @@
 namespace App\Objetos;
 
 use App\Objetos\Objeto;
+use App\Uteis\Uteis;
+use App\Config\AppConfig;
 
 final class Jogador extends Objeto {
 	// $id
@@ -28,8 +30,8 @@ final class Jogador extends Objeto {
 	public function __construct(int $id, string $dataCriacao, int $aliancaId, int $grupoId, string $dataAdicionado, int $missaoId, int $guerraId, int $pontuacao, ?string $nome, string $nickname, int $nivel, ?string $telefone, string $email, int $tipo, bool $status, ?string $observacoes) {
 		parent::__construct($id, $dataCriacao);
 
-		$this->setAliancaId($alianca);
-		$this->setGrupoId($grupo);
+		$this->setAliancaId($aliancaId);
+		$this->setGrupoId($grupoId);
 		$this->setNome($nome);
 		$this->setNickname($nickname);
 		$this->setNivel($nivel);
@@ -39,8 +41,8 @@ final class Jogador extends Objeto {
 		$this->setStatus($status);
 		$this->setObservacoes($observacoes);
 		$this->setDataAdicionado($dataAdicionado);
-		$this->setMissaoId($missao);
-		$this->setGuerraId($guerra);
+		$this->setMissaoId($missaoId);
+		$this->setGuerraId($guerraId);
 		$this->setPontuacao($pontuacao);
 	}
 
@@ -56,12 +58,12 @@ final class Jogador extends Objeto {
 		return $this->grupoId;
 	}
 	
-	public function getNome() : ?string {
-		return $this->nome;
+	public function getNome(bool $filtrarEntidadesHtml = false) : ?string {
+		return ($filtrarEntidadesHtml) ? Uteis::filtrarEntidadesHtml($this->nome) : $this->nome;
 	}
 	
-	public function getNickname() : string {
-		return $this->nickname;
+	public function getNickname(bool $filtrarEntidadesHtml = false) : string {
+		return ($filtrarEntidadesHtml) ? Uteis::filtrarEntidadesHtml($this->nickname) : $this->nickname;
 	}
 
 	public function getNivel() : int {
@@ -76,8 +78,8 @@ final class Jogador extends Objeto {
 		return $this->email;
 	}
 
-	public function getTipo() : int {
-		return $this->tipo;
+	public function getTipo(bool $traduzir = false) {
+		return ($traduzir) ? AppConfig::obter('Jogadores.Tipos')[$this->tipo] : $this->tipo;
 	}
 
 	public function getStatus() : bool {

@@ -30,7 +30,28 @@
 	},
 
 	"Jogadores": {
-		"LimitePorAlianca": 30
+		"LimitePorAlianca": 30,
+
+		"NomeTamanhoLimite": 64,
+		"NomeTamanhoMinimo": 4,
+
+		"ApelidoTamanhoLimite": 64,
+		"ApelidoTamanhoMinimo": 4,
+
+		"NivelLimite": 999,
+		"NivelMinimo": 0,
+
+		"TelefoneTamanho": 11,
+
+		"EmailTamanhoLimite": 64,
+
+		"ObservacoesTamanhoLimite": 256,
+
+		"Tipos": [
+			"Jogador",
+			"Moderador",
+			"Líder"
+		]
 	},
 
 	"Templates": {

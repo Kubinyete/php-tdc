@@ -49,7 +49,9 @@ abstract class Uteis {
 	 * @return bool
 	 */
 	public static function contemCaracteresInvalidos(string $str) : bool {
-		for ($i = 0; $i < strlen($str); $i++) {
+		$strlen = strlen($str);
+
+		for ($i = 0; $i < $strlen; $i++) {
 			// Verificando por carácteres inválidos
 
 			if (ord($str[$i]) <= 47 || ord($str[$i]) >= 58 && ord($str[$i]) <= 64 || ord($str[$i]) >= 91 && ord($str[$i]) <= 96 || ord($str[$i]) >= 123) {
@@ -58,6 +60,62 @@ abstract class Uteis {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Retorna se determinada string contém apenas string
+	 * @param  string $str
+	 * @return bool
+	 */
+	public static function contemApenasNumeros(string $str) : bool {
+		$strlen = strlen($str);
+
+		for ($i = 0; $i < $strlen; $i++) {
+			$ascii = ord($str[$i]);
+
+			// Se for algo além de números
+			if ($ascii < 48 || $ascii > 57) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Retorna se determinada string contém apenas letras maiúsculas
+	 * @param  string $str
+	 * @param  bool   $ignorarEspacos
+	 * @return bool
+	 */
+	public static function contemApenasLetrasMaiusculas(string $str, bool $ignorarEspacos = true) : bool {
+		$strlen = strlen($str);
+
+		for ($i = 0; $i < $strlen; $i++) {
+			$ascii = ord($str[$i]);
+
+			// Se for algo além de números
+			
+			// Se for um espaço ignore
+			if ($ascii == 32 && $ignorarEspacos)
+				continue;
+
+
+			if ($ascii < 65 || $ascii > 90) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Retorna se determinada string é um email válido
+	 * @param  string $str
+	 * @return bool
+	 */
+	public static function emailValido(string $str) : bool {
+		return preg_match('/([A-Za-z0-9\.]+)@([a-z]+)\.([a-z]+)/', $str) > 0;
 	}
 }
 

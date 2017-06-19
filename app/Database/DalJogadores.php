@@ -111,13 +111,69 @@ final class DalJogadores extends DalBase {
 	}
 
 	/**
-	 * Retorna a contagem de jogadores de determinada Aliança
+	 * Retorna uma lista de Jogadores de determinada Aliança
 	 * @param  Alianca    $alianca
 	 * @return Jogador|null
 	 */
-	public function obterContagemAlianca(Alianca $alianca) : int {
+	public function obterAlianca(Alianca $alianca, $incluirDesativados = false) : array {
 		$sql = new SqlComando();
-		$sql->select('COUNT(*)')->as('contagem')->from(self::SQL_TABELA)->where('ali_id', '=', $alianca->getId());
+		$sql->select()->from(self::SQL_TABELA)->where('ali_id', '=', $alianca->getId());
+
+		if (!$incluirDesativados)
+			$sql->and()->expr('jgd_status', '=', true);
+
+		$this->conectar();
+
+		$lista = $this->getObjetos($sql, 
+			function(array $arrayObjeto) : Jogador {
+				return new Jogador(
+					intval($arrayObjeto['jgd_id']),
+					$arrayObjeto['jgd_data_criacao'],
+					intval($arrayObjeto['ali_id']),
+					0, # Não quero saber que grupo ele está
+					'', # Não quero saber a data em que ele foi adicionado em um grupo
+					0, # Não quero saber que missão ele está
+					0, # Não quero saber que guerra ele está
+					0, # Não quero saber sua pontuação em um evento
+					$arrayObjeto['jgd_nome'],
+					$arrayObjeto['jgd_nickname'],
+					intval($arrayObjeto['jgd_nivel']),
+					$arrayObjeto['jgd_telefone'],
+					$arrayObjeto['jgd_email'],
+					intval($arrayObjeto['jgd_tipo']),
+					boolval($arrayObjeto['jgd_status']),
+					$arrayObjeto['jgd_observacoes']
+				);
+			}
+		);
+
+		$this->desconectar();
+
+		return $lista;
+	}
+
+	/**
+	 * Retorna a contagem de jogadores de determinada Aliança
+	 * @param  Alianca    $alianca
+	 * @param  bool       $incluirDesativados
+	 * @return int
+	 */
+	public function obterContagemAlianca(Alianca $alianca, bool $incluirDesativados = false) : int {
+		return $this->obterContagemAliancaId($alianca->getId(), $incluirDesativados);
+	}
+
+	/**
+	 * Retorna a contagem de jogadores de determinada Aliança através do seu Id
+	 * @param  int        $id
+	 * @param  bool       $incluirDesativados
+	 * @return int
+	 */
+	public function obterContagemAliancaId(int $id, bool $incluirDesativados = false) : int {
+		$sql = new SqlComando();
+		$sql->select('COUNT(*)')->as('contagem')->from(self::SQL_TABELA)->where('ali_id', '=', $id);
+
+		if (!$incluirDesativados)
+			$sql->and()->expr('jgd_status', '=', true);
 
 		$this->conectar();
 
