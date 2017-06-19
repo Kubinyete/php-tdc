@@ -18,6 +18,15 @@
 			endif;
 			?>
 
+			<?php
+			if ($_['reg-usuario-erro2'] !== null):
+			?>
+			<span class="login-form__erro"><?= $_['reg-usuario-erro2'] ?></span>
+			<br>
+			<?php
+			endif;
+			?>
+
 			<label for="sen">Senha</label>
 			<br>
 			<input id="sen" type="password" name="sen" maxlength="<?= $_['reg-sen-maxlength']; ?>" placeholder="Senha" required>
@@ -28,6 +37,15 @@
 			if ($_['reg-senha-erro'] !== null):
 			?>
 			<span class="login-form__erro"><?= $_['reg-senha-erro'] ?></span>
+			<br>
+			<?php
+			endif;
+			?>
+
+			<?php
+			if ($_['reg-senha-erro2'] !== null):
+			?>
+			<span class="login-form__erro"><?= $_['reg-senha-erro2'] ?></span>
 			<br>
 			<?php
 			endif;
