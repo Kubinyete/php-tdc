@@ -97,25 +97,7 @@ final class DalAliancas extends DalBase {
 	 * @return array
 	 */
 	public function obterDeUmUsuario(Usuario $usuario) : array {
-		$sql = new SqlComando();
-		$sql->select()->from(self::SQL_TABELA)->where('usr_id', '=', $usuario->getId());
-
-		$this->conectar();
-
-		$lista = $this->getObjetos($sql,
-			function (array $arrayObjetos) : Alianca {
-				return new Alianca(
-					intval($arrayObjetos['ali_id']),
-					$arrayObjetos['ali_data_criacao'],
-					intval($arrayObjetos['usr_id']),
-					$arrayObjetos['ali_nome']
-				);
-			}
-		);
-
-		$this->desconectar();
-
-		return $lista;
+		return $this->obterDeUmUsuarioId($usuario->getId());
 	}
 
 	/**
