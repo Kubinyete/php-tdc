@@ -119,7 +119,7 @@
                         <p><?= ($j->getNome() !== null) ? $j->getNome(true) : $j->getNickname() ?> (<?= $j->getNickname(true) ?>)</p>
                         <div class="generic-lista__descricao">
                             <p><strong>Nível</strong>: <?= $j->getNivel() ?></p>
-                            <p><strong>Telefone</strong>: <?= ($j->getTelefone() !== null) ? $j->getTelefone() : '-' ?></p>
+                            <p><strong>Telefone</strong>: <?= ($j->getTelefone() !== null) ? $j->getTelefone() : $_['alianca-jogadores-campo-inexistente'] ?></p>
                             <p><strong>Email</strong>: <?= $j->getEmail() ?></p>
                             <p><strong>Tipo</strong>: <?= $j->getTipo(true) ?></p>
                         </div>

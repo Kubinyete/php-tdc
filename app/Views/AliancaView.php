@@ -18,11 +18,12 @@ final class AliancaView extends ViewBase {
 			['header', 'alianca'],
 			[
 				'alianca-alianca' => $alianca,
-				'alianca-icone' => Uteis::obterCaminhoWebCompleto('static/resources/aliancas-icone.png'),
+				'alianca-icone' => Uteis::obterCaminhoWebCompleto('static/resources/aliancas-icone.png', false, false),
 				'alianca-jogadores-limite' => AppConfig::obter('Jogadores.LimitePorAlianca'),
 				'alianca-jogadores-contagem' => count($jogadores),
-				'alianca-jogadores-icone' => Uteis::obterCaminhoWebCompleto('static/resources/jogador-icone.png'),
+				'alianca-jogadores-icone' => Uteis::obterCaminhoWebCompleto('static/resources/jogador-icone.png', false, false),
 				'alianca-jogadores-href' => Uteis::obterCaminhoWebCompleto('?r=jogador&aid='.$alianca->getId().'&id=%i', false, false),
+				'alianca-jogadores-campo-inexistente' => '(NÃO INFORMADO)',
 				'alianca-missoes-contagem' => $contagemMissoes,
 				'alianca-guerras-contagem' => $contagemGuerras,
 

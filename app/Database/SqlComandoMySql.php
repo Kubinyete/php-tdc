@@ -40,12 +40,14 @@ abstract class SqlComandoMySql extends SqlComandoBase implements SqlSintaxeInter
 	 * @return string
 	 */
 	private static function traduzirTipo($tipo, bool $filtrarCasoString = true) : string {
+		/*
+		Não é possível utilizar o switch neste caso, vamos utilizar os if & elses embaixo.
 		switch ($tipo) {
-			case ($tipo === true):
+			case true:
 				return self::SQL_TIP0_TRUE;
-			case ($tipo === false):
+			case false:
 				return self::SQL_TIP0_FALSE;
-			case ($tipo === null):
+			case null:
 				return self::SQL_TIP0_NULL;
 			default:
 				if ($filtrarCasoString)
@@ -53,6 +55,16 @@ abstract class SqlComandoMySql extends SqlComandoBase implements SqlSintaxeInter
 				else
 					return strval($tipo);
 		}
+		*/
+	
+		if ($tipo === true)
+			return self::SQL_TIP0_TRUE;
+		else if ($tipo === false)
+			return self::SQL_TIP0_FALSE;
+		else if ($tipo === null)
+			return self::SQL_TIP0_NULL;
+		else
+			return ($filtrarCasoString) ? self::SQL_STR_DELIMITADOR.self::filtrarString(strval($tipo)).self::SQL_STR_DELIMITADOR : strval($tipo);
 	}
 
 	/**

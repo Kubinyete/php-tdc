@@ -134,6 +134,8 @@ final class AliancaModel extends ModelBase {
 
 					if (self::contemCaracteresInvalidos($nome, self::REF_NOME))
 						$validador->adicionarErros(['nome-erro-2' => self::NOME_CHAR_INVALIDO]);
+				} else {
+					$nome = null;
 				}
 
 				// Apelido
@@ -159,6 +161,8 @@ final class AliancaModel extends ModelBase {
 
 					if (self::contemCaracteresInvalidos($telefone, self::REF_TELEFONE))
 						$validador->adicionarErros(['telefone-erro' => self::TELEFONE_INVALIDO]);
+				} else {
+					$telefone = null;
 				}
 
 				// Email
@@ -177,13 +181,13 @@ final class AliancaModel extends ModelBase {
 
 				// Observações
 
-				if (!self::campoEstaPresente($obs)) {
-					$obs = null;
-				} else {
+				if (self::campoEstaPresente($obs)) {
 					$obs = trim($obs);
 
 					if (!self::tamanhoValido(self::REF_OBSERVACOES, $obs))
 						$validador->adicionarErros(['obs-erro' => self::traduzirErroString(self::OBSERVACOES_TAMANHO_INVALIDO)]);
+				} else {
+					$obs = null;
 				}
 
 				if ($validador->ocorreuErro()) {
@@ -276,6 +280,12 @@ final class AliancaModel extends ModelBase {
 		}
 	}
 
+	/**
+	 * Retorna se o tamanho de determinado campo do formulário está de acordo com a configuração do App 
+	 * @param  int    $ref
+	 * @param  string $str
+	 * @return bool
+	 */
 	private static function tamanhoValido(int $ref, string $str) : bool {
 		$strlen = strlen($str);
 
