@@ -24,6 +24,9 @@ use App\Models\HomeModel;
 use App\Controllers\AliancaController;
 use App\Models\AliancaModel;
 
+use App\Controllers\JogadorController;
+use App\Models\JogadorModel;
+
 Roteador::registrar(Roteador::ROTA_NOTFOUND_PADRAO, function()
 	{
 		Resposta::status(404);
@@ -132,6 +135,46 @@ Roteador::registrar('alianca', function()
 
 		return $controlador(
 			$aliancaId,
+			$nom,
+			$nic,
+			$niv,
+			$tel,
+			$ema,
+			$tip,
+			$sta,
+			$obs
+		);
+	}
+);
+
+Roteador::registrar('jogador', function()
+	{
+		// Se o usuário não estiver logado, envie ele para a página de login
+		if (Sessao::getUsuario() === null)
+			Resposta::appRedirecionar('login');
+
+		$aliancaId = Pedido::obter('aid', Pedido::GET);
+		$jogadorId = Pedido::obter('id', Pedido::GET);
+
+		// Formulário de adição de jogadores
+		$nom = Pedido::obter('nom', Pedido::POST);
+		$nic = Pedido::obter('nic', Pedido::POST);
+		$niv = Pedido::obter('niv', Pedido::POST);
+		$tel = Pedido::obter('tel', Pedido::POST);
+		$ema = Pedido::obter('ema', Pedido::POST);
+		$tip = Pedido::obter('tip', Pedido::POST);
+		$sta = Pedido::obter('sta', Pedido::POST);
+		$obs = Pedido::obter('obs', Pedido::POST);
+
+		$controlador = new JogadorController(
+			new JogadorModel(
+				new Conexao()
+			, Sessao::getUsuario())
+		, Sessao::getUsuario());
+
+		return $controlador(
+			$aliancaId,
+			$jogadorId,
 			$nom,
 			$nic,
 			$niv,

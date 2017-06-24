@@ -86,8 +86,8 @@ final class Jogador extends Objeto {
 		return $this->status;
 	}
 
-	public function getObservacoes() : ?string {
-		return $this->observacoes;
+	public function getObservacoes(bool $filtrarEntidadesHtml = false) : ?string {
+		return ($this->observacoes !== null && $filtrarEntidadesHtml) ? Uteis::filtrarEntidadesHtml($this->observacoes) : $this->observacoes;
 	}
 
 	public function getDataAdicionado() : string {

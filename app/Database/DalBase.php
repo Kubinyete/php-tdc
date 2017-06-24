@@ -145,7 +145,7 @@ abstract class DalBase {
 		$this->conectar();
 		$this->iniciarTransacao();
 
-		$linhasAfetadas = $this->exec($sql);
+		$linhasAfetadas = $this->exec($sqlComando);
 
 		if ($linhasAfetadas === 1) {
 			$this->salvarTransacao();

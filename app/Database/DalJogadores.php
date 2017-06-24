@@ -96,7 +96,7 @@ final class DalJogadores extends DalBase {
 					$arrayObjeto['jgd_telefone'],
 					$arrayObjeto['jgd_email'],
 					intval($arrayObjeto['jgd_tipo']),
-					$arrayObjeto['jgd_status'],
+					boolval($arrayObjeto['jgd_status']),
 					$arrayObjeto['jgd_observacoes']
 				);
 			}
