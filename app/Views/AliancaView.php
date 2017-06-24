@@ -60,11 +60,11 @@ final class AliancaView extends ViewBase {
 				'jogadoresform-ema-erro' => $emailErro,
 				'jogadoresform-ema-erro-2' => $emailErro2,
 
-				'jogadoresform-tip' => $tipo,
+				'jogadoresform-tip' => ($tipo !== null) ? $tipo : 0,
 				'jogadoresform-tip-tipos' => AppConfig::obter('Jogadores.Tipos'),
 				'jogadoresform-tip-erro' => $tipoErro,
 
-				'jogadoresform-sta' => $status,
+				'jogadoresform-sta' => ($status !== null) ? $status : true,
 				'jogadoresform-sta-erro' => null,
 
 				'jogadoresform-obs' => ($obs !== null) ? Uteis::filtrarEntidadesHtml($obs) : $obs,
