@@ -59,11 +59,11 @@ final class Jogador extends Objeto {
 	}
 	
 	public function getNome(bool $filtrarEntidadesHtml = false) : ?string {
-		return ($filtrarEntidadesHtml) ? Uteis::filtrarEntidadesHtml($this->nome) : $this->nome;
+		return ($filtrarEntidadesHtml && $this->nome !== null) ? Uteis::filtrarEntidadesHtml($this->nome) : $this->nome;
 	}
 	
 	public function getNickname(bool $filtrarEntidadesHtml = false) : string {
-		return ($filtrarEntidadesHtml) ? Uteis::filtrarEntidadesHtml($this->nickname) : $this->nickname;
+		return ($filtrarEntidadesHtml && $this->nickname !== null) ? Uteis::filtrarEntidadesHtml($this->nickname) : $this->nickname;
 	}
 
 	public function getNivel() : int {
@@ -87,7 +87,7 @@ final class Jogador extends Objeto {
 	}
 
 	public function getObservacoes(bool $filtrarEntidadesHtml = false) : ?string {
-		return ($this->observacoes !== null && $filtrarEntidadesHtml) ? Uteis::filtrarEntidadesHtml($this->observacoes) : $this->observacoes;
+		return ($filtrarEntidadesHtml && $this->observacoes !== null) ? Uteis::filtrarEntidadesHtml($this->observacoes) : $this->observacoes;
 	}
 
 	public function getDataAdicionado() : string {
