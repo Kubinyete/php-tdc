@@ -3,7 +3,7 @@
         <section class="generic">
             <div class="generic__icone" style="background-image: url('<?= $_['jogador-icone'] ?>');"></div>
             <div class="generic__right-container">
-                <h3><?= $_['jogador-jogador']->getNome(true) ?></h3>
+                <h3><?= ($_['jogador-jogador']->getNome() !== null) ? $_['jogador-jogador']->getNome(true) : $_['jogador-jogador']->getNickname() ?></h3>
                 <p><strong>Aliança:</strong> <?= $_['jogador-alianca']->getNome(true) ?></p>
                 <p><strong>Adicionado em</strong>: <?= $_['jogador-jogador']->getDataCriacao(true) ?></p>
                 <hr>
