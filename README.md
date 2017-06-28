@@ -12,12 +12,4 @@
 
 # Observações
 
-O ambiente de testes e desenvolvimento desta aplicação pode ser obtido através da instalação do [XAMPP](https://www.apachefriends.org/pt_br/download.html).
-
-# Estruturação
-
-* **Wireframes**
-* **Sitemap**
-* **MVC**
-	* ![MVC](https://i.stack.imgur.com/Rk9Kr.png)
-	
+O ambiente de testes e desenvolvimento desta aplicação pode ser obtido através da instalação do [XAMPP](https://www.apachefriends.org/pt_br/download.html)
