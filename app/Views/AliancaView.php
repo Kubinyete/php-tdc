@@ -12,7 +12,7 @@ use App\Uteis\Uteis;
 use App\Config\AppConfig;
 
 final class AliancaView extends ViewBase {
-	public function __construct(?Usuario $usuarioLogado = null, ?Alianca $alianca = null, array $jogadores = [], int $contagemMissoes = 0, int $contagemGuerras = 0, ?string $nome = null, ?string $nickname = null, ?int $nivel = null, ?string $telefone = null, ?string $email = null, ?int $tipo = null, ?bool $status = null, ?string $obs = null, ?string $nomeErro = null, ?string $nomeErro2 = null, ?string $nomeErro3 = null, ?string $apelidoErro = null, ?string $apelidoErro2 = null, ?string $nivelErro = null, ?string $telefoneErro = null, ?string $emailErro = null, ?string $emailErro2 = null, ?string $tipoErro = null, ?string $obsErro = null) {
+	public function __construct(?Usuario $usuarioLogado = null, ?Alianca $alianca = null, array $jogadores = [], int $contagemMissoes = 0, int $contagemGuerras = 0, array $grupos = [], ?string $nome = null, ?string $nickname = null, ?int $nivel = null, ?string $telefone = null, ?string $email = null, ?int $tipo = null, ?bool $status = null, ?string $obs = null, ?string $nomeErro = null, ?string $nomeErro2 = null, ?string $nomeErro3 = null, ?string $apelidoErro = null, ?string $apelidoErro2 = null, ?string $nivelErro = null, ?string $telefoneErro = null, ?string $emailErro = null, ?string $emailErro2 = null, ?string $tipoErro = null, ?string $obsErro = null) {
 		parent::__construct(
 			$usuarioLogado,
 			['header', 'alianca'],
@@ -27,9 +27,9 @@ final class AliancaView extends ViewBase {
 				'alianca-missoes-contagem' => $contagemMissoes,
 				'alianca-guerras-contagem' => $contagemGuerras,
 
-				'alianca-grupo-a-icone' => Uteis::obterCaminhoWebCompleto('static/resources/grupo-a-icone.png', false, false),
-				'alianca-grupo-b-icone' => Uteis::obterCaminhoWebCompleto('static/resources/grupo-b-icone.png', false, false),
-				'alianca-grupo-c-icone' => Uteis::obterCaminhoWebCompleto('static/resources/grupo-c-icone.png', false, false),
+				'alianca-grupos' => $grupos,
+				'alianca-grupo-icone' => Uteis::obterCaminhoWebCompleto('static/resources/grupo-%c-icone.png', false, false),
+				'alianca-grupo-href' => Uteis::obterCaminhoWebCompleto('?r=grupo&aid='.$alianca->getId().'&id=%i', false, false),
 
 				'alianca-missoes-icone' => Uteis::obterCaminhoWebCompleto('static/resources/missao-icone.png', false, false),
 				'alianca-guerras-icone' => Uteis::obterCaminhoWebCompleto('static/resources/guerra-icone.png', false, false),

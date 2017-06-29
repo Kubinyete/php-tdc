@@ -117,6 +117,15 @@ abstract class Uteis {
 	public static function emailValido(string $str) : bool {
 		return preg_match('/([A-Za-z0-9\.]+)@([a-z]+)\.([a-z]+)/', $str) > 0;
 	}
+
+	public static function arrayBusca(array $arr, callable $testador) : ?array {
+		foreach ($arr as $i) {
+			if ($testador($i))
+				return $i;
+		}
+
+		return null;
+	}
 }
 
 ?>

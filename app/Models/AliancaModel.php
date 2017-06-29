@@ -13,6 +13,7 @@ use App\Database\DalAliancas;
 use App\Database\DalJogadores;
 use App\Database\DalMissoes;
 use App\Database\DalGuerras;
+use App\Database\DalGrupos;
 use App\Exceptions\FormException;
 use App\Fabricas\FabricaJogador;
 use App\Config\AppConfig;
@@ -65,12 +66,17 @@ final class AliancaModel extends ModelBase {
 
 			$contagemGuerras = $dal->obterContagemAlianca($alianca);
 
+			$dal = new DalGrupos($this->getConexao());
+
+			$grupos = $dal->obterTodosAlianca($alianca);
+
 			return new AliancaView(
 				$this->getUsuarioLogado(),
 				$alianca,
 				$jogadores,
 				$contagemMissoes,
 				$contagemGuerras,
+				$grupos,
 				$nome,
 				$nickname,
 				$nivel,

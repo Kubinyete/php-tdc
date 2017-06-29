@@ -15,9 +15,14 @@
         </section>
         <section class="generic generic--triple">
             <h3>Divisão de Grupos da Aliança</h3>
-            <div class="generic__icone generic__icone--triple" style="background-image: url('<?= $_['alianca-grupo-a-icone'] ?>');"></div>
-            <div class="generic__icone generic__icone--triple" style="background-image: url('<?= $_['alianca-grupo-b-icone'] ?>');"></div>
-            <div class="generic__icone generic__icone--triple" style="background-image: url('<?= $_['alianca-grupo-c-icone'] ?>');"></div>
+            <?php 
+            $c = 97;
+            foreach($_['alianca-grupos'] as $g):
+            ?>
+            <a href="<?= str_replace('%i', $g->getId(), $_['alianca-grupo-href']) ?>">
+                <div class="generic__icone generic__icone--triple" style="background-image: url('<?= str_replace('%c', chr($c++), $_['alianca-grupo-icone']) ?>');"></div>
+            </a>
+            <?php endforeach; ?>
             <div class="cfix"></div>
         </section>
          <section class="generic generic--double">

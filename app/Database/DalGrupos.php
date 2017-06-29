@@ -8,6 +8,7 @@ namespace App\Database;
 use \PDO;
 use App\Database\SqlComando;
 use App\Objetos\Grupo;
+use App\Objetos\Alianca;
 
 final class DalGrupos extends DalBase {
 	private const SQL_TABELA = 'Grupos';
@@ -88,6 +89,33 @@ final class DalGrupos extends DalBase {
 			return $lista[0];
 		else
 			return null;
+	}
+
+	/**
+	 * Retorna uma lista de Grupos de determinada $alianca
+	 * @param  Alianca $alianca
+	 * @return array|null
+	 */
+	public function obterTodosAlianca(Alianca $alianca) : ?array {
+		$sql = new SqlComando();
+		$sql->select()->from(self::SQL_TABELA)->where('ali_id', '=', $alianca->getId());
+
+		$this->conectar();
+
+		$lista = $this->getObjetos($sql,
+			function(array $arrayObjeto) : Grupo {
+				return new Grupo(
+					intval($arrayObjeto['grp_id']),
+					$arrayObjeto['grp_data_criacao'],
+					intval($arrayObjeto['ali_id']),
+					$arrayObjeto['grp_nome']
+				);
+			}
+		);
+
+		$this->desconectar();
+
+		return $lista;
 	}
 
 	/**

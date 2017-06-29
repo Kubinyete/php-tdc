@@ -152,6 +152,63 @@ final class DalJogadores extends DalBase {
 		return $lista;
 	}
 
+	public function obterJogadoresGrupoListaJogadoresInformacoes(array $info) : array {
+		$sql = new SqlComando();
+		$sql->select()->from(self::SQL_TABELA);
+
+		$first = true;
+		foreach ($info as $jogador) {
+			if ($first) {
+				$first = false;
+				$sql->where('jgd_id', '=', $jogador->getId());
+			} else {
+				$sql->or()->expr('jgd_id', '=', $jogador->getId());
+			}
+		}
+
+		$podeReceberInfo = count($info) > 0;
+
+		$infoPorId = [];
+
+		if ($podeReceberInfo) {
+			foreach ($info as $i) {
+				$infoPorId[$i['jgd_id']] = [];
+
+				foreach ($i as $k => $v)
+					$infoPorId[$i['jgd_id']][$k] = $v;
+			}
+		}
+
+		$this->conectar();
+
+		$lista = $this->getObjetos($sql, 
+			function(array $arrayObjeto) use ($podeReceberInfo, $infoPorId) : Jogador {
+				return new Jogador(
+					intval($arrayObjeto['jgd_id']),
+					$arrayObjeto['jgd_data_criacao'],
+					intval($arrayObjeto['ali_id']),
+					($podeReceberInfo) ? $infoPorId[$arrayObjeto['jgd_id']]['grp_id'] : 0,
+					($podeReceberInfo) ? $infoPorId[$arrayObjeto['jgd_id']]['jeu_data_adicionado'] : '',
+					0, # Não quero saber que missão ele está
+					0, # Não quero saber que guerra ele está
+					0, # Não quero saber sua pontuação em um evento
+					$arrayObjeto['jgd_nome'],
+					$arrayObjeto['jgd_nickname'],
+					intval($arrayObjeto['jgd_nivel']),
+					$arrayObjeto['jgd_telefone'],
+					$arrayObjeto['jgd_email'],
+					intval($arrayObjeto['jgd_tipo']),
+					boolval($arrayObjeto['jgd_status']),
+					$arrayObjeto['jgd_observacoes']
+				);
+			}
+		);
+
+		$this->desconectar();
+
+		return $lista;
+	}
+
 	/**
 	 * Retorna a contagem de jogadores de determinada Aliança
 	 * @param  Alianca    $alianca

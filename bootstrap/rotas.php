@@ -27,6 +27,9 @@ use App\Models\AliancaModel;
 use App\Controllers\JogadorController;
 use App\Models\JogadorModel;
 
+use App\Controllers\GrupoController;
+use App\Models\GrupoModel;
+
 Roteador::registrar(Roteador::ROTA_NOTFOUND_PADRAO, function()
 	{
 		Resposta::status(404);
@@ -183,6 +186,28 @@ Roteador::registrar('jogador', function()
 			$tip,
 			$sta,
 			$obs
+		);
+	}
+);
+
+Roteador::registrar('grupo', function()
+	{
+		// Se o usuário não estiver logado, envie ele para a página de login
+		if (Sessao::getUsuario() === null)
+			Resposta::appRedirecionar('login');
+
+		$aliancaId = Pedido::obter('aid', Pedido::GET);
+		$grupoId = Pedido::obter('id', Pedido::GET);
+
+		$controlador = new GrupoController(
+			new GrupoModel(
+				new Conexao()
+			, Sessao::getUsuario())
+		, Sessao::getUsuario());
+
+		return $controlador(
+			$aliancaId,
+			$grupoId
 		);
 	}
 );

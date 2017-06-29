@@ -7,6 +7,7 @@ namespace App\Database;
 
 use App\Database\SqlComando;
 use App\Objetos\Jogador;
+use App\Objetos\Grupo;
 
 final class DalJogadoresEmGrupos extends DalBase {
 	private const SQL_TABELA = 'JogadoresEmGrupos';
@@ -46,6 +47,30 @@ final class DalJogadoresEmGrupos extends DalBase {
 		return $sucesso;
 	}
 
+	public function obterListaJogadoresInformacoes(Grupo $grp, bool $incluirDesativados = false) : ?array {
+		$sql = new SqlComando();
+		$sql->select()->from(self::SQL_TABELA)->where('grp_id', '=', $grp->getId());
+
+		if (!$incluirDesativados)
+			$sql->and()->expr('jgd_status', '=', true);
+
+		$this->conectar();
+
+		$lista = $this->getObjetos($sql, 
+			function(array $arrayObjeto) : array {
+				return [
+					'jgd_id' => intval($arrayObjeto['jgd_id']),
+					'grp_id' => intval($arrayObjeto['grp_id']),
+					'jeu_data_adicionado' => $arrayObjeto['jeu_data_adicionado']
+				];
+			}
+		);
+
+		$this->desconectar();
+
+		return $lista;
+	}
+
 	/**
 	 * Atualiza em que grupo o Jogador está & sua data em que foi adicionado ao grupo
 	 * @param  Jogador $jogador
@@ -77,7 +102,7 @@ final class DalJogadoresEmGrupos extends DalBase {
 
 		$lista = $this->getObjetos($sql,
 			function(array $arrayObjeto) : array {
-				return $arrayObjeto
+				return $arrayObjeto;
 			}
 		);
 
