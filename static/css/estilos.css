@@ -176,6 +176,13 @@ span.login-form__erro::before {
 	content: '* ';
 }
 
+@media (max-width: 1024px) {
+	div.login-form {
+		width: 100%;
+		height: 100%;
+	}
+}
+
 /**
  * Erro
  */
