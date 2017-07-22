@@ -32,11 +32,11 @@ header, nav, main, article, aside, section, footer {
 
 a {
 	text-decoration: none;
-	color: #0288d1;
+	color: #3498db;
 }
 
 a:hover {
-	color: cornflowerblue;
+	color: #2980b9;
 	font-weight: bold;
 }
 
@@ -93,7 +93,7 @@ div.login-form label {
 	font-size: 1.8em;
 	font-weight: 300;
 	color: white;
-	background-color: #0288d1;
+	background-color: #3498db;
 	padding: .25em 1em;
 	cursor: pointer;
 	margin: .3em 0;
@@ -101,7 +101,7 @@ div.login-form label {
 
 div.login-form label:hover {
 	transition: 200ms ease-in-out;
-	background-color: cornflowerblue;
+	background-color: #2980b9;
 }
 
 div.login-form label:after {
@@ -112,7 +112,7 @@ div.login-form label:after {
 	right: 0;
 	top: 0;
 	padding: .25em 0;
-	background-color: cornflowerblue;
+	background-color: #2980b9;
 }
 
 div.login-form input {
@@ -122,7 +122,7 @@ div.login-form input {
 	border: 0;
 	padding: 0;
 	margin: 0;
-	border-bottom: .05em solid #0288d1;
+	border-bottom: .05em solid #3498db;
 	background-color: transparent;
 	width: 90%;
 	margin: 0 auto;
@@ -150,7 +150,7 @@ button.login-form__botao {
 	font-family: Raleway, Arial, sans-serif;
 	font-weight: 500;
 	text-transform: uppercase;
-	background-color: #0288d1;
+	background-color: #3498db;
 	font-size: 1.5em;
 	color: white;
 	padding: .5em .8em;
@@ -162,7 +162,7 @@ button.login-form__botao {
 
 button.login-form__botao:hover {
 	transition: 200ms ease-in-out;
-	background-color: cornflowerblue;
+	background-color: #2980b9;
 	box-shadow: 0px 0px 6px rgba(0,0,0, .4);
 }
 
@@ -342,7 +342,7 @@ div.erro-pag h2 {
 	transition: 200ms ease-in-out;
 	margin: 0;
 	font-family: Raleway, Arial, sans-serif;
-	color: cornflowerblue;
+	color: #2980b9;
 	font-size: 2em;
 }
 
@@ -363,7 +363,7 @@ div.erro-pag h2 {
 
  header {
 	 width: 100%;
-	 background-color: #0288d1;
+	 background-color: #222;
  }
 
  header .header__centralizador {
@@ -408,7 +408,7 @@ header .logo-texto-container {
 header .logo-texto-container h1 {
 	font-family: Raleway, Arial, sans-serif;
 	font-size: 2.6em;
-	color: white;
+	color: #3498db;
 	font-weight: 300;
 	border-bottom: .05em solid #ff0033;
 	margin-bottom: .1em;
@@ -418,15 +418,21 @@ header .logo-texto-container h2 {
 	font-family: 'Source Sans Pro', Arial, sans-serif;
 	font-size: 1.6em;
 	font-weight: 400;
-	color: #eee;
+	color: #ddd;
 	margin-top: .1em
 }
 
 header .usuario-container {
+	transition: 200ms ease-in-out;
 	position: relative;
 	float: right;
 	height: 10em;
-	margin: 0 1em;
+	padding: 0 1em;
+}
+
+header .usuario-container:hover {
+	transition: 200ms ease-in-out;
+	background-color: rgba(0,0,0, .05);
 }
 
 header .usuario-container__centralizador {
@@ -446,12 +452,12 @@ header .usuario-container__centralizador * {
 header .usuario-container p {
 	font-family: 'Source Sans Pro', Arial, sans-serif;
 	font-size: 2em;
-	color: #333;
+	color: #ddd;
 	margin-right: .5em;
 }
 
 header .usuario-container span {
-	color: white;
+	color: #3498db;
 }
 
 header .usuario-container a.botao {
@@ -460,7 +466,7 @@ header .usuario-container a.botao {
 	font-family: Raleway, Arial, sans-serif;
 	font-weight: 500;
 	font-size: 2em;
-	color: white;
+	color: #ddd;
 	margin: 0 .5em;
 	text-transform: uppercase;
 	padding: .4em 1em;
@@ -470,6 +476,7 @@ header .usuario-container a.botao {
 header .usuario-container a.botao:hover {
 	transition: 150ms ease-in-out;
 	background-color: #ff0033;
+	box-shadow: 0px 1px 6px rgba(0,0,0, .2);
 }
 
 /**
@@ -563,10 +570,11 @@ section.generic .generic__right-container h3 {
 	padding: .5em 2.5%;
 	font-family: Roboto, Arial, sans-serif;
 	font-size: 4em;
-	background-color: #0288d1;
-	font-weight: 300;
+	background-color: #3498db;
+	font-weight: 500;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
+	text-align: right;
 	color: #eee;
 	margin-top: 0;
 	margin-bottom: .5em;
@@ -665,7 +673,7 @@ section.generic-lista .generic-lista__botao a {
 	font-family: Raleway, Arial, sans-serif;
 	font-weight: 500;
 	text-transform: uppercase;
-	background-color: #0288d1;
+	background-color: #3498db;
 	font-size: 1.5em;
 	color: white;
 	padding: .5em .8em;
@@ -675,7 +683,7 @@ section.generic-lista .generic-lista__botao a {
 
 section.generic-lista .generic-lista__botao a:hover {
 	transition: 200ms ease-in-out;
-	background-color: cornflowerblue;
+	background-color: #2980b9;
 	box-shadow: 0px 0px 6px rgba(0,0,0, .4);
 }
 
@@ -715,7 +723,7 @@ section.generic-form label {
 	font-size: 1.8em;
 	font-weight: 300;
 	color: white;
-	background-color: #0288d1;
+	background-color: #3498db;
 	padding: .25em 1em;
 	cursor: pointer;
 	margin: .3em 0;
@@ -724,7 +732,7 @@ section.generic-form label {
 
 section.generic-form label:hover {
 	transition: 200ms ease-in-out;
-	background-color: cornflowerblue;
+	background-color: #2980b9;
 }
 
 section.generic-form label::after {
@@ -735,7 +743,7 @@ section.generic-form label::after {
 	right: 0;
 	top: 0;
 	padding: .25em 0;
-	background-color: cornflowerblue;
+	background-color: #2980b9;
 }
 
 section.generic-form input {
@@ -745,7 +753,7 @@ section.generic-form input {
 	border: 0;
 	padding: 0;
 	margin: 0;
-	border-bottom: .05em solid #0288d1;
+	border-bottom: .05em solid #3498db;
 	background-color: transparent;
 	width: 100%;
 	margin: 0 auto;
@@ -784,7 +792,7 @@ section.generic-form button {
 	font-family: Raleway, Arial, sans-serif;
 	font-weight: 500;
 	text-transform: uppercase;
-	background-color: #0288d1;
+	background-color: #3498db;
 	font-size: 1.5em;
 	color: white;
 	padding: .5em .8em;
@@ -797,7 +805,7 @@ section.generic-form button {
 
 section.generic-form button:hover {
 	transition: 200ms ease-in-out;
-	background-color: cornflowerblue;
+	background-color: #2980b9;
 	box-shadow: 0px 0px 6px rgba(0,0,0, .4);
 }
 
